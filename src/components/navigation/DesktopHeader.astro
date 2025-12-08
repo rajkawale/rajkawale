@@ -22,7 +22,7 @@ const isActive = (path: string) => {
   </a>
 
   <!-- Center: Floating Navigation Pill (Absolutely Centered) -->
-  <nav class="pointer-events-auto absolute left-1/2 -translate-x-1/2 flex items-center gap-2 px-6 py-2 rounded-full bg-slate-950/50 backdrop-blur-xl border border-white/10 shadow-lg shadow-indigo-500/10 z-50">
+  <nav id="desktop-nav-pill" class="pointer-events-auto absolute left-1/2 -translate-x-1/2 flex items-center gap-2 px-6 py-2 rounded-full bg-slate-950/50 backdrop-blur-xl border border-white/10 shadow-lg shadow-indigo-500/10 z-50 transition-opacity duration-300">
     <a 
       href="/#projects" 
       class="nav-link text-sm font-medium font-sans px-4 py-2 rounded-full transition-all duration-300 ease-in-out text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
@@ -75,5 +75,17 @@ const isActive = (path: string) => {
   </div>
 </header>
 
-<!-- Desktop logo and social icons are sticky (no scroll fade) like the middle nav button -->
+<script>
+  const desktopNavPill = document.getElementById('desktop-nav-pill');
+  
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    
+    if (scrollY > 50) {
+      desktopNavPill?.classList.add('opacity-0', 'pointer-events-none');
+    } else {
+      desktopNavPill?.classList.remove('opacity-0', 'pointer-events-none');
+    }
+  });
+</script>
 
