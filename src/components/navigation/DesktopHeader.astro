@@ -1,6 +1,5 @@
 ---
 import LinkedInIcon from '../icons/LinkedInIcon';
-import GithubIcon from '../icons/GithubIcon';
 
 const currentPath = Astro.url.pathname;
 
@@ -10,82 +9,61 @@ const isActive = (path: string) => {
 };
 ---
 
-<!-- Desktop Header: Tripod Layout -->
-<header class="desktop-header hidden md:flex fixed top-0 left-0 w-full z-50 px-8 py-6 justify-between items-center bg-transparent pointer-events-none">
-  <!-- Left: Brand Logo (Sticky, no scroll fade) -->
+<!-- Desktop Header: Split Layout (Logo Left, Menu Right) -->
+<header class="desktop-header hidden md:flex fixed top-0 left-0 w-full z-50 px-8 py-6 justify-between items-center bg-transparent">
+  <!-- Left: Brand Logo -->
   <a 
     href="/" 
     id="desktop-logo"
-    class="pointer-events-auto text-xl font-bold font-serif tracking-tight text-zinc-400 hover:text-slate-100 transition-colors flex items-center"
+    class="text-4xl font-serif tracking-tight text-white transition-all duration-300 ease-in-out hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] flex items-center"
   >
-    Raj Kawale
+    <span class="font-light">Raj</span>
+    <span class="font-black"> Kawale</span>
   </a>
 
-  <!-- Center: Floating Navigation Pill (Absolutely Centered) -->
-  <nav id="desktop-nav-pill" class="pointer-events-auto absolute left-1/2 -translate-x-1/2 flex items-center gap-2 px-6 py-2 rounded-full bg-slate-950/50 backdrop-blur-xl border border-white/10 shadow-lg shadow-indigo-500/10 z-50 transition-opacity duration-300">
-    <a 
-      href="/#projects" 
-      class="nav-link text-sm font-medium font-sans px-4 py-2 rounded-full transition-all duration-300 ease-in-out text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
-    >
-      Work
-    </a>
-    <span class="text-zinc-500 text-xs pointer-events-none">|</span>
-    <a 
-      href="/blog" 
-      class="nav-link text-sm font-medium font-sans px-4 py-2 rounded-full transition-all duration-300 ease-in-out text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
-    >
-      Writing
-    </a>
-    <span class="text-zinc-500 text-xs pointer-events-none">|</span>
-    <a 
-      href="/notes" 
-      class="nav-link text-sm font-medium font-sans px-4 py-2 rounded-full transition-all duration-300 ease-in-out text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
-    >
-      Notes
-    </a>
-    <span class="text-zinc-500 text-xs pointer-events-none">|</span>
-    <a 
-      href="/contact" 
-      class="nav-link text-sm font-medium font-sans px-4 py-2 rounded-full transition-all duration-300 ease-in-out text-gray-400 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
-    >
-      Contact
-    </a>
-  </nav>
+  <!-- Right: Navigation Menu + Social Icons -->
+  <div class="flex items-center gap-6">
+    <!-- Navigation Links - Floating Text Style (Hidden on mobile) -->
+    <nav class="hidden md:flex items-center gap-8">
+      <a 
+        href="/#projects" 
+        class="nav-link text-base font-medium font-sans transition-all duration-300 ease-in-out text-gray-200 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+      >
+        Work
+      </a>
+      <a 
+        href="/blog" 
+        class="nav-link text-base font-medium font-sans transition-all duration-300 ease-in-out text-gray-200 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+      >
+        Writing
+      </a>
+      <a 
+        href="/notes" 
+        class="nav-link text-base font-medium font-sans transition-all duration-300 ease-in-out text-gray-200 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+      >
+        Notes
+      </a>
+      <a 
+        href="/contact" 
+        class="nav-link text-base font-medium font-sans transition-all duration-300 ease-in-out text-gray-200 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+      >
+        Contact
+      </a>
+    </nav>
 
-  <!-- Right: Social Icons (Swapped: GitHub first, then LinkedIn) - Sticky, no scroll fade -->
-  <div id="desktop-socials" class="pointer-events-auto flex items-center gap-4 h-full">
-    <a 
-      href="https://github.com/rajkawale" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      class="text-zinc-400 hover:text-slate-100 transition-colors flex items-center"
-      aria-label="GitHub"
-    >
-      <GithubIcon client:load className="w-5 h-5" />
-    </a>
-    <a 
-      href="https://www.linkedin.com/in/rajkawale/" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      class="text-zinc-400 hover:text-slate-100 transition-colors flex items-center"
-      aria-label="LinkedIn"
-    >
-      <LinkedInIcon client:load className="w-5 h-5" />
-    </a>
+    <!-- Social Icons -->
+    <div class="flex items-center gap-4 pl-4 border-l border-white/10">
+      <a 
+        href="https://www.linkedin.com/in/rajkawale/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="text-zinc-400 hover:text-slate-100 transition-colors flex items-center"
+        aria-label="LinkedIn"
+      >
+        <LinkedInIcon client:load className="w-5 h-5" />
+      </a>
+    </div>
   </div>
 </header>
 
-<script>
-  const desktopNavPill = document.getElementById('desktop-nav-pill');
-  
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    
-    if (scrollY > 50) {
-      desktopNavPill?.classList.add('opacity-0', 'pointer-events-none');
-    } else {
-      desktopNavPill?.classList.remove('opacity-0', 'pointer-events-none');
-    }
-  });
-</script>
 

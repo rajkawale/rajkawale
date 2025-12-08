@@ -27,7 +27,7 @@ const { formspreeEndpoint } = Astro.props;
       id="name"
       name="name"
       required
-      class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-all duration-300 font-sans placeholder:text-gray-500"
+      class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/15 focus:ring-1 focus:ring-white/15 transition-all duration-300 font-sans placeholder:text-gray-500"
       placeholder="Your name"
     />
   </div>
@@ -41,7 +41,7 @@ const { formspreeEndpoint } = Astro.props;
       id="email"
       name="email"
       required
-      class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-all duration-300 font-sans placeholder:text-gray-500"
+      class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/15 focus:ring-1 focus:ring-white/15 transition-all duration-300 font-sans placeholder:text-gray-500"
       placeholder="your.email@example.com"
     />
   </div>
@@ -55,7 +55,7 @@ const { formspreeEndpoint } = Astro.props;
       name="message"
       rows="6"
       required
-      class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/30 transition-all duration-300 font-sans resize-none placeholder:text-gray-500"
+      class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/15 focus:ring-1 focus:ring-white/15 transition-all duration-300 font-sans resize-none placeholder:text-gray-500"
       placeholder="Tell me about your project or how we can collaborate..."
     ></textarea>
   </div>
@@ -63,7 +63,7 @@ const { formspreeEndpoint } = Astro.props;
   <button
     type="submit"
     id="submit-btn"
-    class="w-full border border-white text-white px-6 py-3 font-medium rounded-lg transition-all duration-300 hover:bg-white hover:text-zinc-950 font-sans"
+    class="w-full border border-white/20 text-white px-6 py-3 font-medium rounded-lg transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:text-white font-sans"
   >
     Send Message
   </button>
@@ -137,6 +137,29 @@ const { formspreeEndpoint } = Astro.props;
       right: 1rem;
       left: 1rem;
     }
+  }
+
+  /* Override browser autofill styles to keep it neutral */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  textarea:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.05) inset !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.9) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Firefox autofill */
+  input:-moz-autofill,
+  textarea:-moz-autofill {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
   }
 </style>
 
