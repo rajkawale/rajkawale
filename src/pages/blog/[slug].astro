@@ -1,14 +1,28 @@
 ---
 import BaseLayout from '../../components/BaseLayout.astro';
 import { container } from '../../core/di/container';
-import { getCollection } from 'astro:content';
 
-const blogService = container.getBlogService();
-const post = await blogService.getPostBySlug(Astro.params.slug || '');
-
-if (!post) {
-  return Astro.redirect('/blog');
+export async function getStaticPaths() {
+  try {
+    const blogService = container.getBlogService();
+    const posts = await blogService.getAllPosts();
+    
+    // Return empty array if no posts to prevent build errors
+    if (!posts || posts.length === 0) {
+      return [];
+    }
+    
+    return posts.map((post) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
+  } catch (error) {
+    console.error('Error in getStaticPaths for blog:', error);
+    return [];
+  }
 }
+
+const { post } = Astro.props;
 
 // Get full content from JSON
 let fullContent = '';

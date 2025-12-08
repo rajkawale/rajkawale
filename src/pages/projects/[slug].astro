@@ -4,12 +4,17 @@ import { container } from '../../core/di/container';
 import { getCollection } from 'astro:content';
 import { ExternalLink, Github, Calendar, Tag } from 'lucide-react';
 
-const projectService = container.getProjectService();
-const project = await projectService.getBySlug(Astro.params.slug || '');
-
-if (!project) {
-  return Astro.redirect('/projects');
+export async function getStaticPaths() {
+  const projectService = container.getProjectService();
+  const projects = await projectService.getAll();
+  
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
 }
+
+const { project } = Astro.props;
 
 // Get full content from Content Collection
 const entries = await getCollection('projects');

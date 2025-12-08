@@ -2,12 +2,16 @@
 import BaseLayout from '../../components/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const linkedinPosts = await getCollection('linkedin');
-const post = linkedinPosts.find((p) => p.slug === Astro.params.slug);
-
-if (!post) {
-  return Astro.redirect('/notes');
+export async function getStaticPaths() {
+  const linkedinPosts = await getCollection('linkedin');
+  
+  return linkedinPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
 }
+
+const { post } = Astro.props;
 
 const postDate = typeof post.data.date === 'string' 
   ? new Date(post.data.date) 
