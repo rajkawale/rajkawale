@@ -16,15 +16,16 @@ const isActive = (path: string) => {
   <a 
     href="/" 
     id="mobile-logo"
-    class="text-xl font-bold font-serif tracking-tight text-slate-100 hover:text-indigo-400 transition-opacity duration-300"
+    class="text-4xl font-serif tracking-tight text-white transition-all duration-300 ease-out flex items-center hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.8)]"
   >
-    Raj Kawale
+    <span class="font-light">Raj</span>
+    <span class="font-black"> Kawale</span>
   </a>
 
   <!-- Right: Hamburger Menu Trigger -->
   <button
     id="mobile-menu-trigger"
-    class="text-white hover:text-gray-300 transition-colors p-2 z-50"
+    class="moonlight-container text-white hover:text-white transition-all duration-300 ease-out p-2 z-50"
     aria-label="Open menu"
     aria-expanded="false"
   >
@@ -79,31 +80,31 @@ const isActive = (path: string) => {
     <nav class="mobile-menu-center flex flex-col items-center justify-center gap-8 flex-1 px-6">
       <a
         href="/"
-        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 hover:opacity-100 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 ease-out hover:opacity-100 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
       >
         Home
       </a>
       <a
         href="/#projects"
-        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 hover:opacity-100 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 ease-out hover:opacity-100 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
       >
         Work
       </a>
       <a
         href="/blog"
-        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 hover:opacity-100 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 ease-out hover:opacity-100 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
       >
         Writing
       </a>
       <a
         href="/notes"
-        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 hover:opacity-100 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 ease-out hover:opacity-100 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
       >
         Notes
       </a>
       <a
         href="/contact"
-        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 hover:opacity-100 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 ease-out hover:opacity-100 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
       >
         Contact
       </a>
@@ -397,15 +398,27 @@ const isActive = (path: string) => {
 
   .dock-item:hover .dock-icon {
     color: rgba(255, 255, 255, 1);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
   }
 
   .dock-label {
     color: rgba(255, 255, 255, 0.8);
-    transition: color 0.2s ease-out;
+    transition: color 0.2s ease-out, text-shadow 0.2s ease-out;
   }
 
   .dock-item:hover .dock-label {
     color: rgba(255, 255, 255, 1);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+
+  .dock-item:hover {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  }
+
+  .moonlight-container:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
   }
 
   /* Responsive adjustments */

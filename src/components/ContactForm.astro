@@ -1,6 +1,4 @@
 ---
-import Toast from './ui/Toast.astro';
-
 interface Props {
   formspreeEndpoint: string;
 }
@@ -27,7 +25,7 @@ const { formspreeEndpoint } = Astro.props;
       id="name"
       name="name"
       required
-      class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/15 focus:ring-1 focus:ring-white/15 transition-all duration-300 font-sans placeholder:text-gray-500"
+      class="form-input w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/15 focus:ring-1 focus:ring-white/15 transition-all duration-300 font-sans placeholder:text-gray-500"
       placeholder="Your name"
     />
   </div>
@@ -41,7 +39,7 @@ const { formspreeEndpoint } = Astro.props;
       id="email"
       name="email"
       required
-      class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/15 focus:ring-1 focus:ring-white/15 transition-all duration-300 font-sans placeholder:text-gray-500"
+      class="form-input w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/15 focus:ring-1 focus:ring-white/15 transition-all duration-300 font-sans placeholder:text-gray-500"
       placeholder="your.email@example.com"
     />
   </div>
@@ -55,7 +53,7 @@ const { formspreeEndpoint } = Astro.props;
       name="message"
       rows="6"
       required
-      class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/15 focus:ring-1 focus:ring-white/15 transition-all duration-300 font-sans resize-none placeholder:text-gray-500"
+      class="form-input w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/15 focus:ring-1 focus:ring-white/15 transition-all duration-300 font-sans resize-none placeholder:text-gray-500"
       placeholder="Tell me about your project or how we can collaborate..."
     ></textarea>
   </div>
@@ -63,7 +61,7 @@ const { formspreeEndpoint } = Astro.props;
   <button
     type="submit"
     id="submit-btn"
-    class="w-full border border-white/20 text-white px-6 py-3 font-medium rounded-lg transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:text-white font-sans"
+    class="moonlight-container w-full border border-white/20 text-white px-6 py-3 font-medium rounded-lg transition-all duration-300 ease-out hover:bg-white/10 hover:text-white font-sans"
   >
     Send Message
   </button>
@@ -72,23 +70,138 @@ const { formspreeEndpoint } = Astro.props;
   <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 </form>
 
+<!-- Toast Overlay - Full Screen Backdrop -->
+<div
+  id="toast-overlay"
+  class="toast-overlay fixed inset-0 z-[9998] transition-opacity duration-300 ease-in-out opacity-0 pointer-events-none"
+  aria-hidden="true"
+></div>
+
 <!-- Toast Notification -->
 <div
   id="toast"
-  class="toast fixed bottom-24 right-8 z-[60] px-6 py-4 rounded-lg bg-[#0f172a]/90 backdrop-blur-xl border border-white/20 shadow-2xl shadow-black/50 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none"
+  class="toast fixed top-8 left-1/2 -translate-x-1/2 z-[9999] px-6 py-5 rounded-lg transition-all duration-300 ease-out opacity-0 -translate-y-12 pointer-events-none"
   role="alert"
   aria-live="polite"
 >
-  <p class="text-sm font-medium text-slate-100 font-sans">Message sent! I'll get back to you on LinkedIn.</p>
+  <div class="flex items-start gap-4">
+    <!-- Neon Green Checkmark Icon -->
+    <div id="toast-icon-container" class="flex-shrink-0 hidden">
+      <svg class="w-6 h-6 toast-checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 id="toast-title" class="toast-title text-base font-serif font-semibold mb-1"></h3>
+      <p id="toast-message" class="toast-message text-sm font-sans leading-relaxed"></p>
+    </div>
+  </div>
 </div>
 
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const toast = document.getElementById('toast');
+  const toastOverlay = document.getElementById('toast-overlay');
+  const toastTitle = document.getElementById('toast-title');
+  const toastMessage = document.getElementById('toast-message');
+  const toastIconContainer = document.getElementById('toast-icon-container');
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const nameInput = document.getElementById('name') as HTMLInputElement;
+  const emailInput = document.getElementById('email') as HTMLInputElement;
+  const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+
+  /**
+   * Extract first name from full name
+   * @param fullName - The full name from the input field
+   * @returns The first name, or 'Friend' as fallback
+   */
+  function getFirstName(fullName: string): string {
+    const trimmed = fullName.trim();
+    if (!trimmed) return 'Friend';
+    
+    // Split by space and get first part
+    const parts = trimmed.split(' ');
+    const firstName = parts[0];
+    
+    // Return first name if valid, otherwise fallback
+    return firstName && firstName.length > 0 ? firstName : 'Friend';
+  }
+
+  function showToast(title: string, message: string, isSuccess: boolean = false) {
+    if (!toast || !toastTitle || !toastMessage || !toastIconContainer || !toastOverlay) return;
+
+    // Set title and message
+    toastTitle.textContent = title;
+    toastMessage.textContent = message;
+
+    // Show/hide icon based on success
+    if (isSuccess) {
+      toastIconContainer.classList.remove('hidden');
+    } else {
+      toastIconContainer.classList.add('hidden');
+    }
+
+    // Show overlay and toast simultaneously (synchronized animations)
+    toastOverlay.classList.remove('opacity-0', 'pointer-events-none');
+    toastOverlay.classList.add('opacity-100', 'pointer-events-auto');
+    toastOverlay.setAttribute('aria-hidden', 'false');
+
+    toast.classList.remove('opacity-0', '-translate-y-12', 'pointer-events-none');
+    toast.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+
+    // Hide toast and overlay after 2.5 seconds (synchronized fade out)
+    setTimeout(() => {
+      toast.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      toast.classList.add('opacity-0', '-translate-y-12', 'pointer-events-none');
+
+      toastOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+      toastOverlay.classList.add('opacity-0', 'pointer-events-none');
+      toastOverlay.setAttribute('aria-hidden', 'true');
+    }, 2500);
+  }
+
+  function clearErrorStates() {
+    const inputs = form.querySelectorAll('.form-input');
+    inputs.forEach((input) => {
+      (input as HTMLElement).classList.remove('error-state');
+    });
+    form.classList.remove('shake');
+  }
+
+  function setErrorState(input: HTMLElement) {
+    input.classList.add('error-state');
+  }
+
+  function shakeForm() {
+    form.classList.add('shake');
+    setTimeout(() => {
+      form.classList.remove('shake');
+    }, 500);
+  }
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    // Clear previous error states
+    clearErrorStates();
+    
+    // Get form values
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    
+    // Validate required fields
+    if (!name || !email) {
+      // Show error toast
+      showToast('Validation Error', 'Please fill in all required fields', false);
+      
+      // Highlight empty fields
+      if (!name) setErrorState(nameInput);
+      if (!email) setErrorState(emailInput);
+      
+      // Shake form
+      shakeForm();
+      return;
+    }
     
     // Disable submit button
     submitBtn.disabled = true;
@@ -97,9 +210,15 @@ const { formspreeEndpoint } = Astro.props;
     // Simulate delay (1 second)
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Show toast
-    toast?.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
-    toast?.classList.add('opacity-100', 'translate-y-0');
+    // Extract first name for personalization
+    const firstName = getFirstName(name);
+    
+    // Show success toast with personalized message
+    showToast(
+      `Got it, ${firstName}!`,
+      `Thanks for the message. I'll be in touch shortly.`,
+      true
+    );
     
     // Clear form
     form.reset();
@@ -108,34 +227,96 @@ const { formspreeEndpoint } = Astro.props;
     submitBtn.disabled = false;
     submitBtn.textContent = 'Send Message';
     
-    // Hide toast after 4 seconds
-    setTimeout(() => {
-      toast?.classList.remove('opacity-100', 'translate-y-0');
-      toast?.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
-    }, 4000);
-    
     // Submit form to Formspree (in background)
+    // Use redirect: 'manual' to prevent CORS errors from Formspree's redirect
     const formData = new FormData(form);
     fetch(form.action, {
       method: 'POST',
       body: formData,
+      redirect: 'manual', // Don't follow redirects to avoid CORS issues
+    }).then((response) => {
+      // Check if response is a redirect (status 301, 302, etc.)
+      if (response.type === 'opaqueredirect' || response.status >= 300 && response.status < 400) {
+        // Success - Formspree accepted the submission
+        return;
+      }
+      // For other responses, just ignore
     }).catch(() => {
       // Silent fail - user already sees success message
+      // CORS errors or network failures are expected and can be ignored
     });
+  });
+
+  // Clear error state on input
+  nameInput?.addEventListener('input', () => {
+    nameInput.classList.remove('error-state');
+  });
+  emailInput?.addEventListener('input', () => {
+    emailInput.classList.remove('error-state');
   });
 </script>
 
 <style>
-  .toast {
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
+  /* Mobile padding for dock clearance */
+  @media (max-width: 640px) {
+    .contact-form {
+      padding-bottom: 140px;
+    }
   }
-  
+
+  /* Toast Overlay - Full Screen Backdrop */
+  .toast-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Toast Notification - Crystal Glass Theme */
+  .toast {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.01));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+      inset 0 0 20px rgba(255, 255, 255, 0.05),
+      0 10px 40px rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    min-width: 320px;
+    max-width: 90vw;
+  }
+
+  /* Neon Green Checkmark Icon with Glow */
+  .toast-checkmark {
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+    filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.6));
+  }
+
+  /* Typography - Crystal Glass Theme */
+  .toast-title {
+    color: #ffffff;
+    letter-spacing: 0.5px;
+  }
+
+  .toast-message {
+    color: #cccccc;
+  }
+
+  /* Mobile Responsiveness - Floating Card Look */
   @media (max-width: 640px) {
     .toast {
-      bottom: 5rem;
-      right: 1rem;
-      left: 1rem;
+      left: 50%;
+      right: auto;
+      max-width: calc(100vw - 2rem);
+    }
+    
+    /* Ensure transform works correctly on mobile */
+    .toast.opacity-0 {
+      transform: translate(-50%, -3rem);
+    }
+    
+    .toast.opacity-100 {
+      transform: translate(-50%, 0);
     }
   }
 
@@ -160,6 +341,35 @@ const { formspreeEndpoint } = Astro.props;
   textarea:-moz-autofill {
     background-color: rgba(255, 255, 255, 0.05) !important;
     color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* Moonlight Glow for form inputs on focus */
+  .form-input:focus {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Error state styling */
+  .form-input.error-state {
+    border-color: rgba(255, 100, 100, 0.5) !important;
+    box-shadow: 0 0 15px rgba(255, 100, 100, 0.3) !important;
+  }
+
+  /* Shake animation */
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(5px);
+    }
+  }
+
+  .contact-form.shake {
+    animation: shake 0.5s ease-in-out;
   }
 </style>
 

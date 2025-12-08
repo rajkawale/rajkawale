@@ -14,7 +14,7 @@ const isActive = (path: string) => {
 <a 
   href="/" 
   id="top-logo"
-  class="fixed top-8 left-8 z-50 text-xl font-bold font-serif tracking-tight text-slate-100 hover:text-indigo-400 transition-opacity duration-300"
+  class="moonlight-text-link fixed top-8 left-8 z-50 text-xl font-bold font-serif tracking-tight text-[#888] hover:text-white transition-all duration-300 ease-out"
 >
   Raj Kawale
 </a>
@@ -37,8 +37,8 @@ const isActive = (path: string) => {
 <div class="fixed top-8 right-8 z-50 flex items-center gap-4 md:hidden">
   <a 
     href="/contact" 
-    class={`text-sm font-medium font-sans transition-colors ${
-      isActive('/contact') ? 'text-white' : 'text-slate-300 hover:text-white'
+    class={`moonlight-text-link text-sm font-medium font-sans transition-all duration-300 ease-out ${
+      isActive('/contact') ? 'text-white' : 'text-[#888] hover:text-white'
     }`}
   >
     Contact
@@ -47,7 +47,7 @@ const isActive = (path: string) => {
     href="https://github.com/rajkawale" 
     target="_blank" 
     rel="noopener noreferrer"
-    class="text-zinc-400 hover:text-slate-100 transition-colors"
+    class="moonlight-text-link text-[#888] hover:text-white transition-all duration-300 ease-out"
     aria-label="GitHub"
   >
     <GithubIcon client:load className="w-5 h-5" />
@@ -59,24 +59,24 @@ const isActive = (path: string) => {
   <!-- Navigation Links -->
   <a 
     href="/#projects" 
-    class={`nav-link px-4 py-2 text-sm font-medium font-sans transition-colors rounded-full ${
-      isActive('/') ? 'text-white bg-white/10' : 'text-slate-300 hover:text-white hover:bg-white/5'
+    class={`moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans transition-all duration-300 ease-out rounded-full ${
+      isActive('/') ? 'text-white bg-white/10' : 'text-[#888] hover:text-white hover:bg-white/5'
     }`}
   >
     Work
   </a>
   <a 
     href="/blog" 
-    class={`nav-link px-4 py-2 text-sm font-medium font-sans transition-colors rounded-full ${
-      isActive('/blog') ? 'text-white bg-white/10' : 'text-slate-300 hover:text-white hover:bg-white/5'
+    class={`moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans transition-all duration-300 ease-out rounded-full ${
+      isActive('/blog') ? 'text-white bg-white/10' : 'text-[#888] hover:text-white hover:bg-white/5'
     }`}
   >
     Writing
   </a>
   <a 
     href="/notes" 
-    class={`nav-link px-4 py-2 text-sm font-medium font-sans transition-colors rounded-full ${
-      isActive('/notes') ? 'text-white bg-white/10' : 'text-slate-300 hover:text-white hover:bg-white/5'
+    class={`moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans transition-all duration-300 ease-out rounded-full ${
+      isActive('/notes') ? 'text-white bg-white/10' : 'text-[#888] hover:text-white hover:bg-white/5'
     }`}
   >
     Notes
@@ -84,8 +84,8 @@ const isActive = (path: string) => {
   <!-- Contact: Desktop Only -->
   <a 
     href="/contact" 
-    class={`nav-link hidden md:block px-4 py-2 text-sm font-medium font-sans transition-colors rounded-full ${
-      isActive('/contact') ? 'text-white bg-white/10' : 'text-slate-300 hover:text-white hover:bg-white/5'
+    class={`moonlight-container nav-link hidden md:block px-4 py-2 text-sm font-medium font-sans transition-all duration-300 ease-out rounded-full ${
+      isActive('/contact') ? 'text-white bg-white/10' : 'text-[#888] hover:text-white hover:bg-white/5'
     }`}
   >
     Contact
@@ -99,7 +99,7 @@ const isActive = (path: string) => {
     href="https://linkedin.com/in/rajkawale" 
     target="_blank" 
     rel="noopener noreferrer"
-    class="social-link p-2 text-zinc-400 hover:text-slate-100 transition-colors rounded-full hover:bg-white/5"
+    class="moonlight-container social-link p-2 text-[#888] hover:text-white transition-all duration-300 ease-out rounded-full hover:bg-white/5"
     aria-label="LinkedIn"
   >
     <LinkedInIcon client:load className="w-4 h-4" />
@@ -109,7 +109,7 @@ const isActive = (path: string) => {
     href="https://github.com/rajkawale" 
     target="_blank" 
     rel="noopener noreferrer"
-    class="social-link hidden md:block p-2 text-zinc-400 hover:text-slate-100 transition-colors rounded-full hover:bg-white/5"
+    class="moonlight-container social-link hidden md:block p-2 text-[#888] hover:text-white transition-all duration-300 ease-out rounded-full hover:bg-white/5"
     aria-label="GitHub"
   >
     <GithubIcon client:load className="w-4 h-4" />
@@ -120,6 +120,35 @@ const isActive = (path: string) => {
   .nav-dock {
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
+  }
+
+  /* Moonlight Glow System */
+  .moonlight-text-link {
+    color: #888;
+  }
+
+  .moonlight-text-link:hover {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+
+  .moonlight-container {
+    transition: all 0.3s ease-out;
+  }
+
+  .moonlight-container:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .nav-link:hover,
+  .social-link:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .nav-link:hover {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
   }
 
   /* Mobile: Scale down slightly */

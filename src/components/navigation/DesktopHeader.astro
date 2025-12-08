@@ -15,7 +15,7 @@ const isActive = (path: string) => {
   <a 
     href="/" 
     id="desktop-logo"
-    class="text-4xl font-serif tracking-tight text-white transition-all duration-300 ease-in-out hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] flex items-center"
+    class="text-4xl font-serif tracking-tight text-white transition-all duration-300 ease-out flex items-center hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.8)]"
   >
     <span class="font-light">Raj</span>
     <span class="font-black"> Kawale</span>
@@ -27,25 +27,25 @@ const isActive = (path: string) => {
     <nav class="hidden md:flex items-center gap-8">
       <a 
         href="/#projects" 
-        class="nav-link text-base font-medium font-sans transition-all duration-300 ease-in-out text-gray-200 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+        class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
       >
         Work
       </a>
       <a 
         href="/blog" 
-        class="nav-link text-base font-medium font-sans transition-all duration-300 ease-in-out text-gray-200 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+        class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
       >
         Writing
       </a>
       <a 
         href="/notes" 
-        class="nav-link text-base font-medium font-sans transition-all duration-300 ease-in-out text-gray-200 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+        class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
       >
         Notes
       </a>
       <a 
         href="/contact" 
-        class="nav-link text-base font-medium font-sans transition-all duration-300 ease-in-out text-gray-200 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+        class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
       >
         Contact
       </a>
@@ -57,7 +57,7 @@ const isActive = (path: string) => {
         href="https://www.linkedin.com/in/rajkawale/" 
         target="_blank" 
         rel="noopener noreferrer"
-        class="text-zinc-400 hover:text-slate-100 transition-colors flex items-center"
+        class="moonlight-text-link text-[#888] hover:text-white transition-all duration-300 ease-out flex items-center"
         aria-label="LinkedIn"
       >
         <LinkedInIcon client:load className="w-5 h-5" />
@@ -66,4 +66,9 @@ const isActive = (path: string) => {
   </div>
 </header>
 
+<style>
+  .moonlight-text-link:hover {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+</style>
 

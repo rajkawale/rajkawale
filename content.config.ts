@@ -6,7 +6,7 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     publishDate: z.coerce.date(),
-    status: z.enum(['Prototype', 'Live', 'Case Study', 'Stealth Mode', 'Startup']),
+    status: z.enum(['Prototype', 'Live', 'Live Product', 'Case Study', 'Stealth Mode', 'Startup', 'Founded']),
     techStack: z.array(z.string()),
     repoUrl: z.string().url().optional(),
     demoUrl: z.string().url().optional(),

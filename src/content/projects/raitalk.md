@@ -1,10 +1,11 @@
 ---
 title: "RaiTalk"
-description: "An AI Psychologist that analyzes cognitive patterns and emotional data to provide therapeutic structure, not just chat."
-publishDate: 2024-12-01
-status: "Stealth Mode"
+description: "Cognitive Emotional AI"
+publishDate: "2024-12-01"
+status: "Live Product"
 techStack: ["DeepSeek API", "Cognitive Data Modeling", "Supabase", "React"]
 thumbnail: "/images/raitalk-preview.png"
+demoUrl: "https://raitalk.rajkawale.com/"
 priority: 1
 ---
 

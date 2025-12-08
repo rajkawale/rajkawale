@@ -1,10 +1,11 @@
 ---
 title: "Trinka AI"
-description: "A specialized AI Writing Assistant prototype designed for academic and technical precision."
-publishDate: 2024-11-01
+description: "AI Writing Prototype"
+publishDate: "2024-11-01"
 status: "Prototype"
 techStack: ["NLP", "Grammar Engine", "React", "Product Design"]
 thumbnail: "/images/trinka-preview.png"
+demoUrl: "https://trinka.rajkawale.com/"
 priority: 2
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: "Madhav Farm"
-description: "A D2C startup initiative focusing on sustainable agriculture and direct-to-consumer supply chains."
-publishDate: 2022-06-01
-status: "Startup"
+description: "Agri-tech venture & supply chain"
+publishDate: "2022-06-01"
+status: "Founded"
 techStack:
   - "Business Strategy"
   - "Supply Chain"

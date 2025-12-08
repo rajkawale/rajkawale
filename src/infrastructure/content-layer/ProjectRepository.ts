@@ -8,11 +8,24 @@ export class ProjectRepository implements IProjectRepository {
       const entries = await getCollection('projects');
       console.log('📦 ProjectRepository: Found', entries.length, 'entries from getCollection');
       console.log('📦 Entry slugs:', entries.map(e => e.slug));
+      
+      if (entries.length === 0) {
+        console.warn('⚠️ No projects found in collection. Check:');
+        console.warn('  1. Files are in src/content/projects/');
+        console.warn('  2. Files have .mdx or .md extension');
+        console.warn('  3. Frontmatter matches the schema in content.config.ts');
+        console.warn('  4. Restart the dev server after making changes');
+      }
+      
       const projects = entries.map((entry) => this.mapToDomain(entry));
       console.log('📦 Mapped projects:', projects.map(p => ({ slug: p.slug, title: p.title, priority: p.priority })));
       return projects;
     } catch (error) {
       console.error('❌ ProjectRepository.getAll() error:', error);
+      if (error instanceof Error) {
+        console.error('❌ Error message:', error.message);
+        console.error('❌ Error stack:', error.stack);
+      }
       return [];
     }
   }

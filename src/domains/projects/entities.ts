@@ -1,4 +1,4 @@
-export type ProjectStatus = 'Prototype' | 'Live' | 'Case Study';
+export type ProjectStatus = 'Prototype' | 'Live' | 'Live Product' | 'Case Study' | 'Stealth Mode' | 'Startup' | 'Founded';
 
 export interface Project {
   id: string;

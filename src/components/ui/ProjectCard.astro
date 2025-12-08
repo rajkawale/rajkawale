@@ -1,5 +1,6 @@
 ---
 import type { Project } from '../../domains/projects/entities';
+import { ExternalLink, Play } from 'lucide-react';
 
 interface Props {
   project: Project;
@@ -8,6 +9,19 @@ interface Props {
 
 const { project, size = 'medium' } = Astro.props;
 
+// Dynamic CTA label and icon based on status
+const getCTALabel = (status: string) => {
+  if (status === 'Live Product') return 'Visit Website';
+  if (status === 'Prototype') return 'View Demo';
+  if (status === 'Founded') return 'View Archive';
+  return 'Live Demo'; // fallback
+};
+
+const getCTAIcon = (status: string) => {
+  if (status === 'Prototype') return Play;
+  return ExternalLink; // Live Product, Founded, and fallback
+};
+
 const sizeClasses = {
   large: 'col-span-1 md:col-span-2 lg:col-span-2 row-span-1 md:row-span-2',
   medium: 'col-span-1 row-span-1',
@@ -15,50 +29,89 @@ const sizeClasses = {
 };
 
 const statusColors = {
-  Prototype: 'bg-purple-900/30 text-purple-300 border-purple-800',
-  Live: 'bg-green-900/30 text-green-300 border-green-800',
-  'Case Study': 'bg-indigo-900/30 text-indigo-300 border-indigo-800',
-  'Stealth Mode': 'bg-amber-900/30 text-amber-300 border-amber-800',
-  Startup: 'bg-blue-900/30 text-blue-300 border-blue-800',
+  Prototype: 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
+  'Live Product': 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
+  Founded: 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
+  Live: 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
+  'Case Study': 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
+  'Stealth Mode': 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
+  Startup: 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
 };
 ---
 
-<a
-  href={`/projects/${project.slug}`}
-  class={`project-card group relative ${sizeClasses[size]} bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-6 border-t-white/20 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-indigo-500/10 transition-all duration-300 flex flex-col justify-between overflow-hidden`}
+<div
+  class={`project-card group relative ${sizeClasses[size]} rounded-lg p-6 flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 ease-out ${
+    size === 'large' && project.slug === 'raitalk'
+      ? 'neural-wave-card'
+      : 'glass-card'
+  }`}
+  data-project-slug={project.slug}
 >
-  <!-- Special handling for RaiTalk: Show dark mode screenshot inside dark card -->
-  {project.slug === 'raitalk' && size === 'large' && project.thumbnail && (
-    <div class="mb-4 -mx-6 -mt-6 overflow-hidden rounded-t-lg bg-zinc-950">
-      <img
-        src={project.thumbnail}
-        alt={project.title}
-        class="w-full h-auto object-cover"
-        loading="lazy"
-      />
+  <!-- Neural Wave Animation for RaiTalk Card -->
+  {size === 'large' && project.slug === 'raitalk' && (
+    <div class="neural-wave-container absolute inset-0 pointer-events-none z-0">
+      <svg class="neural-wave-svg" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice">
+        <defs>
+          <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgba(255,255,255,0.3);stop-opacity:0" />
+            <stop offset="50%" style="stop-color:rgba(255,255,255,0.3);stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgba(255,255,255,0.3);stop-opacity:0" />
+          </linearGradient>
+          <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgba(255,255,255,0.25);stop-opacity:0" />
+            <stop offset="50%" style="stop-color:rgba(255,255,255,0.25);stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgba(255,255,255,0.25);stop-opacity:0" />
+          </linearGradient>
+        </defs>
+        <!-- Sine wave paths - multiple layers for depth -->
+        <path
+          class="neural-wave neural-wave-1"
+          d="M 0,150 Q 150,100 300,150 T 600,150 T 900,150 T 1200,150"
+          fill="none"
+          stroke="url(#waveGradient1)"
+          stroke-width="1"
+        />
+        <path
+          class="neural-wave neural-wave-2"
+          d="M 0,170 Q 150,120 300,170 T 600,170 T 900,170 T 1200,170"
+          fill="none"
+          stroke="url(#waveGradient2)"
+          stroke-width="0.8"
+        />
+        <path
+          class="neural-wave neural-wave-3"
+          d="M 0,190 Q 150,140 300,190 T 600,190 T 900,190 T 1200,190"
+          fill="none"
+          stroke="url(#waveGradient2)"
+          stroke-width="0.6"
+        />
+        <path
+          class="neural-wave neural-wave-4"
+          d="M 0,130 Q 150,80 300,130 T 600,130 T 900,130 T 1200,130"
+          fill="none"
+          stroke="url(#waveGradient1)"
+          stroke-width="0.5"
+        />
+      </svg>
     </div>
   )}
-  
-  <div class="flex-1 flex flex-col">
+  <div class="flex-1 flex flex-col relative z-10">
     <!-- Header -->
     <div class="mb-4">
       {project.slug === 'raitalk' ? (
-        <!-- Special RaiTalk Layout: Tech + Empathy -->
-        <div class="space-y-1">
-          <h3 class="text-xl md:text-2xl font-serif font-bold text-white group-hover:text-indigo-400 transition-colors">
+        <!-- Special RaiTalk Layout -->
+        <div class="space-y-1 relative z-10">
+          <h3 class="text-xl md:text-2xl font-serif font-bold text-white group-hover:text-white transition-colors group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
             {project.title}
           </h3>
-          <p class="text-base font-sans font-semibold text-gray-300">
-            Cognitive Emotional AI
-          </p>
-          <p class="text-sm font-sans italic text-gray-500">
-            For your beautiful mind.
+          <p class="text-base font-sans font-semibold text-zinc-200">
+            {project.description}
           </p>
         </div>
       ) : (
         <!-- Default Layout for Other Projects -->
         <>
-          <h3 class="text-xl md:text-2xl font-serif font-bold text-slate-100 group-hover:text-indigo-400 transition-colors mb-2">
+          <h3 class="text-xl md:text-2xl font-serif font-bold text-slate-100 group-hover:text-white transition-colors mb-2 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
             {project.title}
           </h3>
           <p class="text-sm text-zinc-300 line-clamp-3 leading-relaxed font-sans">
@@ -89,20 +142,154 @@ const statusColors = {
   </div>
 
   <!-- Footer -->
-  <div class="flex items-center justify-between mt-auto pt-4 border-t border-zinc-800/50">
+  <div class="flex items-center justify-between mt-auto pt-4 border-t border-zinc-800/50 relative z-10">
     <span
       class={`px-3 py-1 rounded-full text-xs font-mono font-medium border ${statusColors[project.status]}`}
     >
       {project.status}
     </span>
     <div class="flex items-center gap-3">
-      {project.demoUrl && (
-        <span class="text-xs text-indigo-400 font-mono font-medium hover:underline">Live Demo</span>
-      )}
+      {project.demoUrl && (() => {
+        const CTALabel = getCTALabel(project.status);
+        const CTAIcon = getCTAIcon(project.status);
+        return (
+          <a
+            href={project.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="glass-button text-xs text-white font-mono font-medium z-10 relative flex items-center gap-1.5 px-3 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all"
+          >
+            <CTAIcon class="w-3 h-3" />
+            {CTALabel}
+          </a>
+        );
+      })()}
       {project.repoUrl && (
-        <span class="text-xs text-zinc-500 font-mono font-medium hover:text-zinc-300">Code</span>
+        <a
+          href={project.repoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="glass-button text-xs text-white font-mono font-medium z-10 relative px-3 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all"
+        >
+          Code
+        </a>
       )}
     </div>
   </div>
-</a>
+</div>
+
+<style>
+  /* Glassmorphism Style - Matching Recent Writing */
+  .glass-card,
+  .neural-wave-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Neural Wave Card - Special styling for RaiTalk */
+  .neural-wave-card {
+    position: relative;
+  }
+
+  /* Neural Wave Animation Container */
+  .neural-wave-container {
+    overflow: hidden;
+    bottom: 0;
+    height: 50%;
+  }
+
+  .neural-wave-svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+  }
+
+  /* Neural Wave Animation - Slow horizontal flow (like audio visualizer/brain frequency) */
+  @keyframes waveFlow {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .neural-wave {
+    animation: waveFlow linear infinite;
+  }
+
+  .neural-wave-1 {
+    animation-duration: 15s;
+    animation-delay: 0s;
+  }
+
+  .neural-wave-2 {
+    animation-duration: 18s;
+    animation-delay: 3s;
+  }
+
+  .neural-wave-3 {
+    animation-duration: 20s;
+    animation-delay: 6s;
+  }
+
+  .neural-wave-4 {
+    animation-duration: 16s;
+    animation-delay: 1.5s;
+  }
+
+  /* White Glow Hover Effect for Cards - Border brightness increases */
+  .project-card {
+    transition: all 0.3s ease-out;
+  }
+
+  .project-card:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  }
+
+  /* Glassmorphism Buttons */
+  .glass-button {
+    transition: all 0.3s ease-out;
+  }
+
+  .glass-button:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+
+  /* Text Links Hover */
+  .project-card a:not(.glass-button) {
+    color: #888;
+    transition: all 0.3s ease-out;
+  }
+
+  .project-card a:not(.glass-button):hover {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+</style>
+
+<script>
+  // Make entire card clickable except for demo/repo links
+  document.querySelectorAll('.project-card').forEach((card) => {
+    card.addEventListener('click', (e) => {
+      // Don't navigate if clicking on external links
+      if (e.target.closest('a[target="_blank"]')) {
+        return;
+      }
+      // Navigate to project detail page
+      const slug = card.dataset.projectSlug;
+      if (slug) {
+        window.location.href = `/projects/${slug}`;
+      }
+    });
+  });
+</script>
 
