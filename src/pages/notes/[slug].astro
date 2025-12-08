@@ -3,12 +3,21 @@ import BaseLayout from '../../components/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const linkedinPosts = await getCollection('linkedin');
-  
-  return linkedinPosts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  try {
+    const linkedinPosts = await getCollection('linkedin');
+    
+    if (!linkedinPosts || linkedinPosts.length === 0) {
+      return [];
+    }
+    
+    return linkedinPosts.map((post) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
+  } catch (error) {
+    console.error('Error in getStaticPaths for notes:', error);
+    return [];
+  }
 }
 
 const { post } = Astro.props;

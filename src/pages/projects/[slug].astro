@@ -5,13 +5,22 @@ import { getCollection } from 'astro:content';
 import { ExternalLink, Github, Calendar, Tag } from 'lucide-react';
 
 export async function getStaticPaths() {
-  const projectService = container.getProjectService();
-  const projects = await projectService.getAll();
-  
-  return projects.map((project) => ({
-    params: { slug: project.slug },
-    props: { project },
-  }));
+  try {
+    const projectService = container.getProjectService();
+    const projects = await projectService.getAll();
+    
+    if (!projects || projects.length === 0) {
+      return [];
+    }
+    
+    return projects.map((project) => ({
+      params: { slug: project.slug },
+      props: { project },
+    }));
+  } catch (error) {
+    console.error('Error in getStaticPaths for projects:', error);
+    return [];
+  }
 }
 
 const { project } = Astro.props;
