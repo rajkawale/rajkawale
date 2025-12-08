@@ -1,0 +1,229 @@
+---
+import BaseLayout from '../../components/BaseLayout.astro';
+import { container } from '../../core/di/container';
+import { getCollection } from 'astro:content';
+import { ExternalLink, Github, Calendar, Tag } from 'lucide-react';
+
+const projectService = container.getProjectService();
+const project = await projectService.getBySlug(Astro.params.slug || '');
+
+if (!project) {
+  return Astro.redirect('/projects');
+}
+
+// Get full content from Content Collection
+const entries = await getCollection('projects');
+const entry = entries.find((e) => e.slug === project.slug);
+
+if (!entry) {
+  return Astro.redirect('/projects');
+}
+
+const { Content } = await entry.render();
+---
+
+<BaseLayout
+  title={`${project.title} - Raj Kawale`}
+  description={project.description}
+>
+  <main class="min-h-screen bg-[#020617] text-zinc-300 pt-24 relative z-10">
+    <div class="max-w-4xl mx-auto px-6 md:px-12 py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Main Content -->
+        <article class="lg:col-span-2">
+          <!-- Header -->
+          <header class="mb-12">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4 text-slate-100">
+              {project.title}
+            </h1>
+            <p class="text-xl text-zinc-300 mb-8 font-sans">{project.description}</p>
+            
+            <!-- Thumbnail -->
+            {project.thumbnail && (
+              <img
+                src={project.thumbnail}
+                alt={project.title}
+                class="w-full rounded-lg border border-zinc-800 mb-8"
+                loading="eager"
+              />
+            )}
+          </header>
+
+          <!-- MDX Content -->
+          <div class="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-slate-100 prose-p:text-zinc-300 prose-a:text-indigo-400 prose-a:no-underline prose-a:hover:underline">
+            <Content />
+          </div>
+        </article>
+
+        <!-- Sticky Sidebar -->
+        <aside class="lg:sticky lg:top-24 h-fit">
+          <div class="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-6 space-y-6 border-t-white/20">
+            <h2 class="text-lg font-serif font-bold text-slate-100 mb-6">Project Details</h2>
+
+            <!-- Status -->
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <Tag class="w-4 h-4 text-zinc-500" />
+                <span class="text-sm font-medium text-zinc-300 font-sans">Status</span>
+              </div>
+              <span
+                class={`inline-block px-3 py-1 rounded-full text-xs font-mono font-medium border ${
+                  project.status === 'Prototype'
+                    ? 'bg-purple-900/30 text-purple-300 border-purple-800'
+                    : project.status === 'Live'
+                    ? 'bg-green-900/30 text-green-300 border-green-800'
+                    : project.status === 'Case Study'
+                    ? 'bg-indigo-900/30 text-indigo-300 border-indigo-800'
+                    : project.status === 'Stealth Mode'
+                    ? 'bg-amber-900/30 text-amber-300 border-amber-800'
+                    : project.status === 'Startup'
+                    ? 'bg-blue-900/30 text-blue-300 border-blue-800'
+                    : 'bg-indigo-900/30 text-indigo-300 border-indigo-800'
+                }`}
+              >
+                {project.status}
+              </span>
+            </div>
+
+            <!-- Publish Date -->
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <Calendar class="w-4 h-4 text-zinc-500" />
+                <span class="text-sm font-medium text-zinc-300 font-sans">Published</span>
+              </div>
+              <p class="text-sm text-zinc-400 font-sans">
+                {project.publishDate.toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
+              </p>
+            </div>
+
+            <!-- Tech Stack -->
+            {project.techStack && project.techStack.length > 0 && (
+              <div>
+                <div class="flex items-center gap-2 mb-3">
+                  <Tag class="w-4 h-4 text-zinc-500" />
+                  <span class="text-sm font-medium text-zinc-300 font-sans">Tech Stack</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  {project.techStack.map((tech) => (
+                    <span
+                      class="px-3 py-1 text-xs font-mono font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <!-- Links -->
+            <div class="space-y-3 pt-4 border-t border-zinc-800">
+              {project.demoUrl && (
+                <a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-2 w-full px-4 py-2 bg-indigo-900/30 hover:bg-indigo-900/50 border border-indigo-800 rounded-lg text-indigo-400 transition-colors group font-sans"
+                >
+                  <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  <span class="text-sm font-medium">Live Demo</span>
+                </a>
+              )}
+              {project.repoUrl && (
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-2 w-full px-4 py-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-lg text-zinc-300 transition-colors group font-sans"
+                >
+                  <Github class="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <span class="text-sm font-medium">View Code</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Back Link -->
+      <div class="mt-16">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors font-sans"
+        >
+          ← Back to Home
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .prose {
+    color: rgb(161 161 170);
+  }
+  .prose h2 {
+    color: rgb(250 250 249);
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.875rem;
+  }
+  .prose h3 {
+    color: rgb(250 250 249);
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+  }
+  .prose p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+    color: rgb(161 161 170);
+  }
+  .prose a {
+    color: rgb(129 140 248);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .prose a:hover {
+    text-decoration: underline;
+    color: rgb(165 180 252);
+  }
+  .prose ul,
+  .prose ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+    color: rgb(161 161 170);
+  }
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+  .prose code {
+    background-color: rgb(39 39 42);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    border: 1px solid rgb(63 63 70);
+    color: rgb(244 244 245);
+  }
+  .prose pre {
+    background-color: rgb(24 24 27);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-bottom: 1.25rem;
+    border: 1px solid rgb(39 39 42);
+  }
+  .prose pre code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+  }
+</style>
+

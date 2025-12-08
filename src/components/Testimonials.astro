@@ -1,0 +1,68 @@
+---
+interface Testimonial {
+  author: string;
+  role: string;
+  company: string;
+  quote: string;
+  photo?: string;
+  date: string;
+  sourceUrl?: string;
+}
+
+interface Props {
+  testimonials: Testimonial[];
+}
+
+const { testimonials } = Astro.props;
+---
+
+{testimonials.length > 0 && (
+  <div class="testimonials-grid grid grid-cols-1 gap-6 md:grid-cols-2">
+    {testimonials.map((testimonial) => (
+      <article class="testimonial-card bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-6 border-t-white/20 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-indigo-500/10 transition-all duration-300">
+        <blockquote class="mb-4 text-base leading-relaxed text-zinc-300 font-sans">
+          "{testimonial.quote}"
+        </blockquote>
+        <footer class="border-t border-white/10 pt-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              {testimonial.photo && (
+                <img
+                  src={testimonial.photo}
+                  alt={testimonial.author}
+                  class="h-16 w-16 border border-white/20 rounded object-cover"
+                  loading="lazy"
+                />
+              )}
+              <div>
+                        <p class="font-serif font-bold text-slate-100">{testimonial.author}</p>
+                <p class="text-sm font-medium text-zinc-300 font-sans">
+                  {testimonial.role} at {testimonial.company}
+                </p>
+                {testimonial.date && (
+                  <p class="mt-1 text-xs font-mono text-zinc-500">
+                    {new Date(testimonial.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                    })}
+                  </p>
+                )}
+              </div>
+            </div>
+            {testimonial.sourceUrl && (
+              <a
+                href={testimonial.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="border border-white/20 bg-zinc-900/50 px-3 py-1 text-xs font-mono text-zinc-300 transition-colors hover:bg-zinc-800 hover:border-white/30 rounded"
+              >
+                Source
+              </a>
+            )}
+          </div>
+        </footer>
+      </article>
+    ))}
+  </div>
+)}
+

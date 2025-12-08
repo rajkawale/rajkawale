@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../components/BaseLayout.astro';
+import { container } from '../../core/di/container';
+
+const blogService = container.getBlogService();
+const posts = await blogService.getAllPosts();
+---
+
+<BaseLayout
+  title="Blog - Raj Kawale"
+  description="Thoughts on product management, AI, and building systems-driven products"
+>
+  <main class="min-h-screen bg-[#020617] text-zinc-300 pt-24 py-24 px-6 md:px-12 relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <header class="mb-12 border-b border-zinc-800 pb-6">
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
+          Blog
+        </h1>
+        <p class="text-lg text-zinc-300 font-sans">
+          Insights on product management, AI innovation, and building scalable systems.
+        </p>
+      </header>
+      
+      {posts.length > 0 ? (
+        <div class="space-y-6">
+          {posts.map((post) => (
+            <article class="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-6 border-t-white/20 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-indigo-500/10 transition-all duration-300">
+              <a href={`/blog/${post.slug}`} class="block">
+                      <h2 class="mb-3 text-2xl font-serif font-bold text-slate-100 hover:text-indigo-400 transition-colors">
+                  {post.title}
+                </h2>
+                {post.excerpt && (
+                  <p class="mb-4 text-base text-zinc-300 font-sans">{post.excerpt}</p>
+                )}
+                <time
+                  datetime={post.publishedAt.toISOString()}
+                  class="text-sm font-mono text-zinc-500"
+                >
+                  {post.publishedAt.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+              </a>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-12 text-center border-t-white/20">
+          <p class="text-lg text-zinc-300 font-sans">
+            No blog posts yet. Posts will appear here once the Blogger sync script runs.
+          </p>
+          <p class="mt-4 text-sm text-zinc-500 font-mono">
+            Run <code class="bg-zinc-950/50 px-2 py-1 rounded border border-zinc-800">npm run sync:blog</code> to fetch posts.
+          </p>
+        </div>
+      )}
+    </div>
+  </main>
+</BaseLayout>
+

@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../components/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const formspreeEndpoint = 'https://formspree.io/f/mldykebp';
+---
+
+<BaseLayout
+  title="Contact - Raj Kawale"
+  description="Get in touch with Raj Kawale for collaborations, projects, or opportunities"
+>
+  <main class="min-h-screen bg-[#020617] text-zinc-300 pt-32 pb-16 px-6 md:px-12 relative z-10 flex items-center">
+    <div class="max-w-2xl mx-auto w-full">
+      <header class="mb-10 border-b border-zinc-800 pb-6">
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-100 mb-4">
+          Let's Connect
+        </h1>
+        <p class="text-lg text-zinc-300 font-sans">
+          Interested in collaborating, discussing a project, or just want to connect? 
+          Fill out the form below and I'll get back to you.
+        </p>
+      </header>
+      
+      <ContactForm formspreeEndpoint={formspreeEndpoint} />
+    </div>
+  </main>
+</BaseLayout>
+

@@ -1,0 +1,229 @@
+---
+import BaseLayout from '../components/BaseLayout.astro';
+import { container } from '../core/di/container';
+import BentoGrid from '../components/ui/BentoGrid.astro';
+import ProjectCard from '../components/ui/ProjectCard.astro';
+import NoteCard from '../components/ui/NoteCard.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+
+// Get services from DI container
+const projectService = container.getProjectService();
+const blogService = container.getBlogService();
+const linkedInService = container.getLinkedInService();
+
+// Fetch data
+let allProjects: any[] = [];
+let errorMessage = '';
+
+try {
+  allProjects = await projectService.getAll();
+  console.log('[SERVER] 🔍 Total projects fetched:', allProjects.length);
+  if (allProjects.length > 0) {
+    console.log('[SERVER] 📋 Projects:', allProjects.map(p => ({ slug: p.slug, title: p.title, priority: p.priority })));
+  } else {
+    console.log('[SERVER] ⚠️ No projects found! Check content collection configuration.');
+  }
+} catch (error: any) {
+  console.error('[SERVER] ❌ Error fetching projects:', error);
+  errorMessage = error?.message || 'Unknown error';
+}
+
+// Get featured projects (priority > 0) or fallback to all projects
+const featuredProjects = allProjects.filter((p) => p.priority > 0);
+console.log('[SERVER] ⭐ Featured projects (priority > 0):', featuredProjects.length);
+
+// If no projects with priority, show all projects
+const projectsToShow = featuredProjects.length > 0 ? featuredProjects : allProjects;
+console.log('[SERVER] 🎯 Projects to show:', projectsToShow.length);
+const latestBlogPosts = (await blogService.getAllPosts()).slice(0, 3);
+const latestNotes = (await linkedInService.getAllPosts())
+  .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
+  .slice(0, 3);
+
+// Get RaiTalk (large) and other featured projects
+const raitalk = projectsToShow.find((p) => p.slug === 'raitalk') || projectsToShow[0];
+const otherFeatured = projectsToShow.filter(
+  (p) => p.slug !== raitalk?.slug
+);
+---
+
+<BaseLayout
+  title="Raj Kawale — Product Manager & Builder"
+  description="Building AI Products that Solve Real User Problems. Combining business strategy with technical execution."
+>
+  <main class="min-h-screen bg-[#020617] text-zinc-300 pt-24 relative z-10">
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-[85vh] flex items-center justify-center px-6 md:px-12 py-32 w-full">
+      <div class="max-w-4xl mx-auto text-center w-full">
+        <!-- Main Headline -->
+        <h1 class="text-6xl md:text-7xl font-serif font-bold tracking-tight text-white leading-tight">
+          Think<span class="text-gray-500">.</span> Build<span class="text-gray-500">.</span> Ship<span class="text-gray-500">.</span>
+        </h1>
+        
+        <!-- Subheading -->
+        <h2 class="text-xl font-sans text-gray-400 mt-4">
+          Product Manager & Founder
+        </h2>
+        
+        <!-- Divider -->
+        <div class="w-12 h-px bg-white/10 mx-auto my-8"></div>
+        
+        <!-- Feature Card - The "Proof" (RaiTalk) -->
+        <a
+          href="https://raitalk.rajkawale.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block w-full max-w-md mx-auto bg-white/5 backdrop-blur border border-white/10 rounded-lg px-6 py-8 hover:border-white/30 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-all duration-300 cursor-pointer"
+        >
+          <p class="text-xs uppercase tracking-widest text-gray-500">
+            Currently Building
+          </p>
+          <h3 class="text-3xl font-bold text-white mt-2">
+            RaiTalk
+          </h3>
+          <p class="text-sm text-gray-300 mt-1">
+            Cognitive Emotional AI
+          </p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Featured Work Section -->
+    <section id="projects" class="py-24 px-6 md:px-12">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-16 text-center">
+          <h2 class="text-4xl md:text-5xl font-serif font-bold text-slate-100 mb-4">
+            Selected Work
+          </h2>
+          <p class="text-zinc-300 text-lg font-sans">
+            Projects that showcase systems thinking and AI innovation
+          </p>
+        </div>
+
+        {projectsToShow.length > 0 ? (
+          <BentoGrid>
+            {raitalk && <ProjectCard project={raitalk} size="large" />}
+            {otherFeatured.slice(0, 5).map((project, index) => (
+              <ProjectCard project={project} size={index === 0 ? 'medium' : 'small'} />
+            ))}
+          </BentoGrid>
+        ) : (
+          <div class="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-8 text-center border-t-white/20">
+            <p class="text-zinc-400 font-semibold mb-2">No projects found</p>
+            <p class="text-zinc-500 text-sm">Found {allProjects.length} total projects</p>
+            <p class="text-zinc-600 text-xs mt-1">Featured: {featuredProjects.length} | To Show: {projectsToShow.length}</p>
+            {errorMessage && (
+              <p class="text-red-400 text-xs mt-2">Error: {errorMessage}</p>
+            )}
+            <p class="text-zinc-600 text-xs mt-4">
+              Check terminal for server-side logs (where you ran npm run dev)
+            </p>
+          </div>
+        )}
+
+        <script define:vars={{ projectCount: allProjects.length, featuredCount: featuredProjects.length, showCount: projectsToShow.length }}>
+          console.log('🔍 Browser Console Debug:', {
+            allProjects: projectCount,
+            featuredProjects: featuredCount,
+            projectsToShow: showCount,
+            timestamp: new Date().toISOString()
+          });
+        </script>
+      </div>
+    </section>
+
+    <!-- Latest Activity Section -->
+    <section class="py-24 px-6 md:px-12">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-16 text-center">
+          <h2 class="text-4xl md:text-5xl font-serif font-bold text-slate-100 mb-4">
+            Latest Activity
+          </h2>
+          <p class="text-zinc-300 text-lg font-sans">
+            Recent thoughts and writing
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Latest Notes (LinkedIn) -->
+          <div>
+            <div class="mb-6 flex items-center justify-between">
+              <h3 class="text-xl font-serif font-semibold text-white">Latest Notes</h3>
+              <a
+                href="/notes"
+                class="text-sm text-indigo-400 hover:text-indigo-300 transition-colors font-medium"
+              >
+                View All →
+              </a>
+            </div>
+            <div class="space-y-4">
+              {latestNotes.length > 0 ? (
+                latestNotes.map((note) => (
+                  <NoteCard
+                    title={note.title || 'Untitled Note'}
+                    date={note.publishedAt}
+                    slug={note.slug}
+                    tags={note.tags}
+                    canonicalUrl={note.canonicalUrl}
+                  />
+                ))
+              ) : (
+                <p class="text-zinc-500 text-sm font-sans">No notes yet.</p>
+              )}
+            </div>
+          </div>
+
+          <!-- Recent Writing (Blog) -->
+          <div>
+            <div class="mb-6 flex items-center justify-between">
+                    <h3 class="text-xl font-serif font-semibold text-slate-100">Recent Writing</h3>
+              <a
+                href="/blog"
+                class="text-sm text-indigo-400 hover:text-indigo-300 transition-colors font-medium"
+              >
+                View All →
+              </a>
+            </div>
+            <div class="space-y-4">
+              {latestBlogPosts.length > 0 ? (
+                latestBlogPosts.map((post) => (
+                  <a
+                    href={`/blog/${post.slug}`}
+                    class="block bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-5 border-t-white/20 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-indigo-500/10 transition-all duration-300"
+                  >
+                    <h3 class="text-base font-serif font-semibold text-slate-100 hover:text-indigo-400 transition-colors mb-2 line-clamp-2">
+                      {post.title}
+                    </h3>
+                    {post.excerpt && (
+                      <p class="text-sm text-zinc-300 line-clamp-2 mb-3 font-sans">
+                        {post.excerpt}
+                      </p>
+                    )}
+                    <time
+                      datetime={post.publishedAt.toISOString()}
+                      class="text-xs text-zinc-500 font-mono"
+                    >
+                      {post.publishedAt.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                    </time>
+                  </a>
+                ))
+              ) : (
+                <p class="text-zinc-500 text-sm font-sans">No blog posts yet.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

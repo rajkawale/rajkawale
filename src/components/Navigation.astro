@@ -1,0 +1,148 @@
+---
+import LinkedInIcon from './icons/LinkedInIcon';
+import GithubIcon from './icons/GithubIcon';
+
+const currentPath = Astro.url.pathname;
+
+const isActive = (path: string) => {
+  if (path === '/') return currentPath === '/';
+  return currentPath.startsWith(path);
+};
+---
+
+<!-- Top Left: Brand Logo -->
+<a 
+  href="/" 
+  id="top-logo"
+  class="fixed top-8 left-8 z-50 text-xl font-bold font-serif tracking-tight text-slate-100 hover:text-indigo-400 transition-opacity duration-300"
+>
+  Raj Kawale
+</a>
+
+<script>
+  const topLogo = document.getElementById('top-logo');
+  
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    
+    if (scrollY > 50) {
+      topLogo?.classList.add('opacity-0', 'pointer-events-none');
+    } else {
+      topLogo?.classList.remove('opacity-0', 'pointer-events-none');
+    }
+  });
+</script>
+
+<!-- Top Right: Contact & GitHub (Mobile Only) -->
+<div class="fixed top-8 right-8 z-50 flex items-center gap-4 md:hidden">
+  <a 
+    href="/contact" 
+    class={`text-sm font-medium font-sans transition-colors ${
+      isActive('/contact') ? 'text-white' : 'text-slate-300 hover:text-white'
+    }`}
+  >
+    Contact
+  </a>
+  <a 
+    href="https://github.com/rajkawale" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="text-zinc-400 hover:text-slate-100 transition-colors"
+    aria-label="GitHub"
+  >
+    <GithubIcon client:load className="w-5 h-5" />
+  </a>
+</div>
+
+<!-- Bottom: Navigation Dock -->
+<nav class="nav-dock fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 p-2 rounded-full bg-[#0f172a]/80 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-black/50">
+  <!-- Navigation Links -->
+  <a 
+    href="/#projects" 
+    class={`nav-link px-4 py-2 text-sm font-medium font-sans transition-colors rounded-full ${
+      isActive('/') ? 'text-white bg-white/10' : 'text-slate-300 hover:text-white hover:bg-white/5'
+    }`}
+  >
+    Work
+  </a>
+  <a 
+    href="/blog" 
+    class={`nav-link px-4 py-2 text-sm font-medium font-sans transition-colors rounded-full ${
+      isActive('/blog') ? 'text-white bg-white/10' : 'text-slate-300 hover:text-white hover:bg-white/5'
+    }`}
+  >
+    Writing
+  </a>
+  <a 
+    href="/notes" 
+    class={`nav-link px-4 py-2 text-sm font-medium font-sans transition-colors rounded-full ${
+      isActive('/notes') ? 'text-white bg-white/10' : 'text-slate-300 hover:text-white hover:bg-white/5'
+    }`}
+  >
+    Notes
+  </a>
+  <!-- Contact: Desktop Only -->
+  <a 
+    href="/contact" 
+    class={`nav-link hidden md:block px-4 py-2 text-sm font-medium font-sans transition-colors rounded-full ${
+      isActive('/contact') ? 'text-white bg-white/10' : 'text-slate-300 hover:text-white hover:bg-white/5'
+    }`}
+  >
+    Contact
+  </a>
+
+  <!-- Separator -->
+  <div class="h-4 w-px bg-white/10 mx-1"></div>
+
+  <!-- Social Icons -->
+  <a 
+    href="https://linkedin.com/in/rajkawale" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="social-link p-2 text-zinc-400 hover:text-slate-100 transition-colors rounded-full hover:bg-white/5"
+    aria-label="LinkedIn"
+  >
+    <LinkedInIcon client:load className="w-4 h-4" />
+  </a>
+  <!-- GitHub: Desktop Only in Dock -->
+  <a 
+    href="https://github.com/rajkawale" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="social-link hidden md:block p-2 text-zinc-400 hover:text-slate-100 transition-colors rounded-full hover:bg-white/5"
+    aria-label="GitHub"
+  >
+    <GithubIcon client:load className="w-4 h-4" />
+  </a>
+</nav>
+
+<style>
+  .nav-dock {
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+  }
+
+  /* Mobile: Scale down slightly */
+  @media (max-width: 640px) {
+    .nav-dock {
+      bottom: 1rem;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .nav-link {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .social-link {
+      padding: 0.5rem;
+    }
+
+    .social-link svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+</style>
+
