@@ -26,19 +26,36 @@ const isActive = (path: string) => {
     <!-- Navigation Links - Floating Text Style (Hidden on mobile) -->
     <nav class="hidden md:flex items-center gap-8">
       <a 
+        href="/" 
+        id="nav-home"
+        class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
+      >
+        Home
+      </a>
+      <a 
         href="/#projects" 
+        id="nav-work"
         class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
       >
         Work
       </a>
       <a 
+        href="/trusted-by" 
+        id="nav-trusted-by"
+        class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
+      >
+        Trusted By
+      </a>
+      <a 
         href="/blog" 
+        id="nav-writing"
         class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
       >
         Writing
       </a>
       <a 
         href="/contact" 
+        id="nav-contact"
         class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
       >
         Contact
@@ -65,4 +82,101 @@ const isActive = (path: string) => {
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
   }
 </style>
+
+<script>
+  // Handle all navigation link active states based on scroll position and current page
+  document.addEventListener('DOMContentLoaded', () => {
+    const homeLink = document.getElementById('nav-home');
+    const workLink = document.getElementById('nav-work');
+    const trustedByLink = document.getElementById('nav-trusted-by');
+    const writingLink = document.getElementById('nav-writing');
+    const contactLink = document.getElementById('nav-contact');
+    
+    const projectsSection = document.getElementById('projects');
+    const trustedBySection = document.getElementById('trusted-by');
+    const writingSection = document.getElementById('writing');
+    const currentPath = window.location.pathname;
+    
+    if (!homeLink || !workLink || !trustedByLink || !writingLink || !contactLink) return;
+    
+    function updateActiveStates() {
+      const scrollY = window.scrollY;
+      const isAtTop = scrollY < 300; // Active when near top of page
+      
+      // Reset all links first
+      [homeLink, workLink, trustedByLink, writingLink, contactLink].forEach(link => {
+        link.classList.remove('text-white');
+        link.classList.add('text-[#888]');
+      });
+      
+      // Update Home link - only active at top of homepage
+      if (isAtTop && currentPath === '/') {
+        homeLink.classList.add('text-white');
+        homeLink.classList.remove('text-[#888]');
+        return; // Don't check other sections if at top
+      }
+      
+      // Update Work link - active when projects section is in view
+      if (projectsSection && currentPath === '/') {
+        const rect = projectsSection.getBoundingClientRect();
+        const isInView = rect.top <= 200 && rect.bottom >= 200;
+        
+        if (isInView) {
+          workLink.classList.add('text-white');
+          workLink.classList.remove('text-[#888]');
+          return;
+        }
+      }
+      
+      // Update Trusted By link - active when section is in view or on trusted-by page
+      if (currentPath === '/trusted-by') {
+        trustedByLink.classList.add('text-white');
+        trustedByLink.classList.remove('text-[#888]');
+        return;
+      } else if (trustedBySection && currentPath === '/') {
+        const rect = trustedBySection.getBoundingClientRect();
+        const isInView = rect.top <= 200 && rect.bottom >= 200;
+        
+        if (isInView) {
+          trustedByLink.classList.add('text-white');
+          trustedByLink.classList.remove('text-[#888]');
+          return;
+        }
+      }
+      
+      // Update Writing link - active when section is in view or on blog page
+      if (currentPath === '/blog' || currentPath.startsWith('/blog/')) {
+        writingLink.classList.add('text-white');
+        writingLink.classList.remove('text-[#888]');
+        return;
+      } else if (writingSection && currentPath === '/') {
+        const rect = writingSection.getBoundingClientRect();
+        const isInView = rect.top <= 200 && rect.bottom >= 200;
+        
+        if (isInView) {
+          writingLink.classList.add('text-white');
+          writingLink.classList.remove('text-[#888]');
+          return;
+        }
+      }
+      
+      // Update Contact link - active when on contact page
+      if (currentPath === '/contact') {
+        contactLink.classList.add('text-white');
+        contactLink.classList.remove('text-[#888]');
+      }
+    }
+    
+    // Check on scroll
+    window.addEventListener('scroll', updateActiveStates);
+    
+    // Check on page load (in case user lands on hash)
+    if (window.location.hash) {
+      setTimeout(updateActiveStates, 100);
+    }
+    
+    // Check initial state
+    updateActiveStates();
+  });
+</script>
 

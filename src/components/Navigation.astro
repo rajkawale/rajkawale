@@ -5,7 +5,10 @@ import GithubIcon from './icons/GithubIcon';
 const currentPath = Astro.url.pathname;
 
 const isActive = (path: string) => {
-  if (path === '/') return currentPath === '/';
+  if (path === '/') {
+    // Home is active only if we're exactly at root and not on other pages
+    return currentPath === '/' && !currentPath.includes('#');
+  }
   return currentPath.startsWith(path);
 };
 ---
@@ -58,35 +61,38 @@ const isActive = (path: string) => {
 <nav class="nav-dock fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 p-2 rounded-full bg-[#0f172a]/80 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-black/50">
   <!-- Navigation Links -->
   <a 
+    href="/" 
+    id="dock-home"
+    class="moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans text-[#888] hover:text-white hover:bg-white/5 transition-all duration-300 ease-out rounded-full"
+  >
+    Home
+  </a>
+  <a 
     href="/#projects" 
-    class={`moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans transition-all duration-300 ease-out rounded-full ${
-      isActive('/') ? 'text-white bg-white/10' : 'text-[#888] hover:text-white hover:bg-white/5'
-    }`}
+    id="dock-work"
+    class="moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans text-[#888] hover:text-white hover:bg-white/5 transition-all duration-300 ease-out rounded-full"
   >
     Work
   </a>
   <a 
-    href="/blog" 
-    class={`moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans transition-all duration-300 ease-out rounded-full ${
-      isActive('/blog') ? 'text-white bg-white/10' : 'text-[#888] hover:text-white hover:bg-white/5'
-    }`}
+    href="/trusted-by" 
+    id="dock-trusted-by"
+    class="moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans text-[#888] hover:text-white hover:bg-white/5 transition-all duration-300 ease-out rounded-full"
   >
-    Writing
+    Trusted By
   </a>
   <a 
-    href="/notes" 
-    class={`moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans transition-all duration-300 ease-out rounded-full ${
-      isActive('/notes') ? 'text-white bg-white/10' : 'text-[#888] hover:text-white hover:bg-white/5'
-    }`}
+    href="/blog" 
+    id="dock-writing"
+    class="moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans text-[#888] hover:text-white hover:bg-white/5 transition-all duration-300 ease-out rounded-full"
   >
-    Notes
+    Writing
   </a>
   <!-- Contact: Desktop Only -->
   <a 
     href="/contact" 
-    class={`moonlight-container nav-link hidden md:block px-4 py-2 text-sm font-medium font-sans transition-all duration-300 ease-out rounded-full ${
-      isActive('/contact') ? 'text-white bg-white/10' : 'text-[#888] hover:text-white hover:bg-white/5'
-    }`}
+    id="dock-contact"
+    class="moonlight-container nav-link hidden md:block px-4 py-2 text-sm font-medium font-sans text-[#888] hover:text-white hover:bg-white/5 transition-all duration-300 ease-out rounded-full"
   >
     Contact
   </a>
@@ -168,10 +174,107 @@ const isActive = (path: string) => {
       padding: 0.5rem;
     }
 
-    .social-link svg {
-      width: 1rem;
-      height: 1rem;
-    }
+  .social-link svg {
+    width: 1rem;
+    height: 1rem;
   }
+}
 </style>
+
+<script define:vars={{ currentPath: currentPath }}>
+  // Handle all navigation link active states based on scroll position and current page
+  document.addEventListener('DOMContentLoaded', () => {
+    const homeLink = document.getElementById('dock-home');
+    const workLink = document.getElementById('dock-work');
+    const trustedByLink = document.getElementById('dock-trusted-by');
+    const writingLink = document.getElementById('dock-writing');
+    const contactLink = document.getElementById('dock-contact');
+    
+    const projectsSection = document.getElementById('projects');
+    const trustedBySection = document.getElementById('trusted-by');
+    const writingSection = document.getElementById('writing');
+    
+    if (!homeLink || !workLink || !trustedByLink || !writingLink || !contactLink) return;
+    
+    function updateActiveStates() {
+      const scrollY = window.scrollY;
+      const isAtTop = scrollY < 300; // Active when near top of page
+      const path = window.location.pathname;
+      
+      // Reset all links first
+      [homeLink, workLink, trustedByLink, writingLink, contactLink].forEach(link => {
+        link.classList.remove('text-white', 'bg-white/10');
+        link.classList.add('text-[#888]', 'hover:bg-white/5');
+      });
+      
+      // Update Home link - only active at top of homepage
+      if (isAtTop && path === '/') {
+        homeLink.classList.add('text-white', 'bg-white/10');
+        homeLink.classList.remove('text-[#888]', 'hover:bg-white/5');
+        return; // Don't check other sections if at top
+      }
+      
+      // Update Work link - active when projects section is in view
+      if (projectsSection && path === '/') {
+        const rect = projectsSection.getBoundingClientRect();
+        const isInView = rect.top <= 200 && rect.bottom >= 200;
+        
+        if (isInView) {
+          workLink.classList.add('text-white', 'bg-white/10');
+          workLink.classList.remove('text-[#888]', 'hover:bg-white/5');
+          return;
+        }
+      }
+      
+      // Update Trusted By link - active when section is in view or on trusted-by page
+      if (path === '/trusted-by') {
+        trustedByLink.classList.add('text-white', 'bg-white/10');
+        trustedByLink.classList.remove('text-[#888]', 'hover:bg-white/5');
+        return;
+      } else if (trustedBySection && path === '/') {
+        const rect = trustedBySection.getBoundingClientRect();
+        const isInView = rect.top <= 200 && rect.bottom >= 200;
+        
+        if (isInView) {
+          trustedByLink.classList.add('text-white', 'bg-white/10');
+          trustedByLink.classList.remove('text-[#888]', 'hover:bg-white/5');
+          return;
+        }
+      }
+      
+      // Update Writing link - active when section is in view or on blog page
+      if (path === '/blog' || path.startsWith('/blog/')) {
+        writingLink.classList.add('text-white', 'bg-white/10');
+        writingLink.classList.remove('text-[#888]', 'hover:bg-white/5');
+        return;
+      } else if (writingSection && path === '/') {
+        const rect = writingSection.getBoundingClientRect();
+        const isInView = rect.top <= 200 && rect.bottom >= 200;
+        
+        if (isInView) {
+          writingLink.classList.add('text-white', 'bg-white/10');
+          writingLink.classList.remove('text-[#888]', 'hover:bg-white/5');
+          return;
+        }
+      }
+      
+      // Update Contact link - active when on contact page
+      if (path === '/contact') {
+        contactLink.classList.add('text-white', 'bg-white/10');
+        contactLink.classList.remove('text-[#888]', 'hover:bg-white/5');
+      }
+    }
+    
+    // Check on scroll
+    window.addEventListener('scroll', updateActiveStates);
+    
+    // Check on page load (in case user lands on hash)
+    if (window.location.hash) {
+      setTimeout(updateActiveStates, 100);
+    }
+    
+    // Check initial state
+    updateActiveStates();
+  });
+</script>
 
