@@ -100,7 +100,7 @@ function toSlug(name: string): string {
 
     <!-- View All Perspectives Link - Bottom Right -->
     <div class="archive-link-container">
-      <a href="/trusted-by" class="text-xs font-mono text-neutral-500 hover:text-neutral-300 transition-colors inline-flex items-center gap-1">
+      <a href="/trusted-by" class="archive-link">
         View all perspectives →
       </a>
     </div>
@@ -144,6 +144,23 @@ function toSlug(name: string): string {
     margin-top: 24px;
     display: flex;
     justify-content: flex-end;
+  }
+
+  /* Archive Link - Matching Think Section */
+  .archive-link {
+    font-family: 'JetBrains Mono', 'Geist Mono', 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .archive-link:hover {
+    color: #fff;
+    transform: translateX(5px);
   }
 </style>
 
