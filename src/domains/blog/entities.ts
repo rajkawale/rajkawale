@@ -7,5 +7,6 @@ export interface BlogPost {
   coverImage?: string;
   tags?: string[];
   canonicalUrl?: string;
+  category?: string;
 }
 

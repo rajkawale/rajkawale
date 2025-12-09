@@ -97,12 +97,6 @@ const isActive = (path: string) => {
         Writing
       </a>
       <a
-        href="/notes"
-        class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 ease-out hover:opacity-100 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
-      >
-        Notes
-      </a>
-      <a
         href="/contact"
         class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 ease-out hover:opacity-100 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
       >
@@ -133,75 +127,6 @@ const isActive = (path: string) => {
     </nav>
   </div>
 </div>
-
-<!-- Mobile Bottom Navigation - Apple Dock Style -->
-<nav class="mobile-dock fixed bottom-0 left-1/2 -translate-x-1/2 z-50 md:hidden mb-4">
-  <div class="apple-dock-pill flex items-center justify-center gap-6 px-6 py-3">
-    <!-- Work -->
-    <a 
-      href="/#projects" 
-      class="dock-item flex flex-col items-center justify-center transition-transform duration-200 ease-out active:scale-90"
-      aria-label="Work"
-    >
-      <div class="dock-icon-wrapper">
-        <svg
-          class="dock-icon w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-          ></path>
-        </svg>
-      </div>
-      <span class="dock-label text-xs font-medium mt-1">Work</span>
-    </a>
-
-    <!-- Writing -->
-    <a 
-      href="/blog" 
-      class="dock-item flex flex-col items-center justify-center transition-transform duration-200 ease-out active:scale-90"
-      aria-label="Writing"
-    >
-      <div class="dock-icon-wrapper">
-        <svg
-          class="dock-icon w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-          ></path>
-        </svg>
-      </div>
-      <span class="dock-label text-xs font-medium mt-1">Writing</span>
-    </a>
-
-    <!-- LinkedIn -->
-    <a 
-      href="https://www.linkedin.com/in/rajkawale/" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      class="dock-item flex flex-col items-center justify-center transition-transform duration-200 ease-out active:scale-90"
-      aria-label="LinkedIn"
-    >
-      <div class="dock-icon-wrapper">
-        <LinkedInIcon client:load className="dock-icon w-6 h-6" />
-      </div>
-      <span class="dock-label text-xs font-medium mt-1">LinkedIn</span>
-    </a>
-  </div>
-</nav>
 
 <script>
   const mobileLogo = document.getElementById('mobile-logo');
@@ -350,127 +275,10 @@ const isActive = (path: string) => {
     }
   }
 
-  /* Apple Dock Style Navigation */
-  .mobile-dock {
-    /* Safe area padding for iOS home bar */
-    padding-bottom: max(1rem, env(safe-area-inset-bottom));
-    margin-bottom: max(0.5rem, env(safe-area-inset-bottom) * 0.5);
-  }
-
-  .apple-dock-pill {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-radius: 9999px; /* Heavily rounded - pill shape */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    min-width: fit-content;
-  }
-
-  .dock-item {
-    min-width: 60px;
-    min-height: 60px;
-    touch-action: manipulation;
-    color: rgba(255, 255, 255, 0.9);
-    cursor: pointer;
-  }
-
-  .dock-item:active {
-    transform: scale(0.85);
-    transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .dock-icon-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease-out;
-  }
-
-  .dock-item:active .dock-icon-wrapper {
-    transform: scale(0.9);
-  }
-
-  .dock-icon {
-    color: rgba(255, 255, 255, 0.9);
-    transition: color 0.2s ease-out;
-  }
-
-  .dock-item:hover .dock-icon {
-    color: rgba(255, 255, 255, 1);
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
-  }
-
-  .dock-label {
-    color: rgba(255, 255, 255, 0.8);
-    transition: color 0.2s ease-out, text-shadow 0.2s ease-out;
-  }
-
-  .dock-item:hover .dock-label {
-    color: rgba(255, 255, 255, 1);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-  }
-
-  .dock-item:hover {
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-  }
-
   .moonlight-container:hover {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.5);
   }
-
-  /* Responsive adjustments */
-  @media (max-width: 375px) {
-    .apple-dock-pill {
-      gap: 1rem;
-      padding: 0.75rem 1.25rem;
-    }
-
-    .dock-item {
-      min-width: 50px;
-      min-height: 50px;
-    }
-
-    .dock-icon {
-      width: 1.25rem;
-      height: 1.25rem;
-    }
-
-    .dock-label {
-      font-size: 0.625rem;
-    }
-  }
-
-  /* Hide on desktop */
-  @media (min-width: 768px) {
-    .mobile-dock {
-      display: none;
-    }
-  }
 </style>
 
-<script>
-  // Add bounce animation on tap
-  document.addEventListener('DOMContentLoaded', () => {
-    const dockItems = document.querySelectorAll('.dock-item');
-    
-    dockItems.forEach((item) => {
-      item.addEventListener('touchstart', function() {
-        this.style.transform = 'scale(0.85)';
-      }, { passive: true });
-      
-      item.addEventListener('touchend', function() {
-        setTimeout(() => {
-          this.style.transform = '';
-        }, 150);
-      }, { passive: true });
-      
-      item.addEventListener('touchcancel', function() {
-        this.style.transform = '';
-      }, { passive: true });
-    });
-  });
-</script>
 

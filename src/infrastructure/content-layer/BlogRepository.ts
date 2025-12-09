@@ -28,6 +28,7 @@ export class BlogRepository implements IBlogRepository {
         coverImage: post.coverImage,
         tags: post.tags || [],
         canonicalUrl: post.canonicalUrl,
+        category: post.category,
       }));
       
       console.log(`Loaded ${this.posts.length} blog posts`);
