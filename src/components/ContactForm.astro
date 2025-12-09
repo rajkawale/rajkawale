@@ -99,16 +99,38 @@ const { formspreeEndpoint } = Astro.props;
 </div>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
+  // Track Clarity events
+  function trackEvent(eventName) {
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', eventName);
+    }
+  }
+
+  const form = document.getElementById('contact-form');
   const toast = document.getElementById('toast');
   const toastOverlay = document.getElementById('toast-overlay');
   const toastTitle = document.getElementById('toast-title');
   const toastMessage = document.getElementById('toast-message');
   const toastIconContainer = document.getElementById('toast-icon-container');
-  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
-  const nameInput = document.getElementById('name') as HTMLInputElement;
-  const emailInput = document.getElementById('email') as HTMLInputElement;
-  const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+  const submitBtn = document.getElementById('submit-btn');
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const messageInput = document.getElementById('message');
+  
+  // Track form abandonment
+  let hasTypedInMessage = false;
+  let formAbandoned = false;
+  
+  messageInput?.addEventListener('input', () => {
+    hasTypedInMessage = true;
+  });
+  
+  // Track abandonment on page unload
+  window.addEventListener('beforeunload', () => {
+    if (hasTypedInMessage && !formAbandoned) {
+      trackEvent('Form_Abandon');
+    }
+  });
 
   /**
    * Extract first name from full name
@@ -163,12 +185,12 @@ const { formspreeEndpoint } = Astro.props;
   function clearErrorStates() {
     const inputs = form.querySelectorAll('.form-input');
     inputs.forEach((input) => {
-      (input as HTMLElement).classList.remove('error-state');
+      input.classList.remove('error-state');
     });
     form.classList.remove('shake');
   }
 
-  function setErrorState(input: HTMLElement) {
+  function setErrorState(input) {
     input.classList.add('error-state');
   }
 
@@ -212,6 +234,10 @@ const { formspreeEndpoint } = Astro.props;
     
     // Extract first name for personalization
     const firstName = getFirstName(name);
+    
+    // Track form success
+    trackEvent('Form_Sent_Success');
+    formAbandoned = true; // Prevent abandonment tracking
     
     // Show success toast with personalized message
     showToast(
@@ -257,10 +283,10 @@ const { formspreeEndpoint } = Astro.props;
 </script>
 
 <style>
-  /* Mobile padding for dock clearance */
+  /* Mobile padding for dock clearance + safe area */
   @media (max-width: 640px) {
     .contact-form {
-      padding-bottom: 140px;
+      padding-bottom: calc(140px + env(safe-area-inset-bottom));
     }
   }
 

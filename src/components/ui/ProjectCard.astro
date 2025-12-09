@@ -276,16 +276,39 @@ const statusColors = {
   }
 </style>
 
-<script>
+<script define:vars={{ projectSlug: project.slug }}>
+  // Track Clarity events
+  function trackEvent(eventName) {
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', eventName);
+    }
+  }
+
   // Make entire card clickable except for demo/repo links
-  document.querySelectorAll('.project-card').forEach((card) => {
+  document.querySelectorAll(`.project-card[data-project-slug="${projectSlug}"]`).forEach((card) => {
+    const slug = card.dataset.projectSlug;
+    
+    // Track project-specific button clicks
+    const demoButton = card.querySelector('a.glass-button[target="_blank"]');
+    
+    if (demoButton) {
+      demoButton.addEventListener('click', (e) => {
+        if (slug === 'raitalk') {
+          trackEvent('Click_RaiTalk_Demo');
+        } else if (slug === 'trinka') {
+          trackEvent('Click_Trinka_Proto');
+        } else if (slug === 'madhav-farm') {
+          trackEvent('Click_MadhavFarm_Case');
+        }
+      });
+    }
+    
     card.addEventListener('click', (e) => {
       // Don't navigate if clicking on external links
       if (e.target.closest('a[target="_blank"]')) {
         return;
       }
       // Navigate to project detail page
-      const slug = card.dataset.projectSlug;
       if (slug) {
         window.location.href = `/projects/${slug}`;
       }

@@ -2,30 +2,61 @@
 import SEO from './SEO.astro';
 import Clarity from './Clarity.astro';
 import NavigationWrapper from './NavigationWrapper.astro';
+import Footer from './Footer.astro';
 
 interface Props {
-  title: string;
+  title?: string;
   description?: string;
   image?: string;
   clarityId?: string;
+  keywords?: string;
 }
 
 const {
-  title,
-  description,
+  title = 'Raj Kawale | Product Manager & Founder - Cognitive AI & Systems',
+  description = 'Portfolio of Raj Kawale, a Product Manager and Founder specializing in Zero-to-One builds, Cognitive AI systems (RaiTalk), and Agri-tech supply chains.',
   image,
   clarityId = 'ugkqsj83mt',
+  keywords = 'Raj Kawale, Product Manager, Founder, Cognitive AI, Systems Thinking, Agri-tech, DeepSeek, React, Next.js',
 } = Astro.props;
 
 const siteUrl = Astro.site?.href || '';
 const canonicalUrl = siteUrl + Astro.url.pathname;
+
+// Structured Data for Person entity
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Raj Kawale",
+  "url": siteUrl || "https://rajkawale.com",
+  "jobTitle": "Product Manager & Founder",
+  "worksFor": [
+    {
+      "@type": "Organization",
+      "name": "RaiTalk",
+      "url": "https://raitalk.rajkawale.com/"
+    },
+    {
+      "@type": "Organization",
+      "name": "Madhav Farm"
+    }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/rajkawale/",
+    "https://github.com/rajkawale",
+    "https://raitalk.rajkawale.com/",
+    "https://trinka.rajkawale.com/"
+  ],
+  "description": "A systems-thinking Product Manager and Founder currently building Cognitive AI solutions and scalable tech ventures."
+};
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <SEO title={title} description={description} image={image} url={canonicalUrl} />
+    <SEO title={title} description={description} image={image} url={canonicalUrl} keywords={keywords} />
     <Clarity measurementId={clarityId} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,6 +68,30 @@ const canonicalUrl = siteUrl + Astro.url.pathname;
   <body class="bg-[#020617] text-zinc-300 font-sans antialiased deep-mind">
     <NavigationWrapper />
     <slot />
+    <Footer />
+    
+    <!-- Global Clarity Event Tracking -->
+    <script is:inline>
+      // Track Clarity events
+      function trackEvent(eventName) {
+        if (typeof window !== 'undefined' && window.clarity) {
+          window.clarity('event', eventName);
+        }
+      }
+
+      // Track email copy events
+      document.addEventListener('copy', (e) => {
+        const selection = window.getSelection()?.toString() || '';
+        // Check if copied text contains email pattern or common email addresses
+        const emailPattern = /[\w\.-]+@[\w\.-]+\.\w+/;
+        const knownEmails = ['rajendrakawale101@gmail.com', 'rajkawale'];
+        
+        if (emailPattern.test(selection) || 
+            knownEmails.some(email => selection.toLowerCase().includes(email.toLowerCase()))) {
+          trackEvent('Copy_Email');
+        }
+      });
+    </script>
   </body>
 </html>
 
@@ -48,12 +103,45 @@ const canonicalUrl = siteUrl + Astro.url.pathname;
     --color-accent-indigo: #818cf8;
   }
 
+  /* Remove ugly tap highlights */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Mobile Best Practices: Keyboard Overlay Fix */
+  html {
+    scroll-padding-bottom: 20vh;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: #020617 !important;
     color: #d4d4d8;
     position: relative;
     overflow-x: hidden;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+
+  /* Respect iPhone notch and home bar - Update main containers */
+  main {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--main-padding-bottom, 0px));
+  }
+
+  /* For pages using Tailwind pb-* classes, add safe area */
+  @media (max-width: 768px) {
+    main.pb-32 {
+      padding-bottom: calc(8rem + env(safe-area-inset-bottom));
+    }
+    main.pb-24 {
+      padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+    }
+    main.pb-16 {
+      padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+    }
   }
 
   /* The Breathing Aurora: Two Large Blurred Gradient Orbs - Very Diffuse */

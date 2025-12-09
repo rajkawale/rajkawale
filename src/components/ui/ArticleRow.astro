@@ -3,26 +3,36 @@ import type { BlogPost } from '../../domains/blog/entities';
 
 interface Props {
   post: BlogPost;
+  readTime?: number;
 }
 
-const { post } = Astro.props;
+const { post, readTime } = Astro.props;
 ---
 
 <a
   href={`/blog/${post.slug}`}
   class="article-row group block transition-all duration-200 ease"
+  data-article-title={post.title}
 >
   <div class="article-row-container">
-    <!-- Date (Left) -->
-    <time
-      datetime={post.publishedAt.toISOString()}
-      class="article-date"
-    >
-      {post.publishedAt.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-      })}
-    </time>
+    <!-- Date and Read Time (Left) -->
+    <div class="article-date-container">
+      <time
+        datetime={post.publishedAt.toISOString()}
+        class="article-date"
+      >
+        {post.publishedAt.toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+        })}
+      </time>
+      {readTime && (
+        <>
+          <span class="article-separator">·</span>
+          <span class="article-read-time">{readTime} min</span>
+        </>
+      )}
+    </div>
     
     <!-- Connector Line (Dots) -->
     <div class="article-connector"></div>
@@ -54,14 +64,37 @@ const { post } = Astro.props;
     gap: 1rem;
   }
 
-  /* Date - Left, Muted Grey, Sans-serif */
+  /* Date Container - Fixed width, Left aligned */
+  .article-date-container {
+    width: 140px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    text-align: left;
+  }
+
+  /* Date - Monospace, Muted Grey */
   .article-date {
-    font-family: sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'JetBrains Mono', 'Geist Mono', 'Courier New', monospace;
     font-size: 0.875rem;
     color: #888;
-    text-align: left;
     white-space: nowrap;
-    flex-shrink: 0;
+    transition: color 0.2s ease;
+  }
+
+  /* Separator (·) - High transparency */
+  .article-separator {
+    color: rgba(136, 136, 136, 0.4);
+    font-size: 0.875rem;
+  }
+
+  /* Read Time - Smaller, darker grey */
+  .article-read-time {
+    font-family: 'JetBrains Mono', 'Geist Mono', 'Courier New', monospace;
+    font-size: 0.85em;
+    color: #555;
+    white-space: nowrap;
     transition: color 0.2s ease;
   }
 
@@ -98,6 +131,10 @@ const { post } = Astro.props;
     color: #aaa;
   }
 
+  .article-row:hover .article-read-time {
+    color: #777;
+  }
+
   .article-row:hover .article-title {
     color: #fff;
   }
@@ -109,5 +146,66 @@ const { post } = Astro.props;
   .article-row:hover .article-connector {
     border-bottom-color: rgba(255, 255, 255, 0.3);
   }
+
+  /* Mobile Responsive Styles (< 640px) */
+  @media (max-width: 640px) {
+    /* Switch to column layout on mobile */
+    .article-row-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    /* Hide connector on mobile */
+    .article-connector {
+      display: none;
+    }
+
+    /* Date container: Remove fixed width, allow natural flow */
+    .article-date-container {
+      width: auto;
+      margin-bottom: 4px;
+    }
+
+    /* Date: Smaller font on mobile */
+    .article-date {
+      font-size: 12px;
+    }
+
+    /* Title: Full width, wrap text, left align */
+    .article-title {
+      width: 100%;
+      white-space: normal;
+      text-align: left;
+      flex-shrink: 1;
+    }
+
+    /* Hide arrow on mobile (optional, cleaner look) */
+    .article-arrow {
+      display: none;
+    }
+  }
 </style>
+
+<script>
+  function trackEvent(eventName) {
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', eventName);
+    }
+  }
+
+  document.querySelectorAll('.article-row').forEach((row) => {
+    row.addEventListener('click', (e) => {
+      const articleTitle = row.dataset.articleTitle;
+      if (articleTitle) {
+        // Sanitize title for event name (remove special chars, limit length)
+        const sanitizedTitle = articleTitle
+          .replace(/[^a-zA-Z0-9\s]/g, '')
+          .replace(/\s+/g, '_')
+          .substring(0, 50);
+        trackEvent(`Open_Article_${sanitizedTitle}`);
+      }
+    });
+  });
+</script>
 

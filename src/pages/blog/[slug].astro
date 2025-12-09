@@ -263,5 +263,44 @@ const currentUrl = Astro.url.href;
       backLink.textContent = '← Back to Home';
     }
   });
+
+  // Track article reading completion (75% scroll)
+  (function() {
+    let hasTracked = false;
+    
+    function trackEvent(eventName) {
+      if (typeof window !== 'undefined' && window.clarity) {
+        window.clarity('event', eventName);
+      }
+    }
+
+    function checkScrollProgress() {
+      if (hasTracked) return;
+      
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollPercentage = (scrollTop + windowHeight) / documentHeight;
+      
+      if (scrollPercentage >= 0.75) {
+        trackEvent('Article_Read_Complete');
+        hasTracked = true;
+        // Remove listener after tracking
+        window.removeEventListener('scroll', checkScrollProgress);
+      }
+    }
+
+    // Throttle scroll events
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkScrollProgress();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  })();
 </script>
 
