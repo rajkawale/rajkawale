@@ -70,7 +70,6 @@ const structuredData = {
 <html lang="en">
   <head>
     <SEO title={title} description={description} image={image} url={canonicalUrl} keywords={keywords} />
-    <Clarity measurementId={clarityId} />
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -79,6 +78,8 @@ const structuredData = {
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <!-- Load Clarity after CSS and fonts to ensure proper styling in recordings -->
+    <Clarity measurementId={clarityId} />
   </head>
   <body class="bg-[#020617] text-zinc-300 font-sans antialiased deep-mind">
     <NavigationWrapper />
@@ -105,6 +106,114 @@ const structuredData = {
             knownEmails.some(email => selection.toLowerCase().includes(email.toLowerCase()))) {
           trackEvent('Copy_Email');
         }
+      });
+
+      // Wait for DOM to be ready before initializing tracking
+      document.addEventListener('DOMContentLoaded', () => {
+        // Navigation Tracking
+        function getNavEventName(href) {
+          if (href === '/' || href === '/#home') return 'Home';
+          if (href === '/#projects' || href.includes('#projects')) return 'Work';
+          if (href === '/blog' || href.includes('/blog')) return 'Writing';
+          if (href === '/contact') return 'Contact';
+          if (href === '/trusted-by' || href.includes('#trusted-by')) return 'TrustedBy';
+          return null;
+        }
+
+        // Track navigation clicks
+        document.querySelectorAll('nav a, header a[href^="/"], header a[href^="#"]').forEach(link => {
+          link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href') || '';
+            const eventName = getNavEventName(href);
+            if (eventName) {
+              trackEvent(`Nav_Click_${eventName}`);
+            }
+          });
+        });
+
+        // Track logo clicks
+        const logoLinks = document.querySelectorAll('a[href="/"]:not(nav a)');
+        logoLinks.forEach(logo => {
+          logo.addEventListener('click', () => {
+            trackEvent('Nav_Click_Logo');
+          });
+        });
+
+        // Section Visibility Tracking using Intersection Observer
+        const sectionObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+              const sectionId = entry.target.id;
+              if (sectionId) {
+                const sectionName = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+                trackEvent(`Section_View_${sectionName}`);
+                // Unobserve after first view to avoid duplicate events
+                sectionObserver.unobserve(entry.target);
+              }
+            }
+          });
+        }, { threshold: 0.5 });
+
+        // Observe all sections with IDs
+        document.querySelectorAll('section[id], div[id^="projects"], div[id^="writing"], div[id^="home"]').forEach(section => {
+          sectionObserver.observe(section);
+        });
+
+        // Scroll Depth Tracking
+        let maxScrollDepth = 0;
+        const scrollDepths = [25, 50, 75, 100];
+        
+        function checkScrollDepth() {
+          const windowHeight = window.innerHeight;
+          const documentHeight = document.documentElement.scrollHeight;
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const scrollPercent = Math.round(((scrollTop + windowHeight) / documentHeight) * 100);
+          
+          scrollDepths.forEach(depth => {
+            if (scrollPercent >= depth && maxScrollDepth < depth) {
+              trackEvent(`Scroll_Depth_${depth}`);
+              maxScrollDepth = depth;
+            }
+          });
+        }
+
+        // Throttle scroll events
+        let scrollTicking = false;
+        window.addEventListener('scroll', () => {
+          if (!scrollTicking) {
+            window.requestAnimationFrame(() => {
+              checkScrollDepth();
+              scrollTicking = false;
+            });
+            scrollTicking = true;
+          }
+        }, { passive: true });
+
+        // Time-based Engagement Tracking
+        const timeThresholds = [30, 60, 120, 300]; // 30s, 1min, 2min, 5min
+        const timeTracked = {};
+        
+        timeThresholds.forEach(seconds => {
+          setTimeout(() => {
+            if (!timeTracked[seconds]) {
+              trackEvent(`Time_On_Page_${seconds === 30 ? '30s' : seconds === 60 ? '1min' : seconds === 120 ? '2min' : '5min'}`);
+              timeTracked[seconds] = true;
+            }
+          }, seconds * 1000);
+        });
+
+        // Track external link clicks
+        document.querySelectorAll('a[target="_blank"], a[href^="http"]').forEach(link => {
+          link.addEventListener('click', (e) => {
+            try {
+              const url = new URL(link.href);
+              const domain = url.hostname.replace('www.', '');
+              trackEvent(`External_Link_Click_${domain.split('.')[0]}`);
+            } catch (e) {
+              // Invalid URL, skip
+            }
+          });
+        });
       });
     </script>
   </body>

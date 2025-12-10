@@ -141,6 +141,7 @@ const currentUrl = Astro.url.href;
               target="_blank"
               rel="noopener noreferrer"
               class="connect-button flex items-center gap-2 px-4 py-2.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all text-sm font-mono text-white"
+              data-track-share-linkedin
             >
               <svg
                 class="w-4 h-4"
@@ -158,6 +159,7 @@ const currentUrl = Astro.url.href;
               target="_blank"
               rel="noopener noreferrer"
               class="connect-button flex items-center gap-2 px-4 py-2.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all text-sm font-mono text-white"
+              data-track-share-twitter
             >
               <svg
                 class="w-4 h-4"
@@ -178,6 +180,7 @@ const currentUrl = Astro.url.href;
           id="back-navigation-link"
           href="/#writing"
           class="moonlight-container inline-block border border-white/20 bg-zinc-900/50 px-4 py-2 text-sm font-mono text-zinc-300 transition-all duration-300 ease-out hover:bg-zinc-800 rounded"
+          data-track-back-nav
         >
           ← Back to Home
         </a>
@@ -265,9 +268,12 @@ const currentUrl = Astro.url.href;
     }
   });
 
-  // Track article reading completion (75% scroll)
+  // Track article reading depth and engagement
   (function() {
-    let hasTracked = false;
+    const slug = window.location.pathname.split('/').pop() || 'unknown';
+    const slugFormatted = slug.replace(/-/g, '_');
+    const trackedDepths = {};
+    const depthThresholds = [0.25, 0.50, 0.75, 1.0];
     
     function trackEvent(eventName) {
       if (typeof window !== 'undefined' && window.clarity) {
@@ -275,20 +281,31 @@ const currentUrl = Astro.url.href;
       }
     }
 
+    // Track article start
+    trackEvent(`Article_Read_Start_${slugFormatted}`);
+
     function checkScrollProgress() {
-      if (hasTracked) return;
-      
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const scrollPercentage = (scrollTop + windowHeight) / documentHeight;
       
-      if (scrollPercentage >= 0.75) {
-        trackEvent('Article_Read_Complete');
-        hasTracked = true;
-        // Remove listener after tracking
-        window.removeEventListener('scroll', checkScrollProgress);
-      }
+      depthThresholds.forEach(threshold => {
+        const percent = Math.round(threshold * 100);
+        if (scrollPercentage >= threshold && !trackedDepths[percent]) {
+          trackedDepths[percent] = true;
+          if (percent === 25) {
+            trackEvent(`Article_Read_25_Percent_${slugFormatted}`);
+          } else if (percent === 50) {
+            trackEvent(`Article_Read_50_Percent_${slugFormatted}`);
+          } else if (percent === 75) {
+            trackEvent(`Article_Read_75_Percent_${slugFormatted}`);
+            trackEvent('Article_Read_Complete'); // Keep existing event
+          } else if (percent === 100) {
+            trackEvent(`Article_Read_100_Percent_${slugFormatted}`);
+          }
+        }
+      });
     }
 
     // Throttle scroll events
@@ -302,6 +319,43 @@ const currentUrl = Astro.url.href;
         ticking = true;
       }
     }, { passive: true });
+
+    // Track time-based engagement
+    const timeThresholds = [30, 60, 120, 300]; // 30s, 1min, 2min, 5min
+    timeThresholds.forEach(seconds => {
+      setTimeout(() => {
+        const timeLabel = seconds === 30 ? '30s' : seconds === 60 ? '1min' : seconds === 120 ? '2min' : '5min';
+        trackEvent(`Article_Time_Spent_${timeLabel}_${slugFormatted}`);
+      }, seconds * 1000);
+    });
+
+    // Track article share buttons
+    const linkedInShare = document.querySelector('[data-track-share-linkedin]');
+    if (linkedInShare) {
+      linkedInShare.addEventListener('click', () => {
+        trackEvent(`Article_Share_LinkedIn_${slugFormatted}`);
+      });
+    }
+
+    const twitterShare = document.querySelector('[data-track-share-twitter]');
+    if (twitterShare) {
+      twitterShare.addEventListener('click', () => {
+        trackEvent(`Article_Share_Twitter_${slugFormatted}`);
+      });
+    }
+
+    // Track back navigation
+    const backNav = document.querySelector('[data-track-back-nav]');
+    if (backNav) {
+      backNav.addEventListener('click', () => {
+        const referrer = document.referrer;
+        if (referrer && (referrer.includes('/blog') || referrer.includes('/writing'))) {
+          trackEvent('Article_Back_To_Blog');
+        } else {
+          trackEvent('Article_Back_To_Home');
+        }
+      });
+    }
   })();
 </script>
 

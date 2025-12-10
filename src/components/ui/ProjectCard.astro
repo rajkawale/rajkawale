@@ -287,19 +287,40 @@ const statusColors = {
   // Make entire card clickable except for demo/repo links
   document.querySelectorAll(`.project-card[data-project-slug="${projectSlug}"]`).forEach((card) => {
     const slug = card.dataset.projectSlug;
+    const slugFormatted = slug.charAt(0).toUpperCase() + slug.slice(1).replace(/-/g, '_');
+    
+    // Track project card hover
+    let hoverTracked = false;
+    card.addEventListener('mouseenter', () => {
+      if (!hoverTracked) {
+        trackEvent(`Project_Card_Hover_${slugFormatted}`);
+        hoverTracked = true;
+      }
+    });
     
     // Track project-specific button clicks
     const demoButton = card.querySelector('a.glass-button[target="_blank"]');
+    const codeButton = card.querySelector('a.glass-button[href*="github"], a.glass-button[href*="git"]');
     
     if (demoButton) {
       demoButton.addEventListener('click', (e) => {
+        e.stopPropagation();
         if (slug === 'raitalk') {
           trackEvent('Click_RaiTalk_Demo');
         } else if (slug === 'trinka') {
           trackEvent('Click_Trinka_Proto');
         } else if (slug === 'madhav-farm') {
           trackEvent('Click_MadhavFarm_Case');
+        } else {
+          trackEvent(`Project_Demo_Click_${slugFormatted}`);
         }
+      });
+    }
+    
+    if (codeButton) {
+      codeButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        trackEvent(`Project_Code_Click_${slugFormatted}`);
       });
     }
     
@@ -308,6 +329,8 @@ const statusColors = {
       if (e.target.closest('a[target="_blank"]')) {
         return;
       }
+      // Track card click
+      trackEvent(`Project_Card_Click_${slugFormatted}`);
       // Navigate to project detail page
       if (slug) {
         window.location.href = `/projects/${slug}`;

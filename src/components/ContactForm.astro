@@ -117,6 +117,48 @@ const { formspreeEndpoint } = Astro.props;
   const emailInput = document.getElementById('email');
   const messageInput = document.getElementById('message');
   
+  // Track form field interactions
+  nameInput?.addEventListener('focus', () => {
+    trackEvent('Form_Field_Focus_Name');
+  });
+  
+  emailInput?.addEventListener('focus', () => {
+    trackEvent('Form_Field_Focus_Email');
+  });
+  
+  messageInput?.addEventListener('focus', () => {
+    trackEvent('Form_Field_Focus_Message');
+  });
+  
+  nameInput?.addEventListener('blur', () => {
+    if (nameInput.value.trim()) {
+      trackEvent('Form_Field_Complete_Name');
+    }
+  });
+  
+  emailInput?.addEventListener('blur', () => {
+    if (emailInput.value.trim()) {
+      trackEvent('Form_Field_Complete_Email');
+    }
+  });
+  
+  messageInput?.addEventListener('blur', () => {
+    if (messageInput.value.trim()) {
+      trackEvent('Form_Field_Complete_Message');
+    }
+  });
+  
+  // Track form start typing
+  let formStarted = false;
+  [nameInput, emailInput, messageInput].forEach(input => {
+    input?.addEventListener('input', () => {
+      if (!formStarted) {
+        trackEvent('Form_Start_Typing');
+        formStarted = true;
+      }
+    });
+  });
+  
   // Track form abandonment
   let hasTypedInMessage = false;
   let formAbandoned = false;
@@ -213,6 +255,15 @@ const { formspreeEndpoint } = Astro.props;
     
     // Validate required fields
     if (!name || !email) {
+      // Track validation error
+      trackEvent('Form_Validation_Error');
+      if (!name) {
+        trackEvent('Form_Validation_Error_Required');
+      }
+      if (!email) {
+        trackEvent('Form_Validation_Error_Email');
+      }
+      
       // Show error toast
       showToast('Validation Error', 'Please fill in all required fields', false);
       

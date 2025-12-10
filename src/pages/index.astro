@@ -128,6 +128,7 @@ const otherFeatured = projectsToShow.filter(
           target="_blank"
           rel="noopener noreferrer"
           class="moonlight-container block w-full max-w-md mx-auto bg-white/5 backdrop-blur border border-white/10 rounded-lg px-6 py-8 transition-all duration-300 ease-out cursor-pointer"
+          data-track-hero-raitalk
         >
           <p class="text-xs uppercase tracking-widest text-gray-500">
             Currently Building
@@ -246,6 +247,7 @@ const otherFeatured = projectsToShow.filter(
             <a
               href={`/blog/${featuredPost.slug}`}
               class="think-featured-card block w-full bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-8 md:p-10 mb-12 transition-all duration-300 ease-out"
+              data-track-featured-post
             >
               <h3 class="text-2xl md:text-3xl font-serif font-bold text-white mb-4 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300 ease-out">
                 {featuredPost.title}
@@ -291,7 +293,7 @@ const otherFeatured = projectsToShow.filter(
               
               <!-- View Full Archive Link -->
               <div class="archive-link-container">
-                <a href="/blog" class="archive-link">
+                <a href="/blog" class="archive-link" data-track-archive-link>
                   View Full Archive →
                 </a>
               </div>
@@ -391,3 +393,63 @@ const otherFeatured = projectsToShow.filter(
     background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
   }
 </style>
+
+<script>
+  // Track Clarity events
+  function trackEvent(eventName) {
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', eventName);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Track featured post interactions
+    const featuredPost = document.querySelector('[data-track-featured-post]');
+    if (featuredPost) {
+      featuredPost.addEventListener('click', () => {
+        trackEvent('Featured_Post_Click');
+      });
+      
+      // Track hover (intent signal)
+      let hoverTracked = false;
+      featuredPost.addEventListener('mouseenter', () => {
+        if (!hoverTracked) {
+          trackEvent('Featured_Post_Hover');
+          hoverTracked = true;
+        }
+      });
+    }
+
+    // Track hero RaiTalk card click
+    const heroRaiTalk = document.querySelector('[data-track-hero-raitalk]');
+    if (heroRaiTalk) {
+      heroRaiTalk.addEventListener('click', () => {
+        trackEvent('Hero_RaiTalk_Click');
+      });
+    }
+
+    // Track archive link click
+    const archiveLink = document.querySelector('[data-track-archive-link]');
+    if (archiveLink) {
+      archiveLink.addEventListener('click', () => {
+        trackEvent('Click_View_Full_Archive');
+      });
+    }
+
+    // Track scroll past hero
+    let heroScrollTracked = false;
+    const heroSection = document.getElementById('home');
+    if (heroSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting && !heroScrollTracked && window.scrollY > 100) {
+            trackEvent('Hero_Scroll_Down');
+            heroScrollTracked = true;
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0 });
+      observer.observe(heroSection);
+    }
+  });
+</script>
