@@ -23,7 +23,7 @@ export const trustedBy: TrustedByPerson[] = [
   {
     name: "Jeevan Rathod",
     role: "AVP - Product & IT Ops | Co-Founder @ Opstronomy (Acquired) | Ex: ZoomRx, Edvizo, Tata CLIQ, Oyo | IIMR '20 | IITG '15",
-    text: "Raj is a dedicated hard working technopreneur. Keeping engaged with Entrepreneurial Idea has always remained as one of his first choice.",
+    text: "Worked together for 2 months a very small duration. He is so committed to targets and at times deliver beyond expectations. He has the ability to understand the problem quickly and provide a reliable solution. Commitment, Sincerity and ownership shown towards work are tremendous by him.",
     image: "/images/trusted/jeevan-rathod.jpg",
     linkedin: "https://www.linkedin.com/in/jeevan911/",
     gridClass: "md:col-span-1",

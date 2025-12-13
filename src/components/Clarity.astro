@@ -6,27 +6,114 @@ interface Props {
 const { measurementId = 'ugkqsj83mt' } = Astro.props;
 ---
 
-<!-- Load Clarity after CSS to ensure proper styling in recordings -->
+<!-- Load Clarity after CSS to ensure proper styling in recordings and heatmaps -->
 <script
   is:inline
   set:html={`
     (function(c,l,a,r,i,t,y){
-      // Wait for CSS to load before initializing Clarity
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-          setTimeout(function() {
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-          }, 100);
-        });
-      } else {
-        setTimeout(function() {
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        }, 100);
+      function initClarity() {
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       }
+
+      // Wait for all resources (CSS, fonts, images) to load before initializing Clarity
+      // This ensures heatmaps display properly styled content on both desktop and mobile
+      function waitForResourcesAndInit() {
+        var fontsReady = false;
+        var pageLoaded = false;
+        var initStartTime = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
+        
+        // Detect device type for debugging (mobile devices typically have touch support)
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
+                      ('ontouchstart' in window) || 
+                      (navigator.maxTouchPoints > 0);
+        var deviceType = isMobile ? 'Mobile' : 'Desktop';
+        
+        function tryInit() {
+          if (fontsReady && pageLoaded) {
+            var loadTime = typeof performance !== 'undefined' && performance.now ? 
+                          ((performance.now() - initStartTime) / 1000).toFixed(2) : 
+                          'N/A';
+            console.log('[Clarity] ✓ All resources loaded. Initializing Clarity...');
+            console.log('[Clarity] Load timing: ' + loadTime + 's (CSS and fonts ready) [' + deviceType + ']');
+            // Extra delay to ensure all CSS is applied and rendered
+            // Mobile devices may need slightly more time for rendering
+            var delay = isMobile ? 400 : 300;
+            setTimeout(function() {
+              try {
+                initClarity();
+                console.log('[Clarity] ✓ Clarity script loaded successfully [' + deviceType + ']');
+              } catch (e) {
+                console.error('[Clarity] ✗ Error loading Clarity:', e);
+              }
+            }, delay);
+          } else {
+            if (!pageLoaded) console.log('[Clarity] ⏳ Waiting for page load... [' + deviceType + ']');
+            if (!fontsReady) console.log('[Clarity] ⏳ Waiting for fonts... [' + deviceType + ']');
+          }
+        }
+
+        // Check if page is already loaded
+        // This works consistently on both desktop and mobile
+        if (document.readyState === 'complete') {
+          // Page fully loaded, use a small delay to ensure CSS is applied
+          setTimeout(function() {
+            pageLoaded = true;
+            console.log('[Clarity] ✓ Page already loaded [' + deviceType + ']');
+            tryInit();
+          }, 50);
+        } else {
+          // Wait for load event - ensures all resources including CSS are loaded
+          var loadHandler = function() {
+            pageLoaded = true;
+            console.log('[Clarity] ✓ Page load event fired [' + deviceType + ']');
+            tryInit();
+          };
+          // Use addEventListener (works on all modern browsers, desktop and mobile)
+          try {
+            window.addEventListener('load', loadHandler, { once: true });
+          } catch (e) {
+            // Fallback if once option not supported (very old browsers)
+            window.addEventListener('load', loadHandler);
+          }
+        }
+
+        // Wait for fonts to load (especially Google Fonts)
+        // Works on both desktop and mobile browsers
+        if ('fonts' in document && document.fonts && typeof document.fonts.ready !== 'undefined') {
+          document.fonts.ready.then(function() {
+            fontsReady = true;
+            var fontCount = document.fonts && document.fonts.size ? document.fonts.size : 0;
+            console.log('[Clarity] ✓ Fonts loaded (' + fontCount + ' fonts) [' + deviceType + ']');
+            tryInit();
+          }).catch(function(e) {
+            // Fonts API failed, use fallback timeout
+            // Mobile devices may need longer timeout for slower connections
+            var fallbackDelay = isMobile ? 1500 : 1000;
+            console.log('[Clarity] ⚠ Fonts API failed, using fallback timeout (' + fallbackDelay + 'ms)');
+            setTimeout(function() {
+              fontsReady = true;
+              tryInit();
+            }, fallbackDelay);
+          });
+        } else {
+          // No fonts API (older browsers), assume fonts are ready after a short delay
+          // This ensures CSS is applied even without Font Loading API
+          var noApiDelay = isMobile ? 500 : 300;
+          setTimeout(function() {
+            fontsReady = true;
+            console.log('[Clarity] ✓ No fonts API available, assuming fonts ready after ' + noApiDelay + 'ms');
+            tryInit();
+          }, noApiDelay);
+        }
+
+        // If both conditions are already met, try to init
+        tryInit();
+      }
+
+      // Start the waiting process
+      waitForResourcesAndInit();
     })(window, document, "clarity", "script", "${measurementId}");
   `}
 />
