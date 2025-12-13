@@ -36,11 +36,19 @@ if (latestPost) {
     const rawPost = rawPosts.find((p: any) => p.slug === latestPost.slug);
     const fullContent = rawPost?.content || '';
     featuredPostReadingTime = getReadingTime(fullContent);
+    console.log('[Blog Index] Featured post reading time:', featuredPostReadingTime);
   } catch (e) {
     // Content not available, use default
-    console.error('Error loading blog content for reading time:', e);
+    console.error('[Blog Index] Error loading blog content for reading time:', e);
+  }
+  // Ensure publishedAt is a Date object
+  if (latestPost.publishedAt && !(latestPost.publishedAt instanceof Date)) {
+    latestPost.publishedAt = new Date(latestPost.publishedAt);
   }
 }
+console.log('[Blog Index] All posts count:', allPosts.length);
+console.log('[Blog Index] Latest post:', latestPost?.title);
+console.log('[Blog Index] Featured post reading time final:', featuredPostReadingTime);
 
 // Get reading times for archive posts
 let olderPostsWithReadTime: Array<{ post: typeof allPosts[0]; readTime: number }> = [];
@@ -107,24 +115,25 @@ if (olderPosts.length > 0) {
                     </p>
                   )}
                   <div class="featured-post-meta">
-                <time
-                  datetime={latestPost.publishedAt.toISOString()}
-                  class="text-sm text-zinc-500 font-sans"
-                >
-                  {latestPost.publishedAt.toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric',
-                  })}
-                </time>
-                {featuredPostReadingTime > 0 && (
-                  <>
-                    <span class="meta-separator">·</span>
-                    <span class="text-sm text-zinc-500 font-sans meta-read-time">
-                      {featuredPostReadingTime} min
-                    </span>
-                  </>
-                  )}
+                    <time 
+                      datetime={latestPost.publishedAt.toISOString()} 
+                      class="text-sm text-zinc-500 font-sans"
+                    >
+                      {latestPost.publishedAt.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                      })}
+                    </time>
+                    {featuredPostReadingTime > 0 ? (
+                      <span class="flex items-center gap-2">
+                        <span class="text-zinc-500/40">·</span>
+                        <span class="text-sm text-zinc-500 font-sans">
+                          {featuredPostReadingTime} min
+                        </span>
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </a>
@@ -197,5 +206,3 @@ if (olderPosts.length > 0) {
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
   }
 </style>
-
-
