@@ -2,6 +2,7 @@
 import BaseLayout from '../../components/BaseLayout.astro';
 import { container } from '../../core/di/container';
 import ArticleRow from '../../components/ui/ArticleRow.astro';
+import BackNavigation from '../../components/ui/BackNavigation.astro';
 
 const blogService = container.getBlogService();
 const allPosts = await blogService.getAllPosts();
@@ -68,14 +69,6 @@ if (olderPosts.length > 0) {
 >
   <main class="min-h-screen bg-[#020617] text-zinc-300 py-24 px-6 md:px-12 relative z-10" style="padding-top: 150px;">
     <div class="max-w-4xl mx-auto">
-      <!-- Mobile Back Button -->
-      <a
-        href="/#writing"
-        class="md:hidden moonlight-text-link inline-block mb-6 text-[14px] uppercase tracking-wide font-sans opacity-70 hover:opacity-100 transition-all duration-300 ease-out"
-      >
-        ← Back to Home
-      </a>
-      
       <header class="mb-12 border-b border-zinc-800 pb-6">
         <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
           Writing
@@ -93,15 +86,27 @@ if (olderPosts.length > 0) {
               href={`/blog/${latestPost.slug}`}
               class="writing-featured-card block w-full bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-8 md:p-10 mb-12 transition-all duration-300 ease-out"
             >
-              <h2 class="text-2xl md:text-3xl font-serif font-bold text-white mb-4 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300 ease-out">
-                {latestPost.title}
-              </h2>
-              {latestPost.excerpt && (
-                <p class="text-base text-zinc-300 mb-4 font-sans line-clamp-2 leading-relaxed">
-                  {latestPost.excerpt}
-                </p>
-              )}
-              <div class="featured-post-meta">
+              <div class="flex flex-col md:flex-row gap-6">
+                {latestPost.coverImage && (
+                  <div class="featured-post-thumbnail flex-shrink-0">
+                    <img
+                      src={latestPost.coverImage}
+                      alt={latestPost.title}
+                      class="w-full md:w-48 h-32 md:h-32 object-cover rounded-lg border border-white/10"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <div class="flex-1">
+                  <h2 class="writing-featured-post-title text-2xl md:text-3xl font-serif font-bold text-white mb-4 transition-all duration-300 ease-out">
+                    {latestPost.title}
+                  </h2>
+                  {latestPost.excerpt && (
+                    <p class="text-base text-zinc-300 mb-4 font-sans line-clamp-2 leading-relaxed">
+                      {latestPost.excerpt}
+                    </p>
+                  )}
+                  <div class="featured-post-meta">
                 <time
                   datetime={latestPost.publishedAt.toISOString()}
                   class="text-sm text-zinc-500 font-sans"
@@ -119,7 +124,8 @@ if (olderPosts.length > 0) {
                       {featuredPostReadingTime} min
                     </span>
                   </>
-                )}
+                  )}
+                </div>
               </div>
             </a>
           )}
@@ -143,6 +149,11 @@ if (olderPosts.length > 0) {
           </p>
         </div>
       )}
+      
+      <!-- Back Navigation -->
+      <footer class="mt-12 border-t border-zinc-800 pt-6">
+        <BackNavigation href="/#writing" label="Back to Home" />
+      </footer>
     </div>
   </main>
 </BaseLayout>
@@ -173,6 +184,17 @@ if (olderPosts.length > 0) {
   .meta-read-time {
     font-size: 0.875rem;
     color: #71717a;
+  }
+
+  /* Featured Post Title Hover Effect */
+  .writing-featured-post-title {
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .writing-featured-card:hover .writing-featured-post-title {
+    color: #fff;
+    transform: translateX(5px);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
   }
 </style>
 

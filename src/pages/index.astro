@@ -6,6 +6,7 @@ import ProjectCard from '../components/ui/ProjectCard.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
 import ArticleRow from '../components/ui/ArticleRow.astro';
 import TrustedBy from '../components/TrustedBy.astro';
+import DriveViewer from '../components/ui/DriveViewer.astro';
 import type { BlogPost } from '../domains/blog/entities';
 
 // Get services from DI container
@@ -156,12 +157,21 @@ const otherFeatured = projectsToShow.filter(
         </div>
 
         {projectsToShow.length > 0 ? (
-          <BentoGrid>
-            {raitalk && <ProjectCard project={raitalk} size="large" />}
-            {otherFeatured.slice(0, 5).map((project, index) => (
-              <ProjectCard project={project} size={index === 0 ? 'medium' : 'small'} />
-            ))}
-          </BentoGrid>
+          <>
+            <BentoGrid>
+              {raitalk && <ProjectCard project={raitalk} size="large" />}
+              {otherFeatured.slice(0, 5).map((project, index) => (
+                <ProjectCard project={project} size={index === 0 ? 'medium' : 'small'} />
+              ))}
+            </BentoGrid>
+            
+            <!-- View All Work Link -->
+            <div class="work-link-container mt-12">
+              <a href="/work" class="work-link" data-track-view-all-work>
+                View All Work →
+              </a>
+            </div>
+          </>
         ) : (
           <div class="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-8 text-center border-t-white/20">
             <p class="text-zinc-400 font-semibold mb-2">No projects found</p>
@@ -239,6 +249,17 @@ const otherFeatured = projectsToShow.filter(
             font-size: 0.875rem;
             color: #71717a;
           }
+
+          /* Featured Post Title Hover Effect */
+          .featured-post-title {
+            transition: color 0.2s ease, transform 0.2s ease;
+          }
+
+          .think-featured-card:hover .featured-post-title {
+            color: #fff;
+            transform: translateX(5px);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+          }
         </style>
 
         <div class="max-w-4xl mx-auto">
@@ -249,15 +270,27 @@ const otherFeatured = projectsToShow.filter(
               class="think-featured-card block w-full bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-8 md:p-10 mb-12 transition-all duration-300 ease-out"
               data-track-featured-post
             >
-              <h3 class="text-2xl md:text-3xl font-serif font-bold text-white mb-4 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300 ease-out">
-                {featuredPost.title}
-              </h3>
-              {featuredPost.excerpt && (
-                <p class="text-base text-zinc-300 mb-4 font-sans line-clamp-2 leading-relaxed">
-                  {featuredPost.excerpt}
-                </p>
-              )}
-              <div class="featured-post-meta">
+              <div class="flex flex-col md:flex-row gap-6">
+                {featuredPost.coverImage && (
+                  <div class="featured-post-thumbnail flex-shrink-0">
+                    <img
+                      src={featuredPost.coverImage}
+                      alt={featuredPost.title}
+                      class="w-full md:w-48 h-32 md:h-32 object-cover rounded-lg border border-white/10"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <div class="flex-1">
+                  <h3 class="featured-post-title text-2xl md:text-3xl font-serif font-bold text-white mb-4 transition-all duration-300 ease-out">
+                    {featuredPost.title}
+                  </h3>
+                  {featuredPost.excerpt && (
+                    <p class="text-base text-zinc-300 mb-4 font-sans line-clamp-2 leading-relaxed">
+                      {featuredPost.excerpt}
+                    </p>
+                  )}
+                  <div class="featured-post-meta">
                 <time
                   datetime={featuredPost.publishedAt.toISOString()}
                   class="text-sm text-zinc-500 font-sans"
@@ -276,6 +309,8 @@ const otherFeatured = projectsToShow.filter(
                     </span>
                   </>
                 )}
+                  </div>
+                </div>
               </div>
             </a>
           ) : (
@@ -303,6 +338,9 @@ const otherFeatured = projectsToShow.filter(
       </div>
     </section>
   </main>
+  
+  <!-- Drive Viewer Modal -->
+  <DriveViewer fileId="" title="Document Viewer" />
 </BaseLayout>
 
 <style>
@@ -360,6 +398,29 @@ const otherFeatured = projectsToShow.filter(
   }
 
   .archive-link:hover {
+    color: #fff;
+    transform: translateX(5px);
+  }
+
+  /* Work Link Container */
+  .work-link-container {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .work-link {
+    font-family: 'JetBrains Mono', 'Geist Mono', 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .work-link:hover {
     color: #fff;
     transform: translateX(5px);
   }
@@ -482,6 +543,14 @@ const otherFeatured = projectsToShow.filter(
     if (archiveLink) {
       archiveLink.addEventListener('click', () => {
         trackEvent('Click_View_Full_Archive');
+      });
+    }
+
+    // Track View All Work link click
+    const viewAllWorkLink = document.querySelector('[data-track-view-all-work]');
+    if (viewAllWorkLink) {
+      viewAllWorkLink.addEventListener('click', () => {
+        trackEvent('Click_View_All_Work');
       });
     }
 

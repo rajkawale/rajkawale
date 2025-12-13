@@ -67,6 +67,7 @@ export class ProjectRepository implements IProjectRepository {
         demoUrl: entry.data.demoUrl,
         thumbnail: entry.data.thumbnail,
         priority: entry.data.priority ?? 0,
+        driveFileId: entry.data.driveFileId,
         content: entry.body || '',
       };
       

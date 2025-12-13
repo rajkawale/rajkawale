@@ -13,5 +13,6 @@ export interface Project {
   thumbnail: string;
   priority: number;
   content?: string; // MDX body content
+  driveFileId?: string; // Google Drive file ID for embedded viewing
 }
 

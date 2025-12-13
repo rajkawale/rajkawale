@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../components/BaseLayout.astro';
 import { container } from '../../core/di/container';
+import BackNavigation from '../../components/ui/BackNavigation.astro';
 
 export async function getStaticPaths() {
   try {
@@ -176,14 +177,7 @@ const currentUrl = Astro.url.href;
       </div>
       
       <footer class="mt-8 border-t border-zinc-800 pt-6">
-        <a
-          id="back-navigation-link"
-          href="/#writing"
-          class="moonlight-container inline-block border border-white/20 bg-zinc-900/50 px-4 py-2 text-sm font-mono text-zinc-300 transition-all duration-300 ease-out hover:bg-zinc-800 rounded"
-          data-track-back-nav
-        >
-          ← Back to Home
-        </a>
+        <BackNavigation id="back-navigation-link" href="/#writing" label="Back to Home" />
       </footer>
     </article>
   </main>

@@ -76,12 +76,7 @@ const postDate = typeof post.data.date === 'string'
       </div>
       
       <footer class="mt-12 border-t border-zinc-800 pt-6">
-        <a
-          href="/notes"
-          class="moonlight-container inline-block border border-white/20 bg-zinc-900/50 px-4 py-2 text-sm font-mono text-zinc-300 transition-all duration-300 ease-out hover:bg-zinc-800 rounded"
-        >
-          ← Back to Notes
-        </a>
+        <BackNavigation href="/notes" label="Back to Notes" />
       </footer>
     </article>
   </main>

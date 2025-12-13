@@ -1,7 +1,7 @@
 ---
 title: "Madhav Farm"
 description: "Agri-tech venture & supply chain"
-publishDate: "2022-06-01"
+publishDate: "2019-06-01"
 status: "Founded"
 techStack:
   - "Business Strategy"
@@ -10,6 +10,7 @@ techStack:
   - "Customer Acquisition"
 thumbnail: "/images/projects/madhav-farm.jpg"
 priority: 3
+driveFileId: "1_ptVBOQjw1yIoVTBRpeYCSKeRl4KKL7a"
 ---
 
 ## The Initiative

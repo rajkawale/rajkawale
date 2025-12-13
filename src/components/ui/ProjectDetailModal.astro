@@ -1,0 +1,359 @@
+---
+import { ExternalLink, Github, Calendar, Tag, Eye } from 'lucide-react';
+import type { Project } from '../../domains/projects/entities';
+import BackNavigation from './BackNavigation.astro';
+
+interface Props {
+  project: Project | null;
+  content?: string;
+}
+
+const { project, content = '' } = Astro.props;
+
+const statusColors = {
+  Prototype: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+  'Live Product': 'bg-green-900/30 text-green-300 border-green-800',
+  Founded: 'bg-zinc-700/30 text-zinc-300 border-zinc-600',
+  Live: 'bg-green-900/30 text-green-300 border-green-800',
+  'Case Study': 'bg-indigo-900/30 text-indigo-300 border-indigo-800',
+  'Stealth Mode': 'bg-amber-900/30 text-amber-300 border-amber-800',
+  Startup: 'bg-blue-900/30 text-blue-300 border-blue-800',
+};
+---
+
+<div id="project-detail-modal" class="project-modal hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm overflow-y-auto">
+  <div class="project-modal-content relative w-full max-w-4xl m-4 bg-slate-900 rounded-lg border border-white/20 shadow-2xl my-8">
+    <!-- Close Button -->
+    <button
+      id="project-modal-close"
+      class="project-modal-close absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors p-2 rounded hover:bg-white/10 z-10"
+      aria-label="Close modal"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    {project && (
+      <div class="p-6 md:p-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <!-- Main Content -->
+          <article class="lg:col-span-2">
+            <!-- Header -->
+            <header class="mb-12">
+              <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4 text-slate-100">
+                {project.title}
+              </h1>
+              <p class="text-xl text-zinc-300 mb-8 font-sans">{project.description}</p>
+            </header>
+
+            <!-- MDX Content -->
+            {content && (
+              <div class="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-slate-100 prose-p:text-zinc-300 prose-a:text-[#888] prose-a:no-underline prose-a:hover:underline" set:html={content} />
+            )}
+            
+            <!-- Back Navigation -->
+            <footer class="mt-12 border-t border-zinc-800 pt-6">
+              <BackNavigation href="/#projects" label="Back to Work" />
+            </footer>
+          </article>
+
+          <!-- Sidebar -->
+          <aside class="lg:sticky lg:top-24 h-fit">
+            <div class="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-6 space-y-6 border-t-white/20">
+              <h2 class="text-lg md:text-xl font-serif font-bold text-slate-100 mb-6">Project Details</h2>
+
+              <!-- Status -->
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <Tag class="w-4 h-4 text-zinc-500" />
+                  <span class="text-sm font-medium text-zinc-300 font-sans">Status</span>
+                </div>
+                <span
+                  class={`inline-block px-3 py-1 rounded-full text-xs font-mono font-medium border ${
+                    project.status === 'Prototype'
+                      ? 'bg-purple-500/20 text-purple-300 border-purple-500/40'
+                      : project.status === 'Live Product'
+                      ? 'bg-green-900/30 text-green-300 border-green-800'
+                      : project.status === 'Founded'
+                      ? 'bg-zinc-700/30 text-zinc-300 border-zinc-600'
+                      : project.status === 'Live'
+                      ? 'bg-green-900/30 text-green-300 border-green-800'
+                      : project.status === 'Case Study'
+                      ? 'bg-indigo-900/30 text-indigo-300 border-indigo-800'
+                      : project.status === 'Stealth Mode'
+                      ? 'bg-amber-900/30 text-amber-300 border-amber-800'
+                      : project.status === 'Startup'
+                      ? 'bg-blue-900/30 text-blue-300 border-blue-800'
+                      : 'bg-indigo-900/30 text-indigo-300 border-indigo-800'
+                  }`}
+                >
+                  {project.status}
+                </span>
+              </div>
+
+              <!-- Publish Date -->
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <Calendar class="w-4 h-4 text-zinc-500" />
+                  <span class="text-sm font-medium text-zinc-300 font-sans">Published</span>
+                </div>
+                <p class="text-sm text-zinc-400 font-sans">
+                  {project.publishDate.toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </p>
+              </div>
+
+              <!-- Tech Stack -->
+              {project.techStack && project.techStack.length > 0 && (
+                <div>
+                  <div class="flex items-center gap-2 mb-3">
+                    <Tag class="w-4 h-4 text-zinc-500" />
+                    <span class="text-sm font-medium text-zinc-300 font-sans">Tech Stack</span>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    {project.techStack.map((tech) => (
+                      <span
+                        class="px-3 py-1 text-xs font-mono font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <!-- Dynamic CTA Buttons -->
+              <div class="space-y-3 pt-4 border-t border-zinc-800">
+                {project.driveFileId && project.slug === 'madhav-farm' && (
+                  <button
+                    data-drive-file-id={project.driveFileId}
+                    data-drive-title={project.title}
+                    class="project-modal-drive-viewer-button moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono cursor-pointer"
+                  >
+                    <Eye class="w-4 h-4 group-hover:scale-110 transition-transform" />
+                    <span class="text-xs font-medium">View Pitch Deck</span>
+                  </button>
+                )}
+                {project.status === 'Live Product' && project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
+                  >
+                    <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    <span class="text-xs font-medium">Visit Website</span>
+                  </a>
+                )}
+                {project.status === 'Prototype' && project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
+                  >
+                    <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    <span class="text-xs font-medium">View Demo</span>
+                  </a>
+                )}
+                {project.status === 'Founded' && project.demoUrl && !project.driveFileId && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
+                  >
+                    <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    <span class="text-xs font-medium">View Archive</span>
+                  </a>
+                )}
+                {project.repoUrl && (
+                  <a
+                    href={project.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
+                  >
+                    <Github class="w-4 h-4 group-hover:scale-110 transition-transform" />
+                    <span class="text-xs font-medium">View Code</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .project-modal {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .project-modal.hidden {
+    display: none;
+  }
+
+  .project-modal-content {
+    animation: slideUp 0.3s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .project-modal-close:hover {
+    transform: scale(1.1);
+  }
+
+  .prose {
+    color: rgb(161 161 170);
+  }
+  .prose h2 {
+    color: rgb(255 255 255);
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    font-size: 2.25rem;
+    letter-spacing: -0.02em;
+  }
+  .prose h3 {
+    color: rgb(255 255 255);
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+    font-size: 1.875rem;
+    letter-spacing: -0.01em;
+  }
+  .prose p {
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    color: rgb(200 200 210);
+    font-size: 1.0625rem;
+  }
+  .prose a {
+    color: #888;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease-out;
+  }
+  .prose a:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  }
+  .prose ul,
+  .prose ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.75rem;
+    color: rgb(200 200 210);
+    line-height: 1.7;
+  }
+  .prose li {
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+    font-size: 1.0625rem;
+  }
+  .prose strong {
+    color: rgb(220 220 230);
+    font-weight: 600;
+  }
+</style>
+
+<script is:inline>
+  window.openProjectModal = function(projectData, content) {
+    const modal = document.getElementById('project-detail-modal');
+    if (!modal) return;
+
+    // Update modal content
+    // This will be handled by fetching the project data via API or embedding it
+    // For now, we'll use the data passed to the function
+    
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeProjectModal = function() {
+    const modal = document.getElementById('project-detail-modal');
+    if (!modal) return;
+
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  };
+
+  function initProjectModal() {
+    const closeButton = document.getElementById('project-modal-close');
+    const modal = document.getElementById('project-detail-modal');
+
+    if (closeButton) {
+      closeButton.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.closeProjectModal();
+      };
+    }
+
+    if (modal) {
+      modal.onclick = function(e) {
+        if (e.target === modal) {
+          window.closeProjectModal();
+        }
+      };
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+        window.closeProjectModal();
+      }
+    });
+
+    // Handle drive viewer button in modal
+    const driveButton = document.querySelector('.project-modal-drive-viewer-button');
+    if (driveButton) {
+      driveButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const fileId = driveButton.getAttribute('data-drive-file-id');
+        const title = driveButton.getAttribute('data-drive-title') || 'Document Viewer';
+        
+        if (fileId && typeof window !== 'undefined' && window.openDriveViewer) {
+          window.openDriveViewer(fileId, title);
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProjectModal);
+  } else {
+    initProjectModal();
+  }
+</script>
+

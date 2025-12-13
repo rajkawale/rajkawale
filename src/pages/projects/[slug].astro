@@ -2,7 +2,9 @@
 import BaseLayout from '../../components/BaseLayout.astro';
 import { container } from '../../core/di/container';
 import { getCollection } from 'astro:content';
-import { ExternalLink, Github, Calendar, Tag, Play } from 'lucide-react';
+import { ExternalLink, Github, Calendar, Tag, Eye } from 'lucide-react';
+import DriveViewer from '../../components/ui/DriveViewer.astro';
+import BackNavigation from '../../components/ui/BackNavigation.astro';
 
 export async function getStaticPaths() {
   try {
@@ -48,13 +50,6 @@ const { Content } = await entry.render();
         <article class="lg:col-span-2">
           <!-- Header -->
           <header class="mb-12">
-            <!-- Breadcrumb -->
-            <a
-              href="/#projects"
-              class="moonlight-text-link inline-block mb-6 text-[14px] uppercase tracking-wide font-sans opacity-70 hover:opacity-100 transition-all duration-300 ease-out"
-            >
-              ← Back to Work
-            </a>
             <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4 text-slate-100">
               {project.title}
             </h1>
@@ -65,6 +60,11 @@ const { Content } = await entry.render();
           <div class="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-slate-100 prose-p:text-zinc-300 prose-a:text-[#888] prose-a:no-underline prose-a:hover:underline">
             <Content />
           </div>
+          
+          <!-- Back Navigation -->
+          <footer class="mt-12 border-t border-zinc-800 pt-6">
+            <BackNavigation href="/#projects" label="Back to Work" />
+          </footer>
         </article>
 
         <!-- Sticky Sidebar -->
@@ -137,15 +137,25 @@ const { Content } = await entry.render();
 
             <!-- Dynamic CTA Button -->
             <div class="space-y-3 pt-4 border-t border-zinc-800">
+              {project.driveFileId && project.slug === 'madhav-farm' && (
+                <button
+                  data-drive-file-id={project.driveFileId}
+                  data-drive-title={project.title}
+                  class="project-detail-drive-viewer-button moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono cursor-pointer"
+                >
+                  <Eye class="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <span class="text-xs font-medium">View Pitch Deck</span>
+                </button>
+              )}
               {project.status === 'Live Product' && project.demoUrl && (
                 <a
                   href={project.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans"
+                  class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
                 >
                   <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                  <span class="text-sm font-medium">Visit Website</span>
+                  <span class="text-xs font-medium">Visit Website</span>
                 </a>
               )}
               {project.status === 'Prototype' && project.demoUrl && (
@@ -153,21 +163,21 @@ const { Content } = await entry.render();
                   href={project.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans"
+                  class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
                 >
-                  <Play class="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  <span class="text-sm font-medium">View Demo</span>
+                  <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  <span class="text-xs font-medium">View Demo</span>
                 </a>
               )}
-              {project.status === 'Founded' && project.demoUrl && (
+              {project.status === 'Founded' && project.demoUrl && !project.driveFileId && (
                 <a
                   href={project.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans"
+                  class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
                 >
                   <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                  <span class="text-sm font-medium">View Archive</span>
+                  <span class="text-xs font-medium">View Archive</span>
                 </a>
               )}
               {project.repoUrl && (
@@ -175,10 +185,10 @@ const { Content } = await entry.render();
                   href={project.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans"
+                  class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
                 >
                   <Github class="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  <span class="text-sm font-medium">View Code</span>
+                  <span class="text-xs font-medium">View Code</span>
                 </a>
               )}
             </div>
@@ -187,6 +197,9 @@ const { Content } = await entry.render();
       </div>
     </div>
   </main>
+  
+  <!-- Drive Viewer Modal -->
+  <DriveViewer fileId="" title="Document Viewer" />
 </BaseLayout>
 
 <style>
@@ -313,4 +326,24 @@ const { Content } = await entry.render();
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Handle Drive Viewer button clicks on project detail page
+    const driveButton = document.querySelector('.project-detail-drive-viewer-button');
+    if (driveButton) {
+      driveButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const fileId = driveButton.getAttribute('data-drive-file-id');
+        const title = driveButton.getAttribute('data-drive-title') || 'Document Viewer';
+        
+        if (fileId && typeof window !== 'undefined' && window.openDriveViewer) {
+          window.openDriveViewer(fileId, title);
+        }
+      });
+    }
+  });
+</script>
 

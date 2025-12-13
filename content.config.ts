@@ -12,6 +12,7 @@ const projects = defineCollection({
     demoUrl: z.string().url().optional(),
     thumbnail: z.string(),
     priority: z.number().default(0),
+    driveFileId: z.string().optional(), // Google Drive file ID for embedded viewing
   }),
 });
 

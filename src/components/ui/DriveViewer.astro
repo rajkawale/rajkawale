@@ -1,0 +1,145 @@
+---
+interface Props {
+  fileId: string;
+  title?: string;
+}
+
+const { fileId, title = 'Document Viewer' } = Astro.props;
+const embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+---
+
+<div id="drive-viewer-modal" class="drive-modal hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm">
+  <div class="drive-modal-content relative w-full h-full max-w-7xl max-h-[90vh] m-4 bg-slate-900 rounded-lg border border-white/20 shadow-2xl flex flex-col">
+    <!-- Header -->
+    <div class="drive-modal-header flex items-center justify-between p-4 border-b border-white/10">
+      <h3 class="text-lg font-serif font-bold text-white">{title}</h3>
+      <button
+        id="drive-modal-close"
+        class="drive-modal-close text-zinc-400 hover:text-white transition-colors p-2 rounded hover:bg-white/10"
+        aria-label="Close modal"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Content -->
+    <div class="drive-modal-body flex-1 overflow-hidden p-4">
+      <iframe
+        src={embedUrl}
+        class="w-full h-full border-0 rounded"
+        allow="autoplay"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<style>
+  .drive-modal {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .drive-modal.hidden {
+    display: none;
+  }
+
+  .drive-modal-content {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .drive-modal-close:hover {
+    transform: scale(1.1);
+  }
+</style>
+
+<script is:inline>
+  // Define functions globally
+  window.openDriveViewer = function(fileId, title) {
+    const modal = document.getElementById('drive-viewer-modal');
+    if (!modal) return;
+
+    // Update iframe src if needed
+    const iframe = modal.querySelector('iframe');
+    if (iframe && fileId) {
+      iframe.src = 'https://drive.google.com/file/d/' + fileId + '/preview';
+    }
+
+    // Update title if provided
+    const titleElement = modal.querySelector('.drive-modal-header h3');
+    if (titleElement && title) {
+      titleElement.textContent = title;
+    }
+
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Prevent body scroll
+  };
+
+  window.closeDriveViewer = function() {
+    const modal = document.getElementById('drive-viewer-modal');
+    if (!modal) return;
+
+    modal.classList.add('hidden');
+    document.body.style.overflow = ''; // Restore body scroll
+  };
+
+  // Initialize event listeners when DOM is ready
+  function initDriveViewer() {
+    const closeButton = document.getElementById('drive-modal-close');
+    const modal = document.getElementById('drive-viewer-modal');
+
+    if (closeButton) {
+      // Remove any existing listeners and add new one
+      closeButton.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.closeDriveViewer();
+      };
+    }
+
+    // Close on backdrop click
+    if (modal) {
+      modal.onclick = function(e) {
+        if (e.target === modal) {
+          window.closeDriveViewer();
+        }
+      };
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+        window.closeDriveViewer();
+      }
+    });
+  }
+
+  // Run when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDriveViewer);
+  } else {
+    initDriveViewer();
+  }
+</script>
+

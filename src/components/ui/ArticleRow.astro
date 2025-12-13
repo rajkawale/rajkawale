@@ -114,6 +114,7 @@ const { post, readTime } = Astro.props;
     text-align: right;
     transition: all 0.2s ease;
     flex-shrink: 0;
+    display: inline-block;
   }
 
   /* Arrow - Fades in on hover */
@@ -137,6 +138,8 @@ const { post, readTime } = Astro.props;
 
   .article-row:hover .article-title {
     color: #fff;
+    transform: translateX(5px);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
   }
 
   .article-row:hover .article-arrow {

@@ -68,7 +68,7 @@ const isActive = (path: string) => {
     Home
   </a>
   <a 
-    href="/#projects" 
+    href="/work" 
     id="dock-work"
     class="moonlight-container nav-link px-4 py-2 text-sm font-medium font-sans text-[#888] hover:text-white hover:bg-white/5 transition-all duration-300 ease-out rounded-full"
   >
@@ -214,7 +214,14 @@ const isActive = (path: string) => {
         return; // Don't check other sections if at top
       }
       
-      // Update Work link - active when projects section is in view
+      // Update Work link - active when on work page
+      if (path === '/work') {
+        workLink.classList.add('text-white', 'bg-white/10');
+        workLink.classList.remove('text-[#888]', 'hover:bg-white/5');
+        return;
+      }
+      
+      // Also active when projects section is in view on homepage
       if (projectsSection && path === '/') {
         const rect = projectsSection.getBoundingClientRect();
         const isInView = rect.top <= 200 && rect.bottom >= 200;
