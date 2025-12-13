@@ -8,12 +8,31 @@ export async function getStaticPaths() {
     const blogService = container.getBlogService();
     const posts = await blogService.getAllPosts();
     
+    console.log('[getStaticPaths] Total posts loaded:', posts?.length || 0);
+    
     // Return empty array if no posts to prevent build errors
     if (!posts || posts.length === 0) {
+      console.warn('[getStaticPaths] No posts found');
       return [];
     }
     
-    return posts.map((post) => ({
+    // Filter out invalid posts and ensure all required properties exist
+    const validPosts = posts.filter((post) => {
+      const isValid = post && post.slug && post.title && post.publishedAt;
+      if (!isValid) {
+        console.warn('[getStaticPaths] Invalid post filtered out:', {
+          slug: post?.slug,
+          hasTitle: !!post?.title,
+          hasPublishedAt: !!post?.publishedAt,
+        });
+      }
+      return isValid;
+    });
+    
+    console.log('[getStaticPaths] Valid posts:', validPosts.length);
+    console.log('[getStaticPaths] Post slugs:', validPosts.map(p => p.slug));
+    
+    return validPosts.map((post) => ({
       params: { slug: post.slug },
       props: { post },
     }));
@@ -23,7 +42,31 @@ export async function getStaticPaths() {
   }
 }
 
-const { post } = Astro.props;
+let { post } = Astro.props;
+const { slug } = Astro.params;
+
+// If post is not in static paths (server mode fallback), try to fetch it
+if (!post && slug) {
+  try {
+    const blogService = container.getBlogService();
+    post = await blogService.getPostBySlug(slug);
+  } catch (error) {
+    console.error('Error fetching post by slug:', error);
+  }
+}
+
+// Safety check: if post is still undefined, return 404
+if (!post) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not Found',
+  });
+}
+
+// Ensure publishedAt is a Date object
+if (post.publishedAt && !(post.publishedAt instanceof Date)) {
+  post.publishedAt = new Date(post.publishedAt);
+}
 
 // Get full content from JSON
 let fullContent = '';

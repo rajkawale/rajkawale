@@ -19,17 +19,28 @@ export class BlogRepository implements IBlogRepository {
         return;
       }
       
-      this.posts = rawPosts.map((post: any) => ({
-        id: post.id || post.slug,
-        title: post.title,
-        slug: post.slug,
-        excerpt: post.excerpt,
-        publishedAt: new Date(post.published),
-        coverImage: post.coverImage,
-        tags: post.tags || [],
-        canonicalUrl: post.canonicalUrl,
-        category: post.category,
-      }));
+      this.posts = rawPosts
+        .map((post: any) => {
+          const publishedDate = new Date(post.published);
+          // Validate date
+          if (isNaN(publishedDate.getTime())) {
+            console.warn(`Invalid date for post ${post.slug}: ${post.published}`);
+            return null;
+          }
+          
+          return {
+            id: post.id || post.slug,
+            title: post.title,
+            slug: post.slug,
+            excerpt: post.excerpt,
+            publishedAt: publishedDate,
+            coverImage: post.coverImage,
+            tags: post.tags || [],
+            canonicalUrl: post.canonicalUrl,
+            category: post.category,
+          };
+        })
+        .filter((post): post is BlogPost => post !== null);
       
       console.log(`Loaded ${this.posts.length} blog posts`);
     } catch (error) {
