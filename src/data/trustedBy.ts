@@ -7,6 +7,7 @@ export interface TrustedByPerson {
   linkedin: string;
   gridClass: string;
   featured: boolean;
+  date?: string;
 }
 
 export const trustedBy: TrustedByPerson[] = [
