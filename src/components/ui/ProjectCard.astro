@@ -1,42 +1,45 @@
 ---
-import type { Project } from '../../domains/projects/entities';
-import { ExternalLink, Eye } from 'lucide-react';
+import type { CollectionEntry } from "astro:content";
+import { ExternalLink, Eye } from "lucide-react";
 
 interface Props {
-  project: Project;
-  size?: 'large' | 'medium' | 'small';
+  project: CollectionEntry<"work">;
+  size?: "large" | "medium" | "small";
 }
 
-const { project, size = 'medium' } = Astro.props;
+const { project: workItem, size = "medium" } = Astro.props;
+const project = workItem.data;
+const slug = workItem.slug;
+
+// Map new category to status-like display
+const displayStatus = project.category.charAt(0).toUpperCase() + project.category.slice(1);
 
 // Dynamic CTA label and icon based on status
-const getCTALabel = (status: string) => {
-  if (status === 'Live Product') return 'Visit Website';
-  if (status === 'Prototype') return 'View Demo';
-  if (status === 'Founded') return 'View Archive';
-  return 'Live Demo'; // fallback
+const getCTALabel = (category: string) => {
+  if (category === "venture") return "View Product";
+  if (category === "enterprise") return "View Details";
+  if (category === "strategy") return "Read Case Study";
+  return project.actionLabel || "View Project";
 };
 
-const getCTAIcon = (status: string) => {
-  // Use ExternalLink for all buttons to keep consistent arrow icon
+const getCTAIcon = (category: string) => {
   return ExternalLink;
 };
 
 const sizeClasses = {
-  large: 'col-span-1 md:col-span-2 lg:col-span-2 row-span-1 md:row-span-2',
-  medium: 'col-span-1 row-span-1',
-  small: 'col-span-1 row-span-1',
+  large: "col-span-1 md:col-span-2 lg:col-span-2 row-span-1 md:row-span-2",
+  medium: "col-span-1 row-span-1",
+  small: "col-span-1 row-span-1",
 };
 
-const statusColors = {
-  Prototype: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
-  'Live Product': 'bg-green-500/20 text-green-300 border-green-500/40',
-  Founded: 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
-  Live: 'bg-green-500/20 text-green-300 border-green-500/40',
-  'Case Study': 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
-  'Stealth Mode': 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
-  Startup: 'bg-zinc-800/40 text-zinc-200 border-zinc-700/50',
+const statusColors: Record<string, string> = {
+  venture: "bg-purple-500/20 text-purple-300 border-purple-500/40",
+  enterprise: "bg-blue-500/20 text-blue-300 border-blue-500/40",
+  strategy: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+  shipped: "bg-green-500/20 text-green-300 border-green-500/40", // Fallback
 };
+
+
 ---
 
 <div
@@ -45,10 +48,10 @@ const statusColors = {
       ? 'neural-wave-card'
       : 'glass-card'
   }`}
-  data-project-slug={project.slug}
+  data-project-slug={slug}
 >
   <!-- Neural Wave Animation for RaiTalk Card -->
-  {size === 'large' && project.slug === 'raitalk' && (
+  {size === 'large' && slug === 'raitalk' && (
     <div class="neural-wave-container absolute inset-0 pointer-events-none z-0">
       <svg class="neural-wave-svg" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice">
         <defs>
@@ -98,22 +101,27 @@ const statusColors = {
   <div class="flex-1 flex flex-col relative z-10">
     <!-- Header -->
     <div class="mb-4">
-      {project.slug === 'raitalk' ? (
         <!-- Special RaiTalk Layout -->
-        <div class="space-y-1 relative z-10">
+        <div class="space-y-2 relative z-10">
           <h3 class="text-xl md:text-2xl font-serif font-bold text-white group-hover:text-white transition-colors group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
             {project.title}
           </h3>
-          <p class="text-base font-sans font-semibold text-zinc-200">
+          <p class="text-sm font-mono text-purple-300 uppercase tracking-wider">
+            {project.tagline}
+          </p>
+          <p class="text-base font-sans font-medium text-zinc-200">
             {project.description}
           </p>
         </div>
       ) : (
         <!-- Default Layout for Other Projects -->
         <>
-          <h3 class="text-xl md:text-2xl font-serif font-bold text-slate-100 group-hover:text-white transition-colors mb-2 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
+          <h3 class="text-xl md:text-2xl font-serif font-bold text-slate-100 group-hover:text-white transition-colors mb-1 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
             {project.title}
           </h3>
+          <p class="text-xs font-mono text-zinc-400 uppercase tracking-widest mb-3">
+            {project.tagline}
+          </p>
           <p class="text-sm text-zinc-300 line-clamp-3 leading-relaxed font-sans">
             {project.description}
           </p>
@@ -122,9 +130,9 @@ const statusColors = {
     </div>
 
     <!-- Tech Stack (Builder Metadata - Monospace) -->
-    {project.techStack && project.techStack.length > 0 && (
+    {project.tags && project.tags.length > 0 && (
       <div class="flex flex-wrap gap-2 mb-4">
-        {project.techStack.slice(0, 4).map((tech) => (
+        {project.tags.slice(0, 4).map((tech) => (
           <span
             class="px-2.5 py-1 text-xs font-mono font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-500"
             title={tech}
@@ -132,9 +140,9 @@ const statusColors = {
             {tech}
           </span>
         ))}
-        {project.techStack.length > 4 && (
+        {project.tags.length > 4 && (
           <span class="px-2.5 py-1 text-xs font-mono font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-600">
-            +{project.techStack.length - 4}
+            +{project.tags.length - 4}
           </span>
         )}
       </div>
@@ -144,14 +152,14 @@ const statusColors = {
   <!-- Footer -->
   <div class="flex items-center justify-between mt-auto pt-4 border-t border-zinc-800/50 relative z-10">
     <span
-      class={`px-3 py-1 rounded-full text-xs font-mono font-medium border ${statusColors[project.status]}`}
+      class={`px-3 py-1 rounded-full text-xs font-mono font-medium border ${statusColors[project.category] || statusColors['shipped']}`}
     >
-      {project.status}
+      {displayStatus}
     </span>
     <div class="flex items-center gap-2 flex-wrap">
-      {project.driveFileId && project.slug === 'madhav-farm' && (
+      {project.actionType === 'drive' && (
         <button
-          data-drive-file-id={project.driveFileId}
+          data-drive-file-id={project.actionUrl?.match(/file\/d\/(.*?)\//)?.[1]}
           data-drive-title={project.title}
           class="glass-button project-drive-viewer-button text-xs text-white font-mono font-medium z-10 relative flex items-center gap-1 px-2.5 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all cursor-pointer whitespace-nowrap"
         >
@@ -160,12 +168,12 @@ const statusColors = {
           <span class="sm:hidden">Pitch Deck</span>
         </button>
       )}
-      {project.demoUrl && (() => {
-        const CTALabel = getCTALabel(project.status);
-        const CTAIcon = getCTAIcon(project.status);
+      {project.actionUrl && project.actionType !== 'drive' && (() => {
+        const CTALabel = getCTALabel(project.category);
+        const CTAIcon = getCTAIcon(project.category);
         return (
           <a
-            href={project.demoUrl}
+            href={project.actionUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="glass-button text-xs text-white font-mono font-medium z-10 relative flex items-center gap-1 px-2.5 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all whitespace-nowrap"
@@ -175,9 +183,9 @@ const statusColors = {
           </a>
         );
       })()}
-      {project.repoUrl && (
+      {project.actionType === 'repo' && (
         <a
-          href={project.repoUrl}
+          href={project.actionUrl}
           target="_blank"
           rel="noopener noreferrer"
           class="glass-button text-xs text-white font-mono font-medium z-10 relative px-2.5 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all whitespace-nowrap"
@@ -287,7 +295,7 @@ const statusColors = {
   }
 </style>
 
-<script define:vars={{ projectSlug: project.slug }}>
+<script define:vars={{ projectSlug: slug }}>
   // Track Clarity events
   function trackEvent(eventName) {
     if (typeof window !== 'undefined' && window.clarity) {

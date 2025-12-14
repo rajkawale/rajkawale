@@ -1,16 +1,16 @@
 ---
 title: "Madhav Farm"
-description: "Agri-tech venture & supply chain"
-publishDate: "2019-06-01"
-status: "Founded"
-techStack:
-  - "Business Strategy"
-  - "Supply Chain"
-  - "D2C"
-  - "Customer Acquisition"
-thumbnail: "/images/projects/madhav-farm.jpg"
+tagline: "End-to-End Venture Ownership"
+impact_title: "Madhav Farm"
+metric: "8L Volume & 25% Faster Speed"
+badge: "Full-Stack Founder / D2C Operations"
+description: "Founded a D2C marketplace connecting farmers to bulk buyers. Led an 8-person team to optimize logistics and fulfillment."
+tags: ["Supply Chain", "D2C"]
+category: "venture"
+actionLabel: "View Pitch Deck"
+actionUrl: "https://drive.google.com/file/d/1_ptVBOQjw1yIoVTBRpeYCSKeRl4KKL7a/view?usp=drive_link"
+actionType: "drive"
 priority: 3
-driveFileId: "1_ptVBOQjw1yIoVTBRpeYCSKeRl4KKL7a"
 ---
 
 ## The Initiative

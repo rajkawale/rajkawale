@@ -1,11 +1,11 @@
 ---
 title: "Trinka AI"
+tagline: "AI Writing Prototype"
 description: "AI Writing Prototype"
-publishDate: "2024-11-01"
-status: "Prototype"
-techStack: ["NLP", "Grammar Engine", "React", "Product Design"]
-thumbnail: "/images/trinka-preview.png"
-demoUrl: "https://trinka.rajkawale.com/"
+tags: ["NLP", "Product Design"]
+category: "venture"
+actionLabel: "View Demo"
+actionUrl: "https://trinka.rajkawale.com"
 priority: 2
 ---
 

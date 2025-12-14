@@ -1,11 +1,14 @@
 ---
 title: "RaiTalk"
-description: "Cognitive Emotional AI"
-publishDate: "2024-12-01"
-status: "Live Product"
-techStack: ["DeepSeek API", "Cognitive Data Modeling", "Supabase", "React"]
-thumbnail: "/images/raitalk-preview.png"
-demoUrl: "https://raitalk.rajkawale.com/"
+tagline: "Cognitive AI Engine"
+impact_title: "RaiTalk: Cognitive AI Engine"
+metric: "0 → 1 Product Launch"
+badge: "AI Native / Zero-to-One"
+description: "Founder-led build of a cognitive emotional AI. Owned the full lifecycle from NLP prototyping to market validation with 100+ users."
+tags: ["AI", "React", "Supabase", "Cognitive Data Modeling"]
+category: "venture"
+actionLabel: "Visit Website"
+actionUrl: "https://raitalk.rajkawale.com/"
 priority: 1
 ---
 

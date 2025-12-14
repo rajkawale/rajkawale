@@ -1,0 +1,315 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+import { ExternalLink, Github, Calendar, Tag, Eye } from "lucide-react";
+import DriveViewer from "../../components/ui/DriveViewer.astro";
+import BackNavigation from "../../components/ui/BackNavigation.astro";
+
+export async function getStaticPaths() {
+    const workEntries = await getCollection("work");
+    return workEntries.map((entry) => ({
+        params: { slug: entry.slug },
+    }));
+}
+
+const { slug } = Astro.params;
+const entry = await getEntry("work", slug);
+
+if (!entry) {
+    return Astro.redirect("/404");
+}
+
+const { Content } = await entry.render();
+const project = entry.data;
+---
+
+<BaseLayout
+    title={`${project.title} | Product Case Study – Raj Kawale`}
+    description={`Product case study of ${project.title}, detailing problem framing, product decisions, execution, and scaling considerations across AI and SaaS systems.`}
+    keywords="product case study, AI product management, SaaS product design, zero to one product, scaling products"
+>
+    <main
+        class="min-h-screen bg-[#020617] text-zinc-300 pt-24 relative z-10 pb-[120px] md:pb-16"
+    >
+        <div
+            class="max-w-4xl mx-auto px-5 md:px-12 py-16 mobile-content-container"
+        >
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <!-- Main Content -->
+                <article class="lg:col-span-2">
+                    <!-- Header -->
+                    <header class="mb-12">
+                        <h1
+                            class="text-4xl md:text-5xl font-serif font-bold mb-4 text-slate-100"
+                        >
+                            {project.title}
+                        </h1>
+                        <p class="text-xl text-zinc-300 mb-8 font-sans">
+                            {project.description}
+                        </p>
+                    </header>
+
+                    <!-- MDX Content -->
+                    <div
+                        class="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-slate-100 prose-p:text-zinc-300 prose-a:text-[#888] prose-a:no-underline prose-a:hover:underline"
+                    >
+                        <Content />
+                    </div>
+
+                    <!-- Back Navigation -->
+                    <footer class="mt-12 border-t border-zinc-800 pt-6">
+                        <BackNavigation href="/work" label="Back to Work" />
+                    </footer>
+                </article>
+
+                <!-- Sticky Sidebar -->
+                <aside class="lg:sticky lg:top-24 h-fit">
+                    <div
+                        class="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-6 md:p-6 p-5 space-y-6 border-t-white/20"
+                    >
+                        <h2
+                            class="text-lg md:text-xl font-serif font-bold text-slate-100 mb-6"
+                        >
+                            Project Details
+                        </h2>
+
+                        <!-- Status (Using Category now) -->
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <Tag class="w-4 h-4 text-zinc-500" />
+                                <span
+                                    class="text-sm font-medium text-zinc-300 font-sans"
+                                    >Category</span
+                                >
+                            </div>
+                            <span
+                                class={`inline-block px-3 py-1 rounded-full text-xs font-mono font-medium border ${
+                                    project.category === "shipped"
+                                        ? "bg-green-900/30 text-green-300 border-green-800"
+                                        : project.category === "professional"
+                                          ? "bg-blue-900/30 text-blue-300 border-blue-800"
+                                          : "bg-indigo-900/30 text-indigo-300 border-indigo-800"
+                                }`}
+                            >
+                                {project.category.toUpperCase()}
+                            </span>
+                        </div>
+
+                        <!-- Tags -->
+                        {
+                            project.tags && project.tags.length > 0 && (
+                                <div>
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <Tag class="w-4 h-4 text-zinc-500" />
+                                        <span class="text-sm font-medium text-zinc-300 font-sans">
+                                            Tags
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        {project.tags.map((tag) => (
+                                            <span class="px-3 py-1 text-xs font-mono font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-300">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )
+                        }
+
+                        <!-- Dynamic CTA Button -->
+                        <div class="space-y-3 pt-4 border-t border-zinc-800">
+                            {
+                                project.actionUrl &&
+                                    project.actionUrl !== "#" &&
+                                    (project.actionType === "drive" ? (
+                                        <button
+                                            data-drive-file-id={
+                                                project.actionUrl.match(
+                                                    /file\/d\/(.*?)\//,
+                                                )?.[1]
+                                            }
+                                            data-drive-title={project.title}
+                                            class="project-detail-drive-viewer-button moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono cursor-pointer"
+                                        >
+                                            <Eye class="w-4 h-4 group-hover:scale-110 transition-transform" />
+                                            <span class="text-xs font-medium">
+                                                {project.actionLabel}
+                                            </span>
+                                        </button>
+                                    ) : (
+                                        <a
+                                            href={project.actionUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
+                                        >
+                                            <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                                            <span class="text-xs font-medium">
+                                                {project.actionLabel}
+                                            </span>
+                                        </a>
+                                    ))
+                            }
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Drive Viewer Modal -->
+    <DriveViewer fileId="" title="Document Viewer" />
+</BaseLayout>
+
+<style>
+    .prose {
+        color: rgb(161 161 170);
+    }
+    .prose h2 {
+        color: rgb(255 255 255);
+        font-weight: 700;
+        font-family: "Playfair Display", serif;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+        font-size: 2.25rem;
+        letter-spacing: -0.02em;
+    }
+    .prose h3 {
+        color: rgb(255 255 255);
+        font-weight: 700;
+        font-family: "Playfair Display", serif;
+        margin-top: 2.5rem;
+        margin-bottom: 2rem;
+        font-size: 1.875rem;
+        letter-spacing: -0.01em;
+    }
+    .prose p {
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+        color: rgb(200 200 210);
+        font-size: 1.0625rem;
+    }
+    .prose a {
+        color: #888;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease-out;
+    }
+    .prose a:hover {
+        color: #fff;
+        text-decoration: underline;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    }
+
+    /* Moonlight Glow for buttons */
+    .glass-button {
+        transition: all 0.3s ease-out;
+    }
+
+    .glass-button:hover {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    }
+    .prose ul,
+    .prose ol {
+        margin-bottom: 1.5rem;
+        padding-left: 1.75rem;
+        color: rgb(200 200 210);
+        line-height: 1.7;
+    }
+    .prose li {
+        margin-bottom: 0.75rem;
+        line-height: 1.7;
+        font-size: 1.0625rem;
+    }
+    .prose li::marker {
+        color: rgb(200 200 210);
+    }
+    .prose code {
+        background-color: rgb(39 39 42);
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+        border: 1px solid rgb(63 63 70);
+        color: rgb(244 244 245);
+    }
+    .prose pre {
+        background-color: rgb(24 24 27);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgb(39 39 42);
+    }
+    .prose pre code {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+    }
+    .prose strong {
+        color: rgb(220 220 230);
+        font-weight: 600;
+    }
+
+    /* Mobile-specific improvements */
+    @media (max-width: 640px) {
+        .mobile-content-container {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 2rem;
+        }
+        .mobile-content-container header {
+            margin-top: 1rem;
+        }
+        .prose {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .prose h2 {
+            font-size: 1.875rem;
+            margin-top: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .prose h3 {
+            font-size: 1.625rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        .prose p {
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .prose li {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Handle Drive Viewer button clicks on project detail page
+        const driveButton = document.querySelector(
+            ".project-detail-drive-viewer-button",
+        );
+        if (driveButton) {
+            driveButton.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const fileId = driveButton.getAttribute("data-drive-file-id");
+                const title =
+                    driveButton.getAttribute("data-drive-title") ||
+                    "Document Viewer";
+
+                if (
+                    fileId &&
+                    typeof window !== "undefined" &&
+                    window.openDriveViewer
+                ) {
+                    window.openDriveViewer(fileId, title);
+                }
+            });
+        }
+    });
+</script>
