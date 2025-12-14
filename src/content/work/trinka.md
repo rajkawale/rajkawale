@@ -1,9 +1,10 @@
 ---
 title: "Trinka AI"
-tagline: "AI Writing Prototype"
-description: "AI Writing Prototype"
-tags: ["NLP", "Product Design"]
-category: "venture"
+description: "AI writing tool prototype that understands the nuance of technical and academic writing, going beyond simple spell-check to enhance clarity and tone."
+tags: ["FOUNDER-LED", "ZERO-TO-ONE"]
+metric: "AI writing prototype"
+badge: "Zero-to-one AI product"
+category: "founder-led"
 actionLabel: "View Demo"
 actionUrl: "https://trinka.rajkawale.com"
 priority: 2

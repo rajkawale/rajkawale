@@ -4,18 +4,18 @@ const workCollection = defineCollection({
     type: 'content',
     schema: z.object({
         title: z.string(),
-        tagline: z.string().optional(),
         description: z.string(),
-        tags: z.array(z.string()),
-        impact_title: z.string().optional(),
+        tags: z.array(z.string()).max(4),
         metric: z.string().optional(),
         badge: z.string().optional(),
-        category: z.string(), // Relaxed from enum
+        category: z.enum(['founder-led', 'enterprise']),
         actionLabel: z.string().optional(),
         actionUrl: z.string().optional(),
-        actionType: z.string().optional(), // Relaxed from enum
+        actionType: z.string().optional(),
         priority: z.number().default(100),
         draft: z.boolean().default(false),
+        secondaryCTALabel: z.string().optional(),
+        secondaryCTAUrl: z.string().optional(),
     }),
 });
 

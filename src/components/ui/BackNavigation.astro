@@ -4,16 +4,48 @@ interface Props {
   label?: string;
   id?: string;
   class?: string;
+  useHistory?: boolean;
 }
 
-const { href = '/', label = 'Back to Home', id, class: className } = Astro.props;
+const { href = '/', label = 'Back to home', id, class: className, useHistory = true } = Astro.props;
 ---
 
 <a
-  id={id}
-  href={href}
-  class={`moonlight-text-link inline-block mb-6 text-[14px] uppercase tracking-wide font-sans opacity-70 hover:opacity-100 transition-all duration-300 ease-out ${className || ''}`}
+  id={id || 'back-navigation'}
+  href={useHistory ? '#' : href}
+  data-fallback-href={href}
+  class={`inline-flex items-center gap-2 mb-6 text-[14px] tracking-wide font-sans font-medium text-neutral-400 hover:text-white transition-all duration-300 cursor-pointer group hover:-translate-x-1 ${className || ''}`}
 >
-  ← {label}
+  <span class="group-hover:-translate-x-1 transition-transform duration-300">←</span>
+  <span>{label}</span>
 </a>
+
+{useHistory && (
+  <script define:vars={{ backLinkId: id || 'back-navigation' }}>
+    document.addEventListener('DOMContentLoaded', () => {
+      const backLink = document.getElementById(backLinkId);
+      if (!backLink) return;
+
+      backLink.addEventListener('click', (e) => {
+        // Check if there's a referrer from the same origin (user navigated from another page)
+        const referrer = document.referrer;
+        const currentOrigin = window.location.origin;
+        
+        // If there's a referrer from the same origin, use browser back
+        if (referrer && referrer.startsWith(currentOrigin)) {
+          e.preventDefault();
+          window.history.back();
+        } else {
+          // Fallback to the provided href if no referrer (direct link or external)
+          const fallbackHref = backLink.getAttribute('data-fallback-href');
+          if (fallbackHref && fallbackHref !== '#') {
+            e.preventDefault();
+            window.location.href = fallbackHref;
+          }
+          // If no fallback href, let the default link behavior happen
+        }
+      });
+    });
+  </script>
+)}
 

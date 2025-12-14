@@ -134,14 +134,14 @@ const statusColors: Record<string, string> = {
       <div class="flex flex-wrap gap-2 mb-4">
         {project.tags.slice(0, 4).map((tech) => (
           <span
-            class="px-2.5 py-1 text-xs font-mono font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-500"
+            class="px-2.5 py-1 text-xs font-sans font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-500"
             title={tech}
           >
             {tech}
           </span>
         ))}
         {project.tags.length > 4 && (
-          <span class="px-2.5 py-1 text-xs font-mono font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-600">
+          <span class="px-2.5 py-1 text-xs font-sans font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-600">
             +{project.tags.length - 4}
           </span>
         )}
@@ -152,7 +152,7 @@ const statusColors: Record<string, string> = {
   <!-- Footer -->
   <div class="flex items-center justify-between mt-auto pt-4 border-t border-zinc-800/50 relative z-10">
     <span
-      class={`px-3 py-1 rounded-full text-xs font-mono font-medium border ${statusColors[project.category] || statusColors['shipped']}`}
+      class={`px-3 py-1 rounded-full text-xs font-sans font-medium border ${statusColors[project.category] || statusColors['shipped']}`}
     >
       {displayStatus}
     </span>
@@ -161,7 +161,7 @@ const statusColors: Record<string, string> = {
         <button
           data-drive-file-id={project.actionUrl?.match(/file\/d\/(.*?)\//)?.[1]}
           data-drive-title={project.title}
-          class="glass-button project-drive-viewer-button text-xs text-white font-mono font-medium z-10 relative flex items-center gap-1 px-2.5 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all cursor-pointer whitespace-nowrap"
+          class="glass-button project-drive-viewer-button text-xs text-white font-sans font-medium z-10 relative flex items-center gap-1 px-2.5 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all cursor-pointer whitespace-nowrap"
         >
           <Eye class="w-3 h-3 flex-shrink-0" />
           <span class="hidden sm:inline">View Pitch Deck</span>
@@ -176,7 +176,7 @@ const statusColors: Record<string, string> = {
             href={project.actionUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="glass-button text-xs text-white font-mono font-medium z-10 relative flex items-center gap-1 px-2.5 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all whitespace-nowrap"
+            class="glass-button text-xs text-white font-sans font-medium z-10 relative flex items-center gap-1 px-2.5 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all whitespace-nowrap"
           >
             <CTAIcon class="w-3 h-3 flex-shrink-0" />
             {CTALabel}
@@ -188,7 +188,7 @@ const statusColors: Record<string, string> = {
           href={project.actionUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="glass-button text-xs text-white font-mono font-medium z-10 relative px-2.5 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all whitespace-nowrap"
+          class="glass-button text-xs text-white font-sans font-medium z-10 relative px-2.5 py-1.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all whitespace-nowrap"
         >
           Code
         </a>

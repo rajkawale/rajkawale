@@ -1,11 +1,9 @@
 ---
 title: "Nextech AR"
-tagline: "DevOps & CI/CD Transformation"
-impact_title: "DevOps Transformation"
+description: "Boosted release velocity by 40% via CI/CD adoption and DevOps transformation."
+tags: ["ENTERPRISE", "SCALE"]
 metric: "+40% Velocity"
-badge: "Engineering"
-description: "Boosted release velocity by 40% via CI/CD adoption."
-tags: ["SaaS", "DevOps"]
+badge: "Enterprise engineering transformation"
 category: "enterprise"
 actionLabel: "View Details"
 actionUrl: "#"

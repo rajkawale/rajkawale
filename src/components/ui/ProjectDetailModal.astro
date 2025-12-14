@@ -54,7 +54,7 @@ const statusColors = {
             
             <!-- Back Navigation -->
             <footer class="mt-12 border-t border-zinc-800 pt-6">
-              <BackNavigation href="/#projects" label="Back to Work" />
+              <BackNavigation href="/#projects" label="Back to work" />
             </footer>
           </article>
 
@@ -70,7 +70,7 @@ const statusColors = {
                   <span class="text-sm font-medium text-zinc-300 font-sans">Status</span>
                 </div>
                 <span
-                  class={`inline-block px-3 py-1 rounded-full text-xs font-mono font-medium border ${
+                  class={`inline-block px-3 py-1 rounded-full text-xs font-sans font-medium border ${
                     project.status === 'Prototype'
                       ? 'bg-purple-500/20 text-purple-300 border-purple-500/40'
                       : project.status === 'Live Product'
@@ -117,7 +117,7 @@ const statusColors = {
                   <div class="flex flex-wrap gap-2">
                     {project.techStack.map((tech) => (
                       <span
-                        class="px-3 py-1 text-xs font-mono font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-300"
+                        class="px-3 py-1 text-xs font-sans font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-300"
                       >
                         {tech}
                       </span>
@@ -132,7 +132,7 @@ const statusColors = {
                   <button
                     data-drive-file-id={project.driveFileId}
                     data-drive-title={project.title}
-                    class="project-modal-drive-viewer-button moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono cursor-pointer"
+                    class="project-modal-drive-viewer-button moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans cursor-pointer"
                   >
                     <Eye class="w-4 h-4 group-hover:scale-110 transition-transform" />
                     <span class="text-xs font-medium">View Pitch Deck</span>
@@ -143,7 +143,7 @@ const statusColors = {
                     href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
+                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans"
                   >
                     <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                     <span class="text-xs font-medium">Visit Website</span>
@@ -154,7 +154,7 @@ const statusColors = {
                     href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
+                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans"
                   >
                     <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                     <span class="text-xs font-medium">View Demo</span>
@@ -165,7 +165,7 @@ const statusColors = {
                     href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
+                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans"
                   >
                     <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                     <span class="text-xs font-medium">View Archive</span>
@@ -176,7 +176,7 @@ const statusColors = {
                     href={project.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-mono"
+                    class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans"
                   >
                     <Github class="w-4 h-4 group-hover:scale-110 transition-transform" />
                     <span class="text-xs font-medium">View Code</span>

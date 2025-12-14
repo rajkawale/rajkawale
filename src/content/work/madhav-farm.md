@@ -1,33 +1,51 @@
 ---
 title: "Madhav Farm"
-tagline: "End-to-End Venture Ownership"
-impact_title: "Madhav Farm"
-metric: "8L Volume & 25% Faster Speed"
-badge: "Full-Stack Founder / D2C Operations"
-description: "Founded a D2C marketplace connecting farmers to bulk buyers. Led an 8-person team to optimize logistics and fulfillment."
-tags: ["Supply Chain", "D2C"]
-category: "venture"
+description: "Founded a direct-to-business marketplace connecting farmers to bulk buyers. Led an 8-person team to optimize logistics and fulfillment."
+tags: ["FOUNDER-LED", "P&L OWNERSHIP", "SUPPLY CHAIN"]
+metric: "₹8L Revenue | 20–25% Contribution Margin"
+badge: "Founder-led business build"
+category: "founder-led"
 actionLabel: "View Pitch Deck"
 actionUrl: "https://drive.google.com/file/d/1_ptVBOQjw1yIoVTBRpeYCSKeRl4KKL7a/view?usp=drive_link"
 actionType: "drive"
 priority: 3
+secondaryCTALabel: "View pitch deck"
+secondaryCTAUrl: "https://drive.google.com/file/d/1_ptVBOQjw1yIoVTBRpeYCSKeRl4KKL7a/view?usp=drive_link"
 ---
 
-## The Initiative
+## The Problem
 
-Bridging the gap between sustainable farming and modern consumers. This project represents the operational and strategic side of building a business from the ground up.
+Farmers lacked direct access to demand and fair pricing. Buyers (hotels/restaurants) faced inconsistent quality, pricing, and supply. Middlemen captured most of the margin while adding limited value. The core challenge was aligning supply, demand, logistics, and pricing at scale.
 
-## Business Strategy
+## The Business Model
 
-* **D2C Model:** Built a direct-to-consumer supply chain that eliminated middlemen, improving margins for farmers and reducing costs for consumers.
+Direct-to-business (D2C/B2B hybrid) model eliminating middlemen. Commission-based revenue model with focus on predictable demand from bulk buyers. Margin discipline as a first-class constraint.
 
-* **Supply Chain Optimization:** Designed and implemented an efficient logistics network connecting farms directly to urban markets, reducing waste and ensuring freshness.
+## Key Decisions & Tradeoffs
 
-* **Customer Acquisition:** Developed and executed go-to-market strategies that generated 8 Lakh in revenue within the first year, validating the business model.
+* **Prioritized demand certainty over rapid expansion:** Secured committed buyers before scaling supply, ensuring sustainable unit economics.
 
-## Key Achievements
+* **Built logistics manually before investing in automation:** Validated processes and unit economics through hands-on operations before technology investment.
 
-- **Team Building:** Led a team of 8 professionals across operations, sales, and logistics
-- **Revenue Generation:** Generated 8 Lakh revenue demonstrating strong market validation
-- **Market Impact:** Created a sustainable business model that benefited both farmers and consumers
+* **Focused on unit economics before geographic scale:** Proved profitability in one market before expanding to new regions.
+
+* **Accepted operational complexity to protect farmer margins:** Chose manual coordination over automation to ensure farmers received fair pricing and buyers got reliable supply.
+
+## Execution & Operations
+
+Designed end-to-end supply chain from farms to urban buyers. Led day-to-day logistics, fulfillment, and vendor coordination. Built internal tooling and processes to manage orders and delivery. Led an 8-member cross-functional team across operations, sales, and logistics.
+
+## Outcomes
+
+* ₹8L revenue generated within the first year
+* 20–25% contribution margin achieved
+* Sustainable unit economics validated
+* Repeat demand from bulk buyers
+
+## Key Learnings
+
+* Supply chain reliability matters more than pricing in B2B food
+* Margins are protected through process discipline, not scale alone
+* Trust on both sides (farmers and buyers) compounds over time
+* Execution quality is a competitive advantage in physical marketplaces
 

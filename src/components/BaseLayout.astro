@@ -114,7 +114,7 @@ const websiteStructuredData = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=optional"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Geist+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=optional"
       rel="stylesheet"
     />
     <!-- Load Clarity after CSS and fonts to ensure proper styling in recordings -->
@@ -279,7 +279,7 @@ const websiteStructuredData = {
   }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     background-color: #020617 !important;
     color: #d4d4d8;
     position: relative;
@@ -356,8 +356,18 @@ const websiteStructuredData = {
     z-index: 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', Georgia, 'Times New Roman', Times, serif;
+  h1, h2 {
+    font-family: 'Instrument Serif', Georgia, 'Times New Roman', Times, serif;
+    font-style: normal;
+    font-weight: 600; /* semibold */
+    color: #f1f5f9; /* Slate-100 - Cool white for blue-toned background */
+    font-display: optional;
+  }
+
+  h3, h4, h5, h6 {
+    font-family: 'Instrument Serif', Georgia, 'Times New Roman', Times, serif;
+    font-style: normal;
+    font-weight: 400; /* regular */
     color: #f1f5f9; /* Slate-100 - Cool white for blue-toned background */
     font-display: optional;
   }
