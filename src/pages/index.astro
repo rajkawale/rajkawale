@@ -1,12 +1,9 @@
 ---
 import BaseLayout from '../components/BaseLayout.astro';
 import { container } from '../core/di/container';
-import BentoGrid from '../components/ui/BentoGrid.astro';
-import ProjectCard from '../components/ui/ProjectCard.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
 import ArticleRow from '../components/ui/ArticleRow.astro';
 import TrustedBy from '../components/TrustedBy.astro';
-import DriveViewer from '../components/ui/DriveViewer.astro';
 import type { BlogPost } from '../domains/blog/entities';
 
 import { getCollection } from 'astro:content';
@@ -14,24 +11,8 @@ import { getCollection } from 'astro:content';
 // Get services from DI container
 const blogService = container.getBlogService();
 
-// Fetch data
-// Fetch data
-const allWork = await getCollection('work');
-// Get specific featured projects for manual layout
-const sinch = allWork.find(p => p.slug === 'sinch');
-const raitalk = allWork.find(p => p.slug === 'raitalk');
-const madhavFarm = allWork.find(p => p.slug === 'madhav-farm');
+// Data fetching removed as we are using a manual layout for the work section
 
-// For debug logging
-// For debug logging
-const projectsToShow = [sinch, raitalk, madhavFarm].filter(Boolean);
-console.log('Total work items:', allWork.length);
-console.log('Sinch found:', !!sinch);
-console.log('RaiTalk found:', !!raitalk);
-console.log('MadhavFarm found:', !!madhavFarm);
-if (projectsToShow.length === 0) {
-  console.error('No featured projects found! Check slugs:', allWork.map(p => p.slug));
-}
 
 // Get all blog posts sorted by date (most recent first)
 const allBlogPosts = (await blogService.getAllPosts())
@@ -90,47 +71,7 @@ if (archivePosts.length > 0) {
   }
 }
 
-// Work Items Data for Selected Business & Product Bets section
-const workItems = [
-  {
-    id: 'raitalk',
-    tag: 'AI Native · Zero-to-One',
-    title: 'RaiTalk – Cognitive AI for Therapy Discovery',
-    description: 'AI system that helps users surface hidden psychological patterns through guided conversation.',
-    metrics: [
-      'End-to-end product ownership',
-      'Prompt architecture & orchestration',
-      'Live MVP with real conversations'
-    ],
-    cta_label: 'Read product narrative →',
-    cta_url: '/narrative/raitalk',
-    category: 'primary'
-  },
-  {
-    id: 'madhav-farm',
-    tag: 'Founder · P&L Ownership',
-    title: 'Madhav Farm – Farmer-to-Business Supply Chain',
-    description: 'Built and operated a demand-driven supply chain connecting farmers directly with hotels and restaurants.',
-    metrics: [
-      '₹8L annual revenue',
-      '20–25% commission margin',
-      '8-member team led'
-    ],
-    cta_label: 'Read product narrative →',
-    cta_url: '/narrative/madhav-farm',
-    category: 'primary'
-  },
-  {
-    id: 'unified-cdp',
-    tag: 'Enterprise SaaS · Growth',
-    title: 'Unified Customer Data Platform',
-    description: 'Aligned product strategy with business metrics to drive measurable ROI.',
-    metrics: ['+23% ROI delivered'],
-    cta_label: 'View summary →',
-    cta_url: '/narrative/unified-cdp',
-    category: 'secondary'
-  }
-];
+
 
 ---
 
@@ -177,177 +118,158 @@ const workItems = [
       </div>
     </section>
 
-    <!-- Products & Businesses Built Section -->
-    <section id="projects" class="py-24 px-6 md:px-12">
-      <div class="max-w-7xl mx-auto">
-        <div class="mb-16 text-center">
-          <h2 class="text-4xl md:text-5xl font-serif font-bold text-slate-100 mb-4">
-            Products & Businesses Built
+    <!-- Selected Work Section -->
+    <section id="work" class="py-32 px-6 md:px-12 relative z-10">
+      <div class="max-w-[1100px] mx-auto">
+        <div class="mb-20 text-center md:text-left">
+          <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
+            Selected Work
           </h2>
-          <p class="text-zinc-300 text-lg font-sans max-w-3xl mx-auto">
-            Ownership across strategy, execution, and outcomes
+          <p class="text-zinc-400 text-lg font-sans max-w-2xl leading-relaxed">
+            Strategic product leadership across zero-to-one ventures and enterprise scale.
           </p>
         </div>
 
-        <div class="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           
-          <!-- Card 1: RaiTalk (Primary) -->
-          <div
-            class="group relative rounded-lg overflow-hidden bg-white/[0.02] border border-white/10 hover:border-white/30 hover:shadow-lg hover:shadow-white/5 transition-all duration-200 p-8 min-h-[400px] flex flex-col"
-          >
-            <div class="flex-1 flex flex-col">
-              <span class="inline-block w-fit px-3 py-1 mb-4 text-xs font-mono font-medium text-zinc-400 border border-white/10 rounded">
-                AI Native · Zero-to-One
-              </span>
-              <h3 class="text-2xl md:text-3xl font-serif font-bold text-white mb-4 leading-tight">
-                RaiTalk — Cognitive AI for Pattern Awareness & Psychological Insight
-              </h3>
-              <p class="text-zinc-400 text-base mb-6 leading-relaxed">
-                AI system that helps users uncover hidden psychological patterns and gain clarity through guided conversation.
-              </p>
-              <ul class="space-y-2 mb-6 flex-1">
-                <li class="text-zinc-300 text-sm flex items-start">
-                  <span class="text-zinc-500 mr-2">•</span>
-                  <span>End-to-end product ownership</span>
-                </li>
-                <li class="text-zinc-300 text-sm flex items-start">
-                  <span class="text-zinc-500 mr-2">•</span>
-                  <span>Prompt architecture & orchestration</span>
-                </li>
-                <li class="text-zinc-300 text-sm flex items-start">
-                  <span class="text-zinc-500 mr-2">•</span>
-                  <span>Live MVP with real conversations</span>
-                </li>
-              </ul>
-            </div>
-            <div class="pt-4 border-t border-white/10 flex items-center justify-between gap-4">
-              <a
-                href="/narrative/raitalk"
-                class="text-zinc-400 text-sm font-medium group-hover:text-white transition-colors inline-flex items-center gap-1 hover:gap-2"
-              >
-                Read details <span class="transition-transform group-hover:translate-x-1">→</span>
-              </a>
-              <a
-                href="https://raitalk.rajkawale.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-zinc-400 text-sm font-medium hover:text-white transition-colors inline-flex items-center gap-1"
-                onclick="event.stopPropagation()"
-              >
-                View Website <span class="text-xs">↗</span>
-              </a>
-            </div>
-          </div>
+          <!-- Card 1: RaiTalk (AI Native - Dominant) -->
+          <article class="group relative bg-[#0A0A0A] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-500 ease-out flex flex-col p-8 md:p-12 h-full shadow-2xl shadow-black/50">
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/10 via-transparent to-transparent opacity-100 transition-opacity duration-500"></div>
+            
+            <div class="relative z-10 flex flex-col h-full">
+              <header class="mb-4">
+                <div class="flex items-center gap-3 mb-6">
+                  <span class="px-2 py-0.5 text-[10px] uppercase tracking-widest font-mono text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 rounded-md">
+                    AI Native
+                  </span>
+                  <span class="text-white/40 text-sm font-sans font-medium">
+                    0→1 Launch
+                  </span>
+                </div>
+                <h3 class="text-4xl font-serif font-bold text-white mb-3 tracking-tight group-hover:text-indigo-100 transition-colors">
+                  RaiTalk
+                </h3>
+                <p class="text-zinc-400 text-lg leading-relaxed font-sans max-w-sm">
+                  Cognitive AI engine for emotional intelligence.
+                </p>
+              </header>
 
-          <!-- Card 2: Madhav Farm (Primary) -->
-          <div
-            class="group relative rounded-lg overflow-hidden bg-white/[0.02] border border-white/10 hover:border-white/30 hover:shadow-lg hover:shadow-white/5 transition-all duration-200 p-8 min-h-[400px] flex flex-col"
-          >
-            <div class="flex-1 flex flex-col">
-              <span class="inline-block w-fit px-3 py-1 mb-4 text-xs font-mono font-medium text-zinc-400 border border-white/10 rounded">
-                Founder · P&L Ownership
-              </span>
-              <h3 class="text-2xl md:text-3xl font-serif font-bold text-white mb-4 leading-tight">
-                Madhav Farm – Farmer-to-Business Supply Chain
-              </h3>
-              <p class="text-zinc-400 text-base mb-6 leading-relaxed">
-                Built and operated a demand-driven supply chain connecting farmers directly with hotels and restaurants.
-              </p>
-              <ul class="space-y-2 mb-6 flex-1">
-                <li class="text-zinc-300 text-sm flex items-start">
-                  <span class="text-zinc-500 mr-2">•</span>
-                  <span>₹8L annual revenue</span>
-                </li>
-                <li class="text-zinc-300 text-sm flex items-start">
-                  <span class="text-zinc-500 mr-2">•</span>
-                  <span>20–25% commission margin</span>
-                </li>
-                <li class="text-zinc-300 text-sm flex items-start">
-                  <span class="text-zinc-500 mr-2">•</span>
-                  <span>8-member team led</span>
-                </li>
-              </ul>
-            </div>
-            <div class="pt-4 border-t border-white/10 flex items-center justify-between gap-4">
-              <a
-                href="/narrative/madhav-farm"
-                class="text-zinc-400 text-sm font-medium group-hover:text-white transition-colors inline-flex items-center gap-1 hover:gap-2"
-              >
-                Read details <span class="transition-transform group-hover:translate-x-1">→</span>
-              </a>
-              <a
-                href="https://drive.google.com/file/d/1_ptVBOQjw1yIoVTBRpeYCSKeRl4KKL7a/view?usp=drive_link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-zinc-400 text-sm font-medium hover:text-white transition-colors inline-flex items-center gap-1"
-                onclick="event.stopPropagation()"
-              >
-                View Pitch Deck <span class="text-xs">↗</span>
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Card 3: Unified CDP (Secondary - Full Width Below) -->
-        <div class="max-w-[1100px] mx-auto mt-6">
-          <a
-            href="/narrative/unified-cdp"
-            class="group relative rounded-lg overflow-hidden bg-white/[0.02] border border-white/10 hover:border-white/30 hover:shadow-lg hover:shadow-white/5 transition-all duration-200 p-8 min-h-[280px] flex flex-col md:flex-row md:items-center justify-between gap-8"
-          >
-            <div class="flex-1">
-              <span class="inline-block w-fit px-3 py-1 mb-4 text-xs font-mono font-medium text-zinc-400 border border-white/10 rounded">
-                Enterprise SaaS · Growth
-              </span>
-              <h3 class="text-xl md:text-2xl font-serif font-bold text-white mb-3 leading-tight">
-                Unified Customer Data Platform
-              </h3>
-              <p class="text-zinc-400 text-base mb-4 leading-relaxed max-w-2xl">
-                Aligned product strategy with business metrics to drive measurable ROI.
-              </p>
-              <div class="text-zinc-300 text-sm">
-                <span class="font-medium">+23% ROI delivered</span>
+              <div class="mt-auto pt-8">
+                <div class="flex flex-col gap-3">
+                  <a 
+                    href="/work/raitalk" 
+                    class="inline-flex items-center justify-between w-full px-5 py-3 bg-white text-black hover:bg-zinc-200 rounded-lg font-medium text-sm transition-all duration-300 group/btn"
+                  >
+                    <span>Read case study</span>
+                    <span class="group-hover/btn:translate-x-1 transition-transform">→</span>
+                  </a>
+                  <a 
+                    href="https://raitalk.rajkawale.com" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-between w-full px-5 py-3 text-zinc-500 hover:text-white transition-colors text-sm font-medium group/link"
+                  >
+                    <span>View website</span>
+                    <span class="opacity-0 group-hover/link:opacity-100 transition-opacity">↗</span>
+                  </a>
+                </div>
               </div>
             </div>
-            <div class="pt-4 md:pt-0 md:border-t-0 border-t border-white/10 md:border-l md:pl-8">
-              <span class="text-zinc-400 text-sm font-medium group-hover:text-white transition-colors inline-flex items-center gap-1 group-hover:gap-2">
-                View summary <span class="transition-transform group-hover:translate-x-1">→</span>
-              </span>
+          </article>
+
+          <!-- Card 2: Madhav Farm (Venture - Secondary) -->
+          <article class="group relative bg-[#0A0A0A] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-500 ease-out flex flex-col p-8 md:p-10 h-full">
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/5 via-transparent to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div class="relative z-10 flex flex-col h-full">
+              <header class="mb-4">
+                <div class="flex items-center gap-3 mb-6">
+                  <span class="px-2 py-0.5 text-[10px] uppercase tracking-widest font-mono text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-md">
+                    Venture
+                  </span>
+                  <span class="text-white/40 text-sm font-sans font-medium">
+                    ₹8L Revenue
+                  </span>
+                </div>
+                <h3 class="text-3xl font-serif font-bold text-white mb-3 tracking-tight group-hover:text-emerald-100 transition-colors">
+                  Madhav Farm
+                </h3>
+                <p class="text-zinc-500 text-lg leading-relaxed font-sans">
+                  D2C marketplace for bulk organic produce.
+                </p>
+              </header>
+
+              <div class="mt-auto pt-8">
+                <div class="flex flex-col gap-3">
+                  <a 
+                    href="/work/madhav-farm" 
+                    class="inline-flex items-center justify-between w-full px-5 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white rounded-lg font-medium text-sm transition-all duration-300 group/btn"
+                  >
+                    <span>Read case study</span>
+                    <span class="group-hover/btn:translate-x-1 transition-transform">→</span>
+                  </a>
+                  <a 
+                    href="https://drive.google.com/file/d/1_ptVBOQjw1yIoVTBRpeYCSKeRl4KKL7a/view?usp=drive_link" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-between w-full px-5 py-3 text-zinc-500 hover:text-white transition-colors text-sm font-medium group/link"
+                  >
+                    <span>View pitch deck</span>
+                    <span class="opacity-0 group-hover/link:opacity-100 transition-opacity">↗</span>
+                  </a>
+                </div>
+              </div>
             </div>
-          </a>
+          </article>
+
         </div>
+
+        <!-- Card 3: Sinch (Enterprise - Supporting) -->
+        <article class="group relative bg-[#0A0A0A] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-500 ease-out p-8 md:p-10">
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-900/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="px-2 py-0.5 text-[10px] uppercase tracking-widest font-mono text-blue-300 bg-blue-500/10 border border-blue-500/20 rounded-md">
+                  Enterprise
+                </span>
+                <span class="text-white/40 text-sm font-sans font-medium">
+                  +23% ROI
+                </span>
+              </div>
+              <h3 class="text-2xl font-serif font-bold text-white mb-2 group-hover:text-blue-100 transition-colors">
+                Unified Customer Architecture
+              </h3>
+              <p class="text-zinc-500 text-base leading-relaxed max-w-2xl font-sans">
+                Scalable AI-driven CDP for enterprise campaign targeting.
+              </p>
+            </div>
+
+            <div class="flex-shrink-0">
+              <a 
+                href="/work/sinch" 
+                class="inline-flex items-center gap-2 text-white hover:text-blue-200 transition-colors text-sm font-medium group/link"
+              >
+                <span>Read details</span>
+                <span class="group-hover/link:translate-x-1 transition-transform">→</span>
+              </a>
+            </div>
+          </div>
+        </article>
 
         <!-- View All Work Link -->
         <div class="max-w-[1100px] mx-auto mt-12 text-center">
           <a
-            href="/all-work"
+            href="/work"
             class="text-zinc-400 text-sm font-medium hover:text-white transition-colors inline-flex items-center gap-1 hover:gap-2"
           >
             View All Work <span class="transition-transform hover:translate-x-1">→</span>
           </a>
         </div>
+
       </div>
     </section>
-
-    <!-- Work Details Modal -->
-    <div id="work-details-modal" class="work-modal fixed inset-0 z-50 hidden items-center justify-center p-4" aria-hidden="true">
-      <div class="work-modal-backdrop absolute inset-0 bg-black/80 backdrop-blur-sm" data-modal-close></div>
-      <div class="work-modal-content relative z-10 max-w-3xl w-full max-h-[90vh] overflow-y-auto bg-[#020617] border border-white/20 rounded-2xl p-8 md:p-12">
-        <button
-          type="button"
-          class="work-modal-close absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 text-white"
-          data-modal-close
-          aria-label="Close modal"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-        <div id="work-modal-body">
-          <!-- Modal content will be injected here -->
-        </div>
-      </div>
-    </div>
 
     <!-- Section Divider -->
     <div class="section-divider-wrapper flex justify-center">
@@ -491,8 +413,7 @@ const workItems = [
     </section>
   </main>
   
-  <!-- Drive Viewer Modal -->
-  <DriveViewer fileId="" title="Document Viewer" />
+
 </BaseLayout>
 
 <style>
@@ -764,113 +685,5 @@ const workItems = [
       observer.observe(heroSection);
     }
 
-    // Work Details Modal System
-    const modal = document.getElementById('work-details-modal');
-    const modalBody = document.getElementById('work-modal-body');
-    const modalTriggers = document.querySelectorAll('[data-modal-trigger]');
-    const modalCloses = document.querySelectorAll('[data-modal-close]');
-
-    function openModal(trigger) {
-      const title = trigger.getAttribute('data-work-title');
-      const metric = trigger.getAttribute('data-work-metric');
-      const badge = trigger.getAttribute('data-work-badge');
-      const description = trigger.getAttribute('data-work-description');
-      const tagsJson = trigger.getAttribute('data-work-tags');
-      const category = trigger.getAttribute('data-work-category');
-      
-      if (!title || !metric) return;
-
-      const tags = tagsJson ? JSON.parse(tagsJson) : [];
-
-      modalBody.innerHTML = `
-        <div class="space-y-6">
-          <div>
-            <span class="inline-block px-3 py-1 mb-4 text-xs font-mono font-medium ${
-              category === 'enterprise' 
-                ? 'text-blue-300 bg-blue-500/10 border border-blue-500/20' 
-                : 'text-emerald-300 bg-emerald-500/10 border border-emerald-500/20'
-            } rounded-full">
-              ${badge || ''}
-            </span>
-            <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
-              ${title}
-            </h2>
-            <div class="mb-6">
-              <p class="text-4xl md:text-5xl font-bold ${
-                category === 'enterprise'
-                  ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white'
-                  : 'text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 to-white'
-              }">
-                ${metric}
-              </p>
-            </div>
-          </div>
-          
-          <div class="border-t border-white/10 pt-6">
-            <h3 class="text-lg font-serif font-bold text-white mb-3">Problem</h3>
-            <p class="text-zinc-300 leading-relaxed mb-6">
-              ${description || 'Details coming soon...'}
-            </p>
-          </div>
-
-          <div class="border-t border-white/10 pt-6">
-            <h3 class="text-lg font-serif font-bold text-white mb-3">Solution</h3>
-            <p class="text-zinc-300 leading-relaxed mb-6">
-              ${description || 'Details coming soon...'}
-            </p>
-          </div>
-
-          <div class="border-t border-white/10 pt-6">
-            <h3 class="text-lg font-serif font-bold text-white mb-3">Impact</h3>
-            <p class="text-zinc-300 leading-relaxed">
-              ${metric}
-            </p>
-          </div>
-
-          ${tags && tags.length > 0 ? `
-            <div class="border-t border-white/10 pt-6">
-              <h3 class="text-lg font-serif font-bold text-white mb-3">Tech Stack</h3>
-              <div class="flex flex-wrap gap-2">
-                ${tags.map(tag => `
-                  <span class="px-3 py-1 text-xs font-mono font-medium bg-zinc-950/50 border border-zinc-800/50 rounded text-zinc-300">
-                    ${tag}
-                  </span>
-                `).join('')}
-              </div>
-            </div>
-          ` : ''}
-        </div>
-      `;
-
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      document.body.style.overflow = 'hidden';
-      const slug = trigger.getAttribute('data-modal-trigger');
-      trackEvent(`Work_Modal_Open_${slug}`);
-    }
-
-    function closeModal() {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      document.body.style.overflow = '';
-    }
-
-    // Attach event listeners
-    modalTriggers.forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        openModal(trigger);
-      });
-    });
-
-    modalCloses.forEach(close => {
-      close.addEventListener('click', closeModal);
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-        closeModal();
-      }
-    });
   });
 </script>
