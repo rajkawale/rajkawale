@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { ExternalLink, Eye } from "lucide-react";
+import { getMetricIcon } from "../../utils/ui-helpers";
 
 interface Props {
   project: CollectionEntry<"work">;
@@ -10,6 +11,7 @@ interface Props {
 
 const { project: workItem, size = "medium", hideSecondaryLink = false } = Astro.props;
 const project = workItem.data;
+const { tags, metric } = project;
 const slug = workItem.slug;
 
 // Determine main link URL and label based on pdfUrl
@@ -18,7 +20,7 @@ const hasPdfUrl = !!project.pdfUrl;
 
 // For professional work cards, always use internal link and "View Case Study" text
 const professionalWorkLinkUrl = hideSecondaryLink ? `/work/${slug}` : mainLinkUrl;
-const professionalWorkLinkText = hideSecondaryLink ? 'View Case Study' : (hasPdfUrl ? 'View Case Study' : 'Read Case');
+const professionalWorkLinkText = 'Read Case';
 
 
 ---
@@ -82,16 +84,37 @@ const professionalWorkLinkText = hideSecondaryLink ? 'View Case Study' : (hasPdf
   <div class="flex-1 flex flex-col relative z-10">
     <!-- Header -->
     <div class="mb-4">
-      <h3 class="text-2xl font-serif font-normal text-slate-100 group-hover:text-white transition-colors mb-3">
+      <h3 class="text-2xl font-serif font-normal text-slate-100 group-hover:text-white transition-colors mb-2">
         {project.title}
       </h3>
+      
+      {/* Metric - The Hook */}
+      {metric && (
+        <div class="mb-4">
+          <span class="text-emerald-400 text-xs font-semibold uppercase tracking-wide block">
+            {getMetricIcon(metric)} {metric}
+          </span>
+        </div>
+      )}
+
       <p class="text-sm text-zinc-400 leading-relaxed font-sans">
         {project.description}
       </p>
+
+      {/* Tags - The Context */}
+      {tags && tags.length > 0 && (
+        <div class="my-6 flex flex-wrap gap-2">
+          {tags.slice(0, 3).map((tag) => (
+            <span class="text-[10px] font-medium text-zinc-400 uppercase tracking-wider bg-white/5 border border-white/5 rounded px-2 py-1">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- Footer - Actions Only -->
   <div class="flex items-center justify-end mt-auto pt-4 border-t border-zinc-800/50 relative z-10">
     <div class="flex items-center gap-6 flex-wrap">
       {/* Main CTA Link - PDF or Internal (Primary) */}
@@ -100,7 +123,7 @@ const professionalWorkLinkText = hideSecondaryLink ? 'View Case Study' : (hasPdf
         class={`text-white font-semibold flex items-center gap-2 z-10 relative ${size === 'large' ? 'text-lg' : ''}`}
       >
         <span>{professionalWorkLinkText}</span>
-        <span>→</span>
+        <span>{hasPdfUrl ? '↗' : '→'}</span>
       </a>
       {/* Secondary Links - Hidden for professional work */}
       {!hideSecondaryLink && (
