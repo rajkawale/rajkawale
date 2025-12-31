@@ -114,7 +114,7 @@ const websiteStructuredData = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Geist+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=optional"
+      href="https://fonts.googleapis.com/css2?family=Geist+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=optional"
       rel="stylesheet"
     />
     <!-- Load Clarity after CSS and fonts to ensure proper styling in recordings -->
@@ -279,15 +279,15 @@ const websiteStructuredData = {
   }
 
   body {
-    font-family: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Geist Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400; /* font-normal */
     background-color: #020617 !important;
-    color: #d4d4d8;
+    color: #d4d4d8; /* text-zinc-300 */
     position: relative;
     overflow-x: hidden;
     width: 100%;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: none;
-    font-display: optional;
   }
 
   /* Respect iPhone notch and home bar - Update main containers */
@@ -357,19 +357,18 @@ const websiteStructuredData = {
   }
 
   h1, h2 {
-    font-family: 'Instrument Serif', Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Cambria', 'Times New Roman', Times, serif;
     font-style: normal;
-    font-weight: 600; /* semibold */
+    font-weight: 400; /* normal - keep Georgia elegant */
+    letter-spacing: -0.025em; /* tracking-tight */
     color: #f1f5f9; /* Slate-100 - Cool white for blue-toned background */
-    font-display: optional;
   }
 
   h3, h4, h5, h6 {
-    font-family: 'Instrument Serif', Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Cambria', 'Times New Roman', Times, serif;
     font-style: normal;
     font-weight: 400; /* regular */
     color: #f1f5f9; /* Slate-100 - Cool white for blue-toned background */
-    font-display: optional;
   }
 
   /* Monospace for Builder metadata */

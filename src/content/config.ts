@@ -8,7 +8,8 @@ const workCollection = defineCollection({
         tags: z.array(z.string()).max(4),
         metric: z.string().optional(),
         badge: z.string().optional(),
-        category: z.enum(['founder-led', 'enterprise']),
+        // Accept both old and new category values for backward compatibility
+        category: z.enum(['shipped', 'professional', 'casestudy', 'founder-led', 'enterprise', 'strategy', 'startup']),
         actionLabel: z.string().optional(),
         actionUrl: z.string().optional(),
         actionType: z.string().optional(),
@@ -16,6 +17,7 @@ const workCollection = defineCollection({
         draft: z.boolean().default(false),
         secondaryCTALabel: z.string().optional(),
         secondaryCTAUrl: z.string().optional(),
+        pdfUrl: z.string().optional(),
     }),
 });
 

@@ -11,21 +11,21 @@ const isActive = (path: string) => {
 ---
 
 <!-- Mobile Header: Top Bar -->
-<header class="mobile-header flex md:hidden fixed top-0 left-0 w-full z-50 px-6 py-6 justify-between items-center bg-transparent">
-  <!-- Left: Brand Logo -->
+<header id="mobile-header" class="mobile-header flex md:hidden fixed top-0 left-0 w-full z-50 px-6 py-6 justify-between items-center bg-transparent transition-all duration-300">
+  <!-- Left: Brand Logo - Floating Pill -->
   <a 
     href="/" 
     id="mobile-logo"
-    class="text-4xl font-serif tracking-tight text-white transition-all duration-300 ease-out flex items-center hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.8)]"
+    class="text-4xl font-serif tracking-tight text-white transition-all duration-300 ease-out flex items-center hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-lg shadow-lg shadow-black/5"
   >
     <span class="font-light">Raj</span>
     <span class="font-black"> Kawale</span>
   </a>
 
-  <!-- Right: Hamburger Menu Trigger -->
+  <!-- Right: Hamburger Menu Trigger - Floating Pill -->
   <button
     id="mobile-menu-trigger"
-    class="moonlight-container text-white hover:text-white transition-all duration-300 ease-out p-2 z-50"
+    class="text-white hover:text-white transition-all duration-300 ease-out z-50 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-lg shadow-lg shadow-black/5 flex items-center justify-center"
     aria-label="Open menu"
     aria-expanded="false"
   >
@@ -137,14 +137,23 @@ const isActive = (path: string) => {
 <script>
   const mobileLogo = document.getElementById('mobile-logo');
 
-  // Scroll fade effect for logo
+  // Scroll fade effect for logo and enhance pill styling
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
+    const menuTrigger = document.getElementById('mobile-menu-trigger');
     
     if (scrollY > 50) {
       mobileLogo?.classList.add('opacity-0', 'pointer-events-none');
+      [mobileLogo, menuTrigger].forEach(element => {
+        element?.classList.add('bg-white/8', 'backdrop-blur-xl');
+        element?.classList.remove('bg-white/5', 'backdrop-blur-lg');
+      });
     } else {
       mobileLogo?.classList.remove('opacity-0', 'pointer-events-none');
+      [mobileLogo, menuTrigger].forEach(element => {
+        element?.classList.remove('bg-white/8', 'backdrop-blur-xl');
+        element?.classList.add('bg-white/5', 'backdrop-blur-lg');
+      });
     }
   });
 

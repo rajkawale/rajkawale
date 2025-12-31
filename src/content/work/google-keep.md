@@ -4,7 +4,7 @@ description: "Product strategy case study on monetization approaches for note-ta
 tags: []
 metric: "Monetization strategy case study"
 badge: "Product strategy analysis"
-category: "enterprise"
+category: "casestudy"
 actionLabel: "Read Case Study"
 actionType: "pdf"
 priority: 7

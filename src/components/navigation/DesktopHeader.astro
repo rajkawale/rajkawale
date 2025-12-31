@@ -10,21 +10,21 @@ const isActive = (path: string) => {
 ---
 
 <!-- Desktop Header: Split Layout (Logo Left, Menu Right) -->
-<header class="desktop-header hidden md:flex fixed top-0 left-0 w-full z-50 px-8 py-6 justify-between items-center bg-transparent">
-  <!-- Left: Brand Logo -->
+<header id="desktop-header" class="desktop-header hidden md:flex fixed top-0 left-0 w-full z-50 px-8 py-6 justify-between items-center bg-transparent transition-all duration-300">
+  <!-- Left: Brand Logo - Floating Pill -->
   <a 
     href="/" 
     id="desktop-logo"
-    class="text-4xl font-serif tracking-tight text-white transition-all duration-300 ease-out flex items-center hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.8)]"
+    class="text-4xl font-serif tracking-tight text-white transition-all duration-300 ease-out flex items-center hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-lg shadow-lg shadow-black/5"
   >
     <span class="font-light">Raj</span>
     <span class="font-black"> Kawale</span>
   </a>
 
-  <!-- Right: Navigation Menu + Social Icons -->
-  <div class="flex items-center gap-6">
-    <!-- Navigation Links - Floating Text Style (Hidden on mobile) -->
-    <nav class="hidden md:flex items-center gap-8">
+  <!-- Right: Navigation Menu + Social Icons - Combined Floating Pill -->
+  <div id="desktop-nav" class="hidden md:flex items-center gap-6 px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-lg shadow-lg shadow-black/5 transition-all duration-300">
+    <!-- Navigation Links -->
+    <nav class="flex items-center gap-8">
       <a 
         href="/" 
         id="nav-home"
@@ -66,7 +66,7 @@ const isActive = (path: string) => {
     <div class="flex items-center gap-4 pl-4 border-l border-white/10">
       <a 
         href="https://www.linkedin.com/in/rajkawale/" 
-        target="_blank" 
+        target="_blank"
         rel="noopener noreferrer"
         class="moonlight-text-link text-[#888] hover:text-white transition-all duration-300 ease-out flex items-center"
         aria-label="LinkedIn"
@@ -184,6 +184,25 @@ const isActive = (path: string) => {
     
     // Check initial state
     updateActiveStates();
+  });
+
+  // Optional: Enhance pill styling on scroll (already has base styling)
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('desktop-nav');
+    const logo = document.getElementById('desktop-logo');
+    const scrollY = window.scrollY;
+    
+    if (scrollY > 50) {
+      [nav, logo].forEach(element => {
+        element?.classList.add('bg-white/8', 'backdrop-blur-xl');
+        element?.classList.remove('bg-white/5', 'backdrop-blur-lg');
+      });
+    } else {
+      [nav, logo].forEach(element => {
+        element?.classList.remove('bg-white/8', 'backdrop-blur-xl');
+        element?.classList.add('bg-white/5', 'backdrop-blur-lg');
+      });
+    }
   });
 </script>
 

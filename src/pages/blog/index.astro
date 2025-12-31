@@ -139,11 +139,36 @@ if (olderPosts.length > 0) {
             </a>
           )}
 
-          <!-- Archive List - Simple Vertical List -->
+          <!-- Archive List - Editorial Index Style -->
           {olderPostsWithReadTime.length > 0 && (
-            <div>
+            <div class="space-y-0">
               {olderPostsWithReadTime.map(({ post, readTime }) => (
-                <ArticleRow post={post} readTime={readTime} />
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="group flex items-center gap-6 py-6 border-b border-white/5 hover:bg-white/[0.02] transition-all duration-200"
+                >
+                  <!-- Left: Date -->
+                  <time 
+                    datetime={post.publishedAt.toISOString()} 
+                    class="text-sm font-sans text-zinc-500 w-32 shrink-0 tabular-nums"
+                  >
+                    {post.publishedAt.toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric'
+                    })}
+                  </time>
+                  
+                  <!-- Middle: Title -->
+                  <h2 class="flex-1 text-xl font-serif text-slate-200 group-hover:text-indigo-400 transition-colors">
+                    {post.title}
+                  </h2>
+                  
+                  <!-- Right: Arrow -->
+                  <span class="opacity-0 group-hover:opacity-100 transition-opacity text-zinc-400 text-xl">
+                    →
+                  </span>
+                </a>
               ))}
             </div>
           )}

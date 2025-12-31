@@ -6,12 +6,31 @@ import ProjectCard from "../components/ui/ProjectCard.astro";
 const allWork = await getCollection("work");
 const sortedWork = allWork.sort((a, b) => a.data.priority - b.data.priority);
 
-const ventures = sortedWork.filter((item) => item.data.category === "venture");
-const enterpriseProjects = sortedWork.filter(
-  (item) => item.data.category === "enterprise",
+// Map category to new system (handle both old and new category values)
+const getCategory = (category: string) => {
+  // Map old categories to new ones
+  if (category === "founder-led" || category === "shipped" || category === "startup") {
+    return "shipped";
+  }
+  if (category === "enterprise" || category === "professional") {
+    return "professional";
+  }
+  if (category === "strategy" || category === "casestudy") {
+    return "casestudy";
+  }
+  // Default fallback
+  return category;
+};
+
+// Filter by new category system
+const shippedProjects = sortedWork.filter(
+  (item) => getCategory(item.data.category) === "shipped"
 );
-const strategyWork = sortedWork.filter(
-  (item) => item.data.category === "strategy",
+const professionalWork = sortedWork.filter(
+  (item) => getCategory(item.data.category) === "professional"
+);
+const caseStudies = sortedWork.filter(
+  (item) => getCategory(item.data.category) === "casestudy"
 );
 ---
 
@@ -38,73 +57,54 @@ const strategyWork = sortedWork.filter(
         </p>
       </div>
 
-      <!-- Venture Section (Founders) -->
-      {
-        ventures.length > 0 && (
-          <section class="mb-32">
-            <div class="mb-8 border-l-4 border-purple-500 pl-4">
-              <h2 class="text-3xl md:text-4xl font-serif font-bold text-slate-100">
-                Founder & 0→1 Builds
-              </h2>
-              <p class="text-purple-300 font-mono text-sm mt-1 uppercase tracking-wide">
-                End-to-end product engineering. Blank canvas to Revenue.
-              </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-              {ventures.map((item) => (
-                <ProjectCard project={item} size="large" />
-              ))}
-            </div>
-          </section>
-        )
-      }
+      <!-- Shipped Products Section -->
+      {shippedProjects.length > 0 && (
+        <section class="mb-32">
+          <h2 class="text-3xl font-serif text-slate-100 mb-8">
+            Shipped Products
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* First item - Full width */}
+            {shippedProjects[0] && (
+              <div class="md:col-span-2">
+                <ProjectCard project={shippedProjects[0]} size="large" />
+              </div>
+            )}
+            {/* Next two items - Side by side */}
+            {shippedProjects.slice(1, 3).map((item) => (
+              <ProjectCard project={item} size="medium" />
+            ))}
+          </div>
+        </section>
+      )}
 
-      <!-- Enterprise Section (Scale) -->
-      {
-        enterpriseProjects.length > 0 && (
-          <section class="mb-32">
-            <div class="mb-8 border-l-4 border-blue-500 pl-4">
-              <h2 class="text-3xl md:text-4xl font-serif font-bold text-slate-100">
-                Enterprise Scale
-              </h2>
-              <p class="text-blue-300 font-mono text-sm mt-1 uppercase tracking-wide">
-                Architectural transformation & Operational efficiency.
-              </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {enterpriseProjects.map((item) => (
-                <ProjectCard project={item} />
-              ))}
-            </div>
-          </section>
-        )
-      }
+      <!-- Professional Work Section -->
+      {professionalWork.length > 0 && (
+        <section class="mb-16">
+          <h2 class="text-3xl font-serif text-slate-100 mb-8">
+            Professional Work
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {professionalWork.map((item) => (
+              <ProjectCard project={item} size="medium" hideSecondaryLink={true} />
+            ))}
+          </div>
+        </section>
+      )}
 
-      <!-- Strategy Section (Thinking) -->
-      {
-        strategyWork.length > 0 && (
-          <section class="mb-32 relative">
-             <!-- Background Texture for 'Paper' feel -->
-            <div class="absolute inset-0 bg-white/5 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.03] pointer-events-none rounded-xl"></div>
-            
-            <div class="relative z-10 p-6 md:p-8 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-                <div class="mb-8">
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-slate-100">
-                    Product Thinking
-                </h2>
-                <p class="text-emerald-300 font-mono text-sm mt-1 uppercase tracking-wide">
-                    Deep dives into monetization, growth loops, and market strategy.
-                </p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {strategyWork.map((item) => (
-                    <ProjectCard project={item} />
-                ))}
-                </div>
-            </div>
-          </section>
-        )
-      }
+      <!-- Case Studies Section -->
+      {caseStudies.length > 0 && (
+        <section class="mb-32">
+          <h2 class="text-3xl font-serif text-slate-100 mb-8">
+            Case Studies & Teardowns
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {caseStudies.map((item) => (
+              <ProjectCard project={item} size="medium" />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   </main>
 </BaseLayout>
