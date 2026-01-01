@@ -1,369 +1,100 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { ExternalLink, Eye } from "lucide-react";
-import { getMetricIcon } from "../../utils/ui-helpers";
 
 interface Props {
   project: CollectionEntry<"work">;
   size?: "large" | "medium" | "small";
   hideSecondaryLink?: boolean;
-  compact?: boolean;
 }
 
-const { project: workItem, size = "medium", hideSecondaryLink = false, compact = false } = Astro.props;
+const {
+  project: workItem,
+  size = "medium",
+  hideSecondaryLink = false,
+} = Astro.props;
 const project = workItem.data;
 const { tags, metric } = project;
 const slug = workItem.slug;
 
-// Determine main link URL and label based on pdfUrl
-const mainLinkUrl = project.pdfUrl || `/work/${slug}`;
-const hasPdfUrl = !!project.pdfUrl;
+const titleClass = size === "large" ? "text-4xl md:text-5xl" : "text-3xl";
 
-// For professional work cards, always use internal link and "View Case Study" text
-const professionalWorkLinkUrl = hideSecondaryLink ? `/work/${slug}` : mainLinkUrl;
-const professionalWorkLinkText = 'Read Case';
+const footerClass = `mt-auto pt-6 border-t border-white/5 flex gap-4 ${
+  size === "large"
+    ? "flex-col md:flex-row md:items-center justify-between"
+    : "flex-col items-start"
+}`;
 
-
+const buttonRowClass = `flex items-center gap-4 ${
+  size === "large" ? "" : "w-full justify-end"
+}`;
 ---
 
-<div
-  class={`project-card group relative rounded-lg flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 ease-out p-8 md:p-10 lg:p-12 ${
-    size === 'large' /* && slug === 'raitalk' (Removed slug check to simplify condition, large size handles logic) */
-      ? 'neural-wave-card'
-      : 'glass-card'
-  }`}
-  data-project-slug={slug}
+<a
+  href={`/work/${slug}`}
+  class="group relative flex flex-col w-full h-full overflow-hidden rounded-3xl border border-white/5 bg-zinc-950/50 backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-zinc-900/80 p-8 md:p-10"
 >
-  <!-- Neural Wave Animation for RaiTalk Card -->
-  {size === 'large' && slug === 'raitalk' && (
-    <div class="neural-wave-container absolute inset-0 pointer-events-none z-0">
-      <svg class="neural-wave-svg" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice">
-        <defs>
-          <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:rgba(255,255,255,0.3);stop-opacity:0" />
-            <stop offset="50%" style="stop-color:rgba(255,255,255,0.3);stop-opacity:1" />
-            <stop offset="100%" style="stop-color:rgba(255,255,255,0.3);stop-opacity:0" />
-          </linearGradient>
-          <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:rgba(255,255,255,0.25);stop-opacity:0" />
-            <stop offset="50%" style="stop-color:rgba(255,255,255,0.25);stop-opacity:1" />
-            <stop offset="100%" style="stop-color:rgba(255,255,255,0.25);stop-opacity:0" />
-          </linearGradient>
-        </defs>
-        <!-- Sine wave paths - multiple layers for depth -->
-        <path
-          class="neural-wave neural-wave-1"
-          d="M 0,150 Q 150,100 300,150 T 600,150 T 900,150 T 1200,150"
-          fill="none"
-          stroke="url(#waveGradient1)"
-          stroke-width="1"
-        />
-        <path
-          class="neural-wave neural-wave-2"
-          d="M 0,170 Q 150,120 300,170 T 600,170 T 900,170 T 1200,170"
-          fill="none"
-          stroke="url(#waveGradient2)"
-          stroke-width="0.8"
-        />
-        <path
-          class="neural-wave neural-wave-3"
-          d="M 0,190 Q 150,140 300,190 T 600,190 T 900,190 T 1200,190"
-          fill="none"
-          stroke="url(#waveGradient2)"
-          stroke-width="0.6"
-        />
-        <path
-          class="neural-wave neural-wave-4"
-          d="M 0,130 Q 150,80 300,130 T 600,130 T 900,130 T 1200,130"
-          fill="none"
-          stroke="url(#waveGradient1)"
-          stroke-width="0.5"
-        />
-      </svg>
-    </div>
-  )}
-  <div class="flex-1 flex flex-col relative z-10 gap-6">
-    <!-- Header -->
-    <div>
-      <h3 class="text-3xl md:text-4xl font-serif font-normal text-slate-100 group-hover:text-white transition-colors mb-4">
-        {project.title}
-      </h3>
-      
-      {/* Metric - The Hook */}
-      {metric && (
-        <div class="mb-4">
-          <span class="text-emerald-400 text-sm font-semibold uppercase tracking-wide block">
-            {getMetricIcon(metric)} {metric}
-          </span>
+  <div class="mb-6">
+    <h3 class={`font-serif text-slate-100 mb-3 ${titleClass}`}>
+      {project.title}
+    </h3>
+
+    {
+      metric && (
+        <div class="flex items-center text-sm font-bold tracking-wide text-emerald-400 uppercase">
+          <span class="mr-2">✦</span>
+          {metric}
         </div>
-      )}
+      )
+    }
+  </div>
 
-      <p class="text-base md:text-lg text-zinc-400 leading-relaxed font-sans max-w-2xl">
-        {project.description}
-      </p>
-    </div>
+  <p class="flex-grow text-zinc-400 leading-relaxed text-base md:text-lg mb-8">
+    {project.description}
+  </p>
 
-      {/* Tags - The Context */}
-      {tags && tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mt-auto pt-2">
-          {tags.slice(0, 4).map((tag) => (
-            <span class="text-xs font-medium text-zinc-400 uppercase tracking-wider bg-white/5 border border-white/5 rounded px-3 py-1.5">
+  <div class={footerClass}>
+    {
+      tags && tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {tags.slice(0, 2).map((tag) => (
+            <span class="px-2 py-1 text-[10px] font-bold tracking-wider text-zinc-400 uppercase border border-white/10 rounded-full bg-white/5 whitespace-nowrap">
               {tag}
             </span>
           ))}
         </div>
-      )}
-    </div>
-  </div>
+      )
+    }
 
-  <!-- Footer - Actions Only -->
-  <div class="flex items-center justify-end mt-auto pt-4 border-t border-zinc-800/50 relative z-10">
-    <div class="flex items-center gap-6 flex-wrap">
-      {/* Main CTA Link - PDF or Internal (Primary) */}
-      <a
-        href={professionalWorkLinkUrl}
-        class={`text-white font-semibold flex items-center gap-2 z-10 relative group/btn ${size === 'large' ? 'text-lg' : ''}`}
+    <div class={buttonRowClass}>
+      <span
+        class="flex items-center text-sm font-medium text-white hover:text-emerald-400 transition-colors group/btn whitespace-nowrap cursor-pointer"
       >
-        <span>{professionalWorkLinkText}</span>
-        <span class={`transition-transform duration-300 ${hasPdfUrl ? 'group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5' : 'group-hover/btn:translate-x-1'}`}>{hasPdfUrl ? '↗' : '→'}</span>
-      </a>
-      {/* Secondary Links - Hidden for professional work */}
-      {!hideSecondaryLink && (
-        <>
-          {project.actionType === 'drive' && (
-            <button
-              data-drive-file-id={project.actionUrl?.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1]}
-              data-drive-title={project.title}
-              class="project-drive-viewer-button text-zinc-400 hover:text-white text-sm font-normal flex items-center gap-1 z-10 relative cursor-pointer transition-colors group/sub"
-            >
-              <span>{project.secondaryCTALabel || project.actionLabel || "View pitch deck"}</span>
-              <span class="transition-transform duration-300 group-hover/sub:translate-x-0.5 group-hover/sub:-translate-y-0.5">↗</span>
-            </button>
-          )}
-          {/* Legacy actionUrl support (for non-PDF external links) */}
-          {project.actionUrl && project.actionType !== 'drive' && !project.pdfUrl && (
-            <a
-              href={project.actionUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-zinc-400 hover:text-white text-sm font-normal flex items-center gap-1 z-10 relative transition-colors group/sub"
-            >
-              <span>{project.actionLabel || "Visit website"}</span>
-              <span class="transition-transform duration-300 group-hover/sub:translate-x-0.5 group-hover/sub:-translate-y-0.5">↗</span>
-            </a>
-          )}
-          {project.actionType === 'repo' && (
-            <a
-              href={project.actionUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-zinc-400 hover:text-white text-sm font-normal flex items-center gap-1 z-10 relative transition-colors group/sub"
-            >
-              <span>Code</span>
-              <span class="transition-transform duration-300 group-hover/sub:translate-x-0.5 group-hover/sub:-translate-y-0.5">↗</span>
-            </a>
-          )}
-        </>
-      )}
+        Read Case
+        <span
+          class="ml-1 transition-transform duration-300 group-hover/btn:translate-x-1"
+          >→</span
+        >
+      </span>
+
+      {
+        !hideSecondaryLink && (
+          <>
+            {project.actionUrl && (
+              <a
+                href={project.actionUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center text-sm font-medium text-zinc-500 hover:text-white transition-colors group/link whitespace-nowrap"
+              >
+                <span>{project.actionLabel || "View Site"}</span>
+                <span class="ml-1 transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5">
+                  ↗
+                </span>
+              </a>
+            )}
+          </>
+        )
+      }
     </div>
   </div>
-</div>
-
-<style>
-  /* Glassmorphism Style - Matching Recent Writing */
-  .glass-card,
-  .neural-wave-card {
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  /* Neural Wave Card - Special styling for RaiTalk */
-  .neural-wave-card {
-    position: relative;
-  }
-
-  /* Neural Wave Animation Container */
-  .neural-wave-container {
-    overflow: hidden;
-    bottom: 0;
-    height: 50%;
-  }
-
-  .neural-wave-svg {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.3;
-  }
-
-  /* Neural Wave Animation - Slow horizontal flow (like audio visualizer/brain frequency) */
-  @keyframes waveFlow {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  .neural-wave {
-    animation: waveFlow linear infinite;
-  }
-
-  .neural-wave-1 {
-    animation-duration: 15s;
-    animation-delay: 0s;
-  }
-
-  .neural-wave-2 {
-    animation-duration: 18s;
-    animation-delay: 3s;
-  }
-
-  .neural-wave-3 {
-    animation-duration: 20s;
-    animation-delay: 6s;
-  }
-
-  .neural-wave-4 {
-    animation-duration: 16s;
-    animation-delay: 1.5s;
-  }
-
-  /* White Glow Hover Effect for Cards - Border brightness increases */
-  .project-card {
-    transition: all 0.3s ease-out;
-  }
-
-  .project-card:hover {
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-  }
-
-  /* Glassmorphism Buttons */
-  .glass-button {
-    transition: all 0.3s ease-out;
-  }
-
-  .glass-button:hover {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-  }
-
-  /* Text Links Hover */
-  .project-card a:not(.glass-button) {
-    color: #888;
-    transition: all 0.3s ease-out;
-  }
-
-  .project-card a:not(.glass-button):hover {
-    color: #fff;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-  }
-</style>
-
-<script define:vars={{ projectSlug: slug }}>
-  // Track Clarity events
-  function trackEvent(eventName) {
-    if (typeof window !== 'undefined' && window.clarity) {
-      window.clarity('event', eventName);
-    }
-  }
-
-  // Make entire card clickable except for demo/repo links
-  document.querySelectorAll(`.project-card[data-project-slug="${projectSlug}"]`).forEach((card) => {
-    const slug = card.dataset.projectSlug;
-    const slugFormatted = slug.charAt(0).toUpperCase() + slug.slice(1).replace(/-/g, '_');
-    
-    // Track project card hover
-    let hoverTracked = false;
-    card.addEventListener('mouseenter', () => {
-      if (!hoverTracked) {
-        trackEvent(`Project_Card_Hover_${slugFormatted}`);
-        hoverTracked = true;
-      }
-    });
-    
-    // Track project-specific button clicks
-    const demoButton = card.querySelector('a.glass-button[target="_blank"]');
-    const codeButton = card.querySelector('a.glass-button[href*="github"], a.glass-button[href*="git"]');
-    
-    if (demoButton) {
-      demoButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (slug === 'raitalk') {
-          trackEvent('Click_RaiTalk_Demo');
-        } else if (slug === 'trinka') {
-          trackEvent('Click_Trinka_Proto');
-        } else if (slug === 'madhav-farm') {
-          trackEvent('Click_MadhavFarm_Case');
-        } else {
-          trackEvent(`Project_Demo_Click_${slugFormatted}`);
-        }
-      });
-    }
-    
-    if (codeButton) {
-      codeButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        trackEvent(`Project_Code_Click_${slugFormatted}`);
-      });
-    }
-
-    // Handle Drive Viewer button clicks
-    const driveButton = card.querySelector('.project-drive-viewer-button');
-    if (driveButton) {
-      driveButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const fileId = driveButton.getAttribute('data-drive-file-id');
-        const title = driveButton.getAttribute('data-drive-title') || 'Document Viewer';
-        
-        if (fileId && typeof window !== 'undefined' && window.openDriveViewer) {
-          window.openDriveViewer(fileId, title);
-          trackEvent('Click_MadhavFarm_PitchDeck');
-        }
-      });
-    }
-    
-
-    
-    card.addEventListener('click', (e) => {
-      // Don't navigate if clicking on external links, PDF links, or drive viewer button
-      if (e.target.closest('a[target="_blank"]') || e.target.closest('.project-drive-viewer-button') || e.target.closest('.pdf-link')) {
-        return;
-      }
-      // Track card click
-      trackEvent(`Project_Card_Click_${slugFormatted}`);
-      // Only open modal if no PDF URL (internal pages)
-      const pdfLink = card.querySelector('.pdf-link');
-      if (!pdfLink && slug) {
-        // Navigate to work page for non-PDF items
-        window.location.href = `/work/${slug}`;
-      }
-    });
-    
-    function openProjectDetailModal(slug) {
-      // Fetch project data and content
-      fetch(`/api/project/${slug}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.project && typeof window !== 'undefined' && window.openProjectDetailModal) {
-            window.openProjectDetailModal(data.project, data.content);
-          }
-        })
-        .catch(err => {
-          console.error('Error loading project:', err);
-          // Fallback to navigation
-          window.location.href = `/projects/${slug}`;
-        });
-    }
-  });
-</script>
-
+</a>

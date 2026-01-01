@@ -1,0 +1,91 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    project: CollectionEntry<"work">;
+    size?: "large" | "medium" | "small";
+    hideSecondaryLink?: boolean;
+}
+
+const { project, size = "medium" } = Astro.props;
+
+const titleClass = size === "large" ? "text-4xl md:text-5xl" : "text-3xl";
+
+const footerClass = `mt-auto pt-6 border-t border-white/5 flex gap-4 ${
+    size === "large"
+        ? "flex-col md:flex-row md:items-center justify-between"
+        : "flex-col items-start"
+}`;
+
+const buttonRowClass = `flex items-center gap-4 ${
+    size === "large" ? "" : "w-full justify-end"
+}`;
+
+// PRE-COMPUTE ALL JSX IN SCRIPT
+const displayTags = project.data.tags ? project.data.tags.slice(0, 2) : [];
+
+const tagsJSX = displayTags.map((tag) => (
+    <span class="px-2 py-1 text-[10px] font-bold tracking-wider text-zinc-400 uppercase border border-white/10 rounded-full bg-white/5 whitespace-nowrap">
+        {tag}
+    </span>
+));
+
+const metricJSX = project.data.metric ? (
+    <div class="flex items-center text-sm font-bold tracking-wide text-emerald-400 uppercase">
+        <span class="mr-2">✦</span>
+        {project.data.metric}
+    </div>
+) : null;
+
+const actionLinkJSX = project.data.actionUrl ? (
+    <object class="z-20">
+        <a
+            href={project.data.actionUrl}
+            target="_blank"
+            class="flex items-center text-sm font-medium text-zinc-500 hover:text-white transition-colors group/link whitespace-nowrap"
+        >
+            {project.data.actionLabel || "View Site"}
+            <span class="ml-1 transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5">
+                ↗
+            </span>
+        </a>
+    </object>
+) : null;
+---
+
+<a
+    href={`/work/${project.slug}`}
+    class="group relative flex flex-col w-full h-full overflow-hidden rounded-3xl border border-white/5 bg-zinc-950/50 backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-zinc-900/80 p-8 md:p-10"
+>
+    <div class="mb-6">
+        <h3 class={`font-serif text-slate-100 mb-3 ${titleClass}`}>
+            {project.data.title}
+        </h3>
+        {metricJSX}
+    </div>
+
+    <p
+        class="flex-grow text-zinc-400 leading-relaxed text-base md:text-lg mb-8"
+    >
+        {project.data.description}
+    </p>
+
+    <div class={footerClass}>
+        <div class="flex flex-wrap gap-2">
+            {tagsJSX}
+        </div>
+
+        <div class={buttonRowClass}>
+            <span
+                class="flex items-center text-sm font-medium text-white hover:text-emerald-400 transition-colors group/btn whitespace-nowrap cursor-pointer"
+            >
+                Read Case
+                <span
+                    class="ml-1 transition-transform duration-300 group-hover/btn:translate-x-1"
+                    >→</span
+                >
+            </span>
+            {actionLinkJSX}
+        </div>
+    </div>
+</a>

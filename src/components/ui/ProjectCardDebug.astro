@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    project: CollectionEntry<"work">;
+    size?: "large" | "medium" | "small";
+    hideSecondaryLink?: boolean;
+}
+
+const { project } = Astro.props;
+---
+
+<a
+    href={`/work/${project.slug}`}
+    class="group relative flex flex-col w-full h-full p-8 border border-white/10 rounded-3xl bg-zinc-900"
+>
+    <div class="mb-6">
+        <h3 class="text-3xl text-slate-100 mb-3">
+            {project.data.title}
+        </h3>
+    </div>
+
+    <p class="text-zinc-400 mb-8">
+        {project.data.description}
+    </p>
+
+    <div class="mt-auto border-t border-white/5 pt-6">
+        <div class="flex gap-2">
+            <span class="text-zinc-500 text-sm">Static Tag</span>
+        </div>
+        <div class="flex justify-end gap-4 mt-4">
+            <span class="text-white text-sm">Read Case</span>
+        </div>
+    </div>
+</a>
