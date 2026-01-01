@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { container } from '../core/di/container';
+import { getCollection } from 'astro:content';
 
 export const GET: APIRoute = async ({ site }) => {
   const siteUrl = site?.href || 'https://rajkawale.com';
@@ -38,7 +39,6 @@ export const GET: APIRoute = async ({ site }) => {
   }));
 
   // Add work detail pages from content collection
-  const { getCollection } = await import('astro:content');
   const workItems = await getCollection('work');
   const workPages = workItems.map((work) => ({
     url: `/work/${work.id}`,
