@@ -3,6 +3,8 @@ import BaseLayout from '../components/BaseLayout.astro';
 import { container } from '../core/di/container';
 import SectionHeader from '../components/ui/SectionHeader.astro';
 import TrustedBy from '../components/TrustedBy.astro';
+import PDFModal from '../components/ui/PDFModal.astro';
+import PDFModalHandler from '../components/ui/PDFModalHandler.astro';
 import type { BlogPost } from '../domains/blog/entities';
 
 import { getCollection } from 'astro:content';
@@ -222,11 +224,12 @@ if (archivePosts.length > 0) {
                       <span class="transition-transform duration-300 group-hover/btn:translate-x-1">→</span>
                     </a>
                     {secondaryCTALabel && secondaryCTAUrl && (
-                      data.actionType === 'drive' ? (
+                      data.actionType === 'drive' || data.actionType === 'pdf' ? (
                         <button
-                          data-drive-file-id={secondaryCTAUrl?.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1]}
-                          data-drive-title={data.title}
-                          class="featured-drive-viewer-button inline-flex items-center justify-between w-full px-6 py-2 text-neutral-400 hover:text-white transition-all duration-300 text-sm font-medium group cursor-pointer"
+                          type="button"
+                          data-pdf-url={secondaryCTAUrl}
+                          data-pdf-title={data.title}
+                          class="pdf-modal-trigger inline-flex items-center justify-between w-full px-6 py-2 text-neutral-400 hover:text-white transition-all duration-300 text-sm font-medium group cursor-pointer"
                         >
                           <span>{secondaryCTALabel || "View Pitch Deck"}</span>
                           <span class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-xs">↗</span>
@@ -490,6 +493,9 @@ if (archivePosts.length > 0) {
     </section>
   </main>
   
+  <!-- PDF/Document Viewer Modal -->
+  <PDFModal />
+  <PDFModalHandler />
 
 </BaseLayout>
 
@@ -728,6 +734,13 @@ if (archivePosts.length > 0) {
 </style>
 
 <script>
+  // Extend window interface for DriveViewer
+  declare global {
+    interface Window {
+      openDriveViewer?: (fileId: string, title: string) => void;
+    }
+  }
+
   // Track Clarity events
   function trackEvent(eventName: string) {
     const win = window as any;
@@ -777,24 +790,6 @@ if (archivePosts.length > 0) {
         trackEvent('Click_View_All_Work');
       });
     }
-
-
-
-    // Handle Homepage Drive Viewer button clicks
-    document.querySelectorAll('.featured-drive-viewer-button').forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const fileId = button.getAttribute('data-drive-file-id');
-        const title = button.getAttribute('data-drive-title') || 'Document Viewer';
-        
-        if (fileId && typeof window !== 'undefined' && window.openDriveViewer) {
-          window.openDriveViewer(fileId, title);
-          trackEvent(`Click_Homepage_PitchDeck_${title.replace(/\s+/g, '_')}`);
-        }
-      });
-    });
 
     // Track scroll past hero
     let heroScrollTracked = false;

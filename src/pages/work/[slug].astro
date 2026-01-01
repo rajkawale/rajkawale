@@ -82,7 +82,7 @@ const project = entry.data;
                         <!-- Status (Using Category now) -->
                         <div>
                             <div class="flex items-center gap-2 mb-2">
-                                <Tag class="w-4 h-4 text-zinc-500" />
+                                <Tag className="w-4 h-4 text-zinc-500" />
                                 <span
                                     class="text-sm font-medium text-zinc-300 font-sans"
                                     >Category</span
@@ -106,7 +106,7 @@ const project = entry.data;
                             project.tags && project.tags.length > 0 && (
                                 <div>
                                     <div class="flex items-center gap-2 mb-3">
-                                        <Tag class="w-4 h-4 text-zinc-500" />
+                                        <Tag className="w-4 h-4 text-zinc-500" />
                                         <span class="text-sm font-medium text-zinc-300 font-sans">
                                             Tags
                                         </span>
@@ -137,7 +137,7 @@ const project = entry.data;
                                             data-drive-title={project.title}
                                             class="project-detail-drive-viewer-button moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans cursor-pointer"
                                         >
-                                            <Eye class="w-4 h-4 group-hover:scale-110 transition-transform" />
+                                            <Eye className="w-4 h-4 group-hover:scale-110 transition-transform" />
                                             <span class="text-xs font-medium">
                                                 {project.actionLabel}
                                             </span>
@@ -149,7 +149,7 @@ const project = entry.data;
                                             rel="noopener noreferrer"
                                             class="moonlight-container glass-button flex items-center gap-2 w-full px-4 py-2 bg-black/20 hover:bg-black/30 border border-white/20 hover:border-white/50 rounded-lg text-white transition-all duration-300 ease-out group font-sans"
                                         >
-                                            <ExternalLink class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                                            <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                                             <span class="text-xs font-medium">
                                                 {project.actionLabel}
                                             </span>
@@ -302,6 +302,13 @@ const project = entry.data;
 </style>
 
 <script>
+    // Extend window interface for DriveViewer
+    declare global {
+        interface Window {
+            openDriveViewer?: (fileId: string, title: string) => void;
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
         // Handle Drive Viewer button clicks on project detail page
         const driveButton = document.querySelector(

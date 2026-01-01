@@ -179,31 +179,33 @@ function toSlug(name: string): string {
   // Handle image load errors and show initials fallback
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.profile-image').forEach((img) => {
+      const imageElement = img as HTMLImageElement;
+      
       // Function to show initials fallback
-      const showInitials = (imageElement: HTMLImageElement) => {
-        imageElement.style.display = 'none';
-        const container = imageElement.closest('.profile-image-container');
+      const showInitials = (imgEl: HTMLImageElement) => {
+        imgEl.style.display = 'none';
+        const container = imgEl.closest('.profile-image-container');
         const initialsSpan = container?.querySelector('.profile-initials');
-        if (initialsSpan) {
+        if (initialsSpan instanceof HTMLElement) {
           initialsSpan.classList.remove('hidden');
           initialsSpan.style.display = 'flex';
         }
       };
       
       // Check if image is already loaded and failed
-      if (img.complete) {
-        if (img.naturalHeight === 0 || img.naturalWidth === 0) {
-          showInitials(img);
+      if (imageElement.complete) {
+        if (imageElement.naturalHeight === 0 || imageElement.naturalWidth === 0) {
+          showInitials(imageElement);
         }
       } else {
         // Image is still loading, wait for load or error
-        img.addEventListener('load', function() {
+        imageElement.addEventListener('load', function() {
           // Image loaded successfully, do nothing
         });
       }
       
       // Handle error event
-      img.addEventListener('error', function() {
+      imageElement.addEventListener('error', function() {
         showInitials(this);
       });
     });
