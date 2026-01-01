@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
-import Testimonials from "../components/Testimonials.astro";
+import TestimonialsComponent from "../components/Testimonials.astro";
 import BackNavigation from "../components/ui/BackNavigation.astro";
 
 let testimonialsData: any[] = [];
@@ -31,7 +31,7 @@ try {
         </p>
       </header>
 
-      <Testimonials testimonials={testimonialsData} />
+      <TestimonialsComponent testimonials={testimonialsData} />
     </div>
   </main>
 </BaseLayout>
