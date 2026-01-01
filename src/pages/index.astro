@@ -216,16 +216,27 @@ if (archivePosts.length > 0) {
                       <span class="group-hover/btn:translate-x-1 transition-transform">→</span>
                     </a>
                     {secondaryCTALabel && secondaryCTAUrl && (
-                      <a 
-                        href={secondaryCTAUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center justify-between w-full px-6 py-2 text-neutral-400 hover:text-white transition-all duration-300 text-sm font-medium group hover:translate-x-1"
-                        onclick="event.stopPropagation()"
-                      >
-                        <span>{secondaryCTALabel}</span>
-                        <span class="group-hover:translate-x-1 transition-transform text-xs">↗</span>
-                      </a>
+                      data.actionType === 'drive' ? (
+                        <button
+                          data-drive-file-id={secondaryCTAUrl?.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1]}
+                          data-drive-title={data.title}
+                          class="featured-drive-viewer-button inline-flex items-center justify-between w-full px-6 py-2 text-neutral-400 hover:text-white transition-all duration-300 text-sm font-medium group hover:translate-x-1 cursor-pointer"
+                        >
+                          <span>{secondaryCTALabel || "View Pitch Deck"}</span>
+                          <span class="group-hover:translate-x-1 transition-transform text-xs">↗</span>
+                        </button>
+                      ) : (
+                        <a 
+                          href={secondaryCTAUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center justify-between w-full px-6 py-2 text-neutral-400 hover:text-white transition-all duration-300 text-sm font-medium group hover:translate-x-1"
+                          onclick="event.stopPropagation()"
+                        >
+                          <span>{secondaryCTALabel}</span>
+                          <span class="group-hover:translate-x-1 transition-transform text-xs">↗</span>
+                        </a>
+                      )
                     )}
                   </div>
                 </div>
@@ -757,6 +768,24 @@ if (archivePosts.length > 0) {
         trackEvent('Click_View_All_Work');
       });
     }
+
+
+
+    // Handle Homepage Drive Viewer button clicks
+    document.querySelectorAll('.featured-drive-viewer-button').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const fileId = button.getAttribute('data-drive-file-id');
+        const title = button.getAttribute('data-drive-title') || 'Document Viewer';
+        
+        if (fileId && typeof window !== 'undefined' && window.openDriveViewer) {
+          window.openDriveViewer(fileId, title);
+          trackEvent(`Click_Homepage_PitchDeck_${title.replace(/\s+/g, '_')}`);
+        }
+      });
+    });
 
     // Track scroll past hero
     let heroScrollTracked = false;
