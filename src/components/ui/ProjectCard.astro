@@ -129,14 +129,16 @@ const professionalWorkLinkText = 'Read Case';
       {!hideSecondaryLink && (
         <>
           {project.actionType === 'drive' && (
-            <button
-              data-drive-file-id={project.actionUrl?.match(/file\/d\/(.*?)\//)?.[1]}
-              data-drive-title={project.title}
-              class="project-drive-viewer-button text-zinc-400 hover:text-white text-sm font-normal flex items-center gap-1 z-10 relative cursor-pointer transition-colors"
+            <a
+              href={project.actionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-zinc-400 hover:text-white text-sm font-normal flex items-center gap-1 z-10 relative transition-colors"
+              onclick="event.stopPropagation()"
             >
               <span>View Pitch Deck</span>
               <span>↗</span>
-            </button>
+            </a>
           )}
           {/* Legacy actionUrl support (for non-PDF external links) */}
           {project.actionUrl && project.actionType !== 'drive' && !project.pdfUrl && (
@@ -313,22 +315,7 @@ const professionalWorkLinkText = 'Read Case';
       });
     }
     
-    // Handle Drive Viewer button clicks
-    const driveButton = card.querySelector('.project-drive-viewer-button');
-    if (driveButton) {
-      driveButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const fileId = driveButton.getAttribute('data-drive-file-id');
-        const title = driveButton.getAttribute('data-drive-title') || 'Document Viewer';
-        
-        if (fileId && typeof window !== 'undefined' && window.openDriveViewer) {
-          window.openDriveViewer(fileId, title);
-          trackEvent('Click_MadhavFarm_PitchDeck');
-        }
-      });
-    }
+
     
     card.addEventListener('click', (e) => {
       // Don't navigate if clicking on external links, PDF links, or drive viewer button
