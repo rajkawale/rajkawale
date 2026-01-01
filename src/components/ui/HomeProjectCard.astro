@@ -21,13 +21,13 @@ const hasPdfUrl = !!project.pdfUrl;
 
 // For professional work cards, always use internal link and "View Case Study" text
 const professionalWorkLinkUrl = hideSecondaryLink ? `/work/${slug}` : mainLinkUrl;
-const professionalWorkLinkText = 'Read Case';
+const professionalWorkLinkText = 'Read case';
 
 
 ---
 
 <div
-  class={`project-card group relative rounded-lg flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 ease-out p-8 md:p-10 lg:p-12 ${
+  class={`project-card group relative rounded-lg flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 ease-out ${compact ? 'p-6' : 'p-8'} ${
     size === 'large' /* && slug === 'raitalk' (Removed slug check to simplify condition, large size handles logic) */
       ? 'neural-wave-card'
       : 'glass-card'
@@ -82,32 +82,30 @@ const professionalWorkLinkText = 'Read Case';
       </svg>
     </div>
   )}
-  <div class="flex-1 flex flex-col relative z-10 gap-6">
+  <div class="flex-1 flex flex-col relative z-10">
     <!-- Header -->
-    <div>
-      <h3 class="text-3xl md:text-4xl font-serif font-normal text-slate-100 group-hover:text-white transition-colors mb-4">
+      <h3 class={`${compact ? 'text-xl' : 'text-2xl'} font-serif font-normal text-slate-100 group-hover:text-white transition-colors mb-2`}>
         {project.title}
       </h3>
       
       {/* Metric - The Hook */}
       {metric && (
         <div class="mb-4">
-          <span class="text-emerald-400 text-sm font-semibold uppercase tracking-wide block">
+          <span class="text-emerald-400 text-xs font-semibold uppercase tracking-wide block">
             {getMetricIcon(metric)} {metric}
           </span>
         </div>
       )}
 
-      <p class="text-base md:text-lg text-zinc-400 leading-relaxed font-sans max-w-2xl">
+      <p class="text-sm text-zinc-400 leading-relaxed font-sans">
         {project.description}
       </p>
-    </div>
 
       {/* Tags - The Context */}
       {tags && tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mt-auto pt-2">
-          {tags.slice(0, 4).map((tag) => (
-            <span class="text-xs font-medium text-zinc-400 uppercase tracking-wider bg-white/5 border border-white/5 rounded px-3 py-1.5">
+        <div class="my-6 flex flex-wrap gap-2">
+          {tags.slice(0, 3).map((tag) => (
+            <span class="text-[10px] font-medium text-zinc-400 uppercase tracking-wider bg-white/5 border border-white/5 rounded px-2 py-1">
               {tag}
             </span>
           ))}
@@ -332,8 +330,6 @@ const professionalWorkLinkText = 'Read Case';
       });
     }
     
-
-    
     card.addEventListener('click', (e) => {
       // Don't navigate if clicking on external links, PDF links, or drive viewer button
       if (e.target.closest('a[target="_blank"]') || e.target.closest('.project-drive-viewer-button') || e.target.closest('.pdf-link')) {
@@ -366,4 +362,3 @@ const professionalWorkLinkText = 'Read Case';
     }
   });
 </script>
-

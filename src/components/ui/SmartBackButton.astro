@@ -1,0 +1,64 @@
+---
+interface Props {
+    fallbackHref?: string;
+    label?: string;
+    className?: string;
+}
+
+const {
+    fallbackHref = "/",
+    label = "Back to home",
+    className = "",
+} = Astro.props;
+---
+
+<a
+    href={fallbackHref}
+    class={`smart-back-button inline-flex items-center text-sm text-zinc-500 hover:text-white transition-colors mb-8 group cursor-pointer bg-transparent border-0 p-0 ${className}`}
+    aria-label="Go back"
+>
+    <span class="group-hover:-translate-x-1 transition-transform">←</span>
+    <span class="ml-2 smart-back-label">{label}</span>
+</a>
+
+<script>
+    function setupSmartBackButtons() {
+        const buttons = document.querySelectorAll(".smart-back-button");
+
+        buttons.forEach((button) => {
+            // Logic for dynamic label based on referrer
+            const labelSpan = button.querySelector(".smart-back-label");
+            const referrer = document.referrer;
+
+            if (labelSpan && referrer) {
+                // If coming from Work page
+                if (referrer.includes("/work")) {
+                    labelSpan.textContent = "Back to work";
+                }
+                // If coming from Blog/Writing page
+                else if (
+                    referrer.includes("/blog") ||
+                    referrer.includes("/writing")
+                ) {
+                    labelSpan.textContent = "Back to writing";
+                }
+                // If coming from Home (root)
+                else if (new URL(referrer).pathname === "/") {
+                    labelSpan.textContent = "Back to home";
+                }
+                // Else keep default label (e.g. "Back to home" or whatever was passed)
+            }
+
+            button.addEventListener("click", (e) => {
+                // If history length > 1, go back. Otherwise fall through to href
+                if (window.history.length > 1) {
+                    e.preventDefault();
+                    window.history.back();
+                }
+            });
+        });
+    }
+
+    setupSmartBackButtons();
+    document.addEventListener("astro:page-load", setupSmartBackButtons);
+</script>

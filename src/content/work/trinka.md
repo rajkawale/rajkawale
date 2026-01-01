@@ -1,8 +1,8 @@
 ---
 title: "Trinka AI"
-description: "AI writing tool prototype that understands the nuance of technical and academic writing, going beyond simple spell-check to enhance clarity and tone."
+description: "Founder-led zero-to-one prototype of an AI writing assistant focused on technical and academic writing. Designed to improve clarity, tone, and structure beyond basic grammar correction."
 tags: ["FOUNDER-LED", "ZERO-TO-ONE"]
-metric: "AI writing prototype"
+metric: "Working AI writing prototype"
 badge: "Zero-to-one AI product"
 category: "founder-led"
 actionLabel: "View Demo"
@@ -12,11 +12,12 @@ priority: 2
 
 ## The Challenge
 
-Building a writing tool that understands the nuance of technical and academic writing, going beyond simple spell-check to enhance clarity and tone.
+Most writing tools focus on surface-level grammar and spelling. Technical and academic writing requires deeper understanding of structure, precision, tone, and intent, which generic spell-checkers fail to address.
 
 ## The Solution
 
-* **Precision Editing:** Algorithms tuned for formal writing structures.
+**Context-aware Precision Editing:**
+Designed rules and prompts tuned for formal, technical, and academic writing structures rather than casual language.
 
-* **UX/UI Prototype:** A focused interface designed to handle dense text without overwhelming the user.
-
+**Focused UX/UI Prototype:**
+Built an interface optimized for dense content, enabling users to review and refine complex text without cognitive overload.

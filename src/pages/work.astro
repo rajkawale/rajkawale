@@ -2,6 +2,7 @@
 import BaseLayout from "../components/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import ProjectCard from "../components/ui/ProjectCard.astro";
+import SmartBackButton from "../components/ui/SmartBackButton.astro";
 
 const allWork = await getCollection("work");
 const sortedWork = allWork.sort((a, b) => a.data.priority - b.data.priority);
@@ -9,7 +10,11 @@ const sortedWork = allWork.sort((a, b) => a.data.priority - b.data.priority);
 // Map category to new system (handle both old and new category values)
 const getCategory = (category: string) => {
   // Map old categories to new ones
-  if (category === "founder-led" || category === "shipped" || category === "startup") {
+  if (
+    category === "founder-led" ||
+    category === "shipped" ||
+    category === "startup"
+  ) {
     return "shipped";
   }
   if (category === "enterprise" || category === "professional") {
@@ -24,13 +29,13 @@ const getCategory = (category: string) => {
 
 // Filter by new category system
 const shippedProjects = sortedWork.filter(
-  (item) => getCategory(item.data.category) === "shipped"
+  (item) => getCategory(item.data.category) === "shipped",
 );
 const professionalWork = sortedWork.filter(
-  (item) => getCategory(item.data.category) === "professional"
+  (item) => getCategory(item.data.category) === "professional",
 );
 const caseStudies = sortedWork.filter(
-  (item) => getCategory(item.data.category) === "casestudy"
+  (item) => getCategory(item.data.category) === "casestudy",
 );
 ---
 
@@ -43,22 +48,20 @@ const caseStudies = sortedWork.filter(
     class="min-h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black text-zinc-300 relative z-10"
     style="padding-top: 150px;"
   >
-    <div class="max-w-[1100px] mx-auto px-5 md:px-12 pb-24">
-      <!-- Page Header -->
-      <div class="mb-16 text-center">
-        <h1
-          class="text-4xl md:text-5xl font-serif font-bold text-slate-100 mb-4"
-        >
-          Work<span class="text-gray-500">.</span>
-        </h1>
-        <p class="text-zinc-300 text-lg font-sans max-w-2xl mx-auto">
-          Product work and case studies across shipped products, professional
-          engagements, and strategic analyses.
-        </p>
-      </div>
+    <!-- Page Header -->
+    <div class="mb-16 text-center">
+      <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-100 mb-4">
+        Work<span class="text-gray-500">.</span>
+      </h1>
+      <p class="text-zinc-300 text-lg font-sans max-w-2xl mx-auto">
+        Product work and case studies across shipped products, professional
+        engagements, and strategic analyses.
+      </p>
+    </div>
 
-      <!-- Shipped Products Section -->
-      {shippedProjects.length > 0 && (
+    <!-- Shipped Products Section -->
+    {
+      shippedProjects.length > 0 && (
         <section class="mb-32">
           <h2 class="text-3xl font-serif text-slate-100 mb-8">
             Shipped Products
@@ -76,24 +79,32 @@ const caseStudies = sortedWork.filter(
             ))}
           </div>
         </section>
-      )}
+      )
+    }
 
-      <!-- Professional Work Section -->
-      {professionalWork.length > 0 && (
+    <!-- Professional Work Section -->
+    {
+      professionalWork.length > 0 && (
         <section class="mb-16">
           <h2 class="text-3xl font-serif text-slate-100 mb-8">
             Professional Work
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {professionalWork.map((item) => (
-              <ProjectCard project={item} size="medium" hideSecondaryLink={true} />
+              <ProjectCard
+                project={item}
+                size="medium"
+                hideSecondaryLink={true}
+              />
             ))}
           </div>
         </section>
-      )}
+      )
+    }
 
-      <!-- Case Studies Section -->
-      {caseStudies.length > 0 && (
+    <!-- Case Studies Section -->
+    {
+      caseStudies.length > 0 && (
         <section class="mb-32">
           <h2 class="text-3xl font-serif text-slate-100 mb-8">
             Case Studies & Teardowns
@@ -104,7 +115,12 @@ const caseStudies = sortedWork.filter(
             ))}
           </div>
         </section>
-      )}
+      )
+    }
+    <div
+      class="max-w-[1100px] mx-auto px-5 md:px-12 mt-16 mb-0 border-t border-white/10 pt-8"
+    >
+      <SmartBackButton />
     </div>
   </main>
 </BaseLayout>

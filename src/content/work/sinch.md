@@ -1,6 +1,6 @@
 ---
 title: "Sinch"
-description: "Unified fragmented customer signals into a scalable AI-driven data platform, directly increasing campaign targeting accuracy and revenue."
+description: "Led the unification of fragmented customer signals into a scalable, AI-assisted data platform, improving targeting accuracy and driving measurable ROI for enterprise marketing teams."
 tags: ["ENTERPRISE", "SCALE"]
 metric: "+23% ROI impact on enterprise campaigns"
 badge: "Enterprise-scale product ownership"
@@ -12,32 +12,39 @@ priority: 4
 
 ## The Problem
 
-Customer data was fragmented across multiple systems, creating poor targeting accuracy and unclear ROI. This was a business and decision-making problem at scale, where marketing teams couldn't confidently allocate budget or measure campaign effectiveness.
+Customer data was fragmented across multiple internal systems, leading to inconsistent targeting, limited personalization, and unclear ROI. Marketing teams struggled to confidently allocate budget or measure campaign effectiveness at enterprise scale.
+
+This was fundamentally a decision-making and trust problem, not just a data integration issue.
 
 ## My Role & Scope
 
-Owned discovery and product definition for the unified customer data platform. Emphasized cross-functional collaboration with engineering, data, and business teams. Operated within enterprise constraints and scale, balancing technical feasibility with business impact.
+Owned product discovery and definition for a unified customer data platform. Worked cross-functionally with engineering, data, and business stakeholders to align technical feasibility with enterprise-grade reliability and measurable business impact.
+
+Operated within real enterprise constraints including legacy systems, multiple stakeholders, and high reliability expectations.
 
 ## Key Product Decisions
 
-* **Prioritized high-impact signals over full data completeness:** Focused on the most valuable customer signals that drove targeting decisions, rather than attempting to unify all data sources.
+**Prioritized high-impact signals over full data completeness:**
+Focused on signals that directly influenced targeting and ROI instead of attempting exhaustive data unification upfront.
 
-* **Chose incremental rollout over large migrations:** Deployed the platform incrementally to reduce risk and build trust, rather than attempting a complete system overhaul.
+**Chose incremental rollout over large migrations:**
+Delivered value in phases to reduce operational risk, validate assumptions, and build internal trust.
 
-* **Balanced sophistication with explainability for trust:** Ensured the platform's recommendations were transparent and understandable to business stakeholders, not just technically accurate.
+**Balanced model sophistication with explainability:**
+Ensured outputs and recommendations were interpretable by business teams, enabling adoption and confident decision-making.
 
 ## Execution Highlights
 
-Defined customer data models and ingestion strategy. Partnered with platform and data teams to build scalable infrastructure. Enabled downstream targeting and measurement use cases that directly improved campaign performance.
+Defined customer data models and ingestion strategies in partnership with platform and data teams. Enabled downstream targeting, attribution, and measurement use cases that directly influenced campaign performance. Supported enterprise adoption through clear success metrics and stakeholder alignment.
 
 ## Outcomes
 
-* +23% ROI impact on enterprise campaigns
-* Improved targeting accuracy and decision confidence
-* Scalable foundation for future personalization
+*   +23% ROI improvement across enterprise campaigns
+*   Improved targeting accuracy and confidence in budget allocation
+*   Scalable foundation established for future personalization and AI-driven use cases
 
 ## Key Learnings
 
-* Enterprise progress depends on alignment across teams and stakeholders
-* Problem framing beats feature breadth in driving adoption
-* Adoption and trust are critical success factors in enterprise product work
+*   Enterprise data products succeed only when trust and adoption are explicitly designed
+*   Clear problem framing unlocks more value than broad feature coverage
+*   Incremental delivery is essential for progress in complex enterprise environments

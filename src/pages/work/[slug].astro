@@ -3,7 +3,7 @@ import BaseLayout from "../../components/BaseLayout.astro";
 import { getCollection, getEntry } from "astro:content";
 import { ExternalLink, Github, Calendar, Tag, Eye } from "lucide-react";
 import DriveViewer from "../../components/ui/DriveViewer.astro";
-import BackNavigation from "../../components/ui/BackNavigation.astro";
+import SmartBackButton from "../../components/ui/SmartBackButton.astro";
 
 export async function getStaticPaths() {
     const workEntries = await getCollection("work");
@@ -58,7 +58,11 @@ const project = entry.data;
 
                     <!-- Back Navigation -->
                     <footer class="mt-12 border-t border-zinc-800 pt-6">
-                        <BackNavigation href="/work" label="Back to work" />
+                        <SmartBackButton
+                            label="Back to work"
+                            fallbackHref="/work"
+                            className="mb-0"
+                        />
                     </footer>
                 </article>
 

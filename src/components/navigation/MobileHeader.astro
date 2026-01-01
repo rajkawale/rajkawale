@@ -1,20 +1,23 @@
 ---
-import LinkedInIcon from '../icons/LinkedInIcon';
-import GithubIcon from '../icons/GithubIcon';
+import LinkedInIcon from "../icons/LinkedInIcon";
+import GithubIcon from "../icons/GithubIcon";
 
 const currentPath = Astro.url.pathname;
 
 const isActive = (path: string) => {
-  if (path === '/') return currentPath === '/';
+  if (path === "/") return currentPath === "/";
   return currentPath.startsWith(path);
 };
 ---
 
 <!-- Mobile Header: Top Bar -->
-<header id="mobile-header" class="mobile-header flex md:hidden fixed top-0 left-0 w-full z-50 px-6 py-6 justify-between items-center bg-transparent transition-all duration-300">
+<header
+  id="mobile-header"
+  class="mobile-header flex md:hidden fixed top-0 left-0 w-full z-50 px-6 py-4 justify-between items-center bg-transparent transition-all duration-300"
+>
   <!-- Left: Brand Logo - Floating Pill -->
-  <a 
-    href="/" 
+  <a
+    href="/"
     id="mobile-logo"
     class="text-4xl font-serif tracking-tight text-white transition-all duration-300 ease-out flex items-center hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.8)] px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-lg shadow-lg shadow-black/5"
   >
@@ -40,8 +43,7 @@ const isActive = (path: string) => {
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="2"
-        d="M4 6h16M4 12h16"
-      ></path>
+        d="M4 6h16M4 12h16"></path>
     </svg>
   </button>
 </header>
@@ -70,14 +72,15 @@ const isActive = (path: string) => {
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M6 18L18 6M6 6l12 12"
-          ></path>
+            d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
 
     <!-- Center: Navigation Links -->
-    <nav class="mobile-menu-center flex flex-col items-center justify-center gap-8 flex-1 px-6">
+    <nav
+      class="mobile-menu-center flex flex-col items-center justify-center gap-8 flex-1 px-6"
+    >
       <a
         href="/"
         class="mobile-menu-link text-3xl font-serif text-white transition-all duration-300 ease-out hover:opacity-100 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
@@ -108,7 +111,7 @@ const isActive = (path: string) => {
       >
         Contact
       </a>
-      
+
       <!-- Social Icons - Near Contact -->
       <div class="flex items-center justify-center gap-6 mt-4">
         <a
@@ -135,75 +138,75 @@ const isActive = (path: string) => {
 </div>
 
 <script>
-  const mobileLogo = document.getElementById('mobile-logo');
+  const mobileLogo = document.getElementById("mobile-logo");
 
   // Scroll fade effect for logo and enhance pill styling
-  window.addEventListener('scroll', () => {
+  window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
-    const menuTrigger = document.getElementById('mobile-menu-trigger');
-    
+    const menuTrigger = document.getElementById("mobile-menu-trigger");
+
     if (scrollY > 50) {
-      mobileLogo?.classList.add('opacity-0', 'pointer-events-none');
-      [mobileLogo, menuTrigger].forEach(element => {
-        element?.classList.add('bg-white/8', 'backdrop-blur-xl');
-        element?.classList.remove('bg-white/5', 'backdrop-blur-lg');
+      mobileLogo?.classList.add("opacity-0", "pointer-events-none");
+      [mobileLogo, menuTrigger].forEach((element) => {
+        element?.classList.add("bg-white/8", "backdrop-blur-xl");
+        element?.classList.remove("bg-white/5", "backdrop-blur-lg");
       });
     } else {
-      mobileLogo?.classList.remove('opacity-0', 'pointer-events-none');
-      [mobileLogo, menuTrigger].forEach(element => {
-        element?.classList.remove('bg-white/8', 'backdrop-blur-xl');
-        element?.classList.add('bg-white/5', 'backdrop-blur-lg');
+      mobileLogo?.classList.remove("opacity-0", "pointer-events-none");
+      [mobileLogo, menuTrigger].forEach((element) => {
+        element?.classList.remove("bg-white/8", "backdrop-blur-xl");
+        element?.classList.add("bg-white/5", "backdrop-blur-lg");
       });
     }
   });
 
   // Hamburger Menu Toggle
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuTrigger = document.getElementById('mobile-menu-trigger');
-    const menuClose = document.getElementById('mobile-menu-close');
-    const menuOverlay = document.getElementById('mobile-menu-overlay');
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuTrigger = document.getElementById("mobile-menu-trigger");
+    const menuClose = document.getElementById("mobile-menu-close");
+    const menuOverlay = document.getElementById("mobile-menu-overlay");
     const body = document.body;
 
     function openMenu() {
       if (menuOverlay) {
-        menuOverlay.classList.remove('hidden');
+        menuOverlay.classList.remove("hidden");
         // Small delay to trigger animation
         setTimeout(() => {
-          menuOverlay.classList.add('menu-open');
+          menuOverlay.classList.add("menu-open");
         }, 10);
-        body.style.overflow = 'hidden'; // Prevent body scroll
+        body.style.overflow = "hidden"; // Prevent body scroll
       }
       if (menuTrigger) {
-        menuTrigger.setAttribute('aria-expanded', 'true');
+        menuTrigger.setAttribute("aria-expanded", "true");
       }
     }
 
     function closeMenu() {
       if (menuOverlay) {
-        menuOverlay.classList.remove('menu-open');
+        menuOverlay.classList.remove("menu-open");
         setTimeout(() => {
-          menuOverlay.classList.add('hidden');
+          menuOverlay.classList.add("hidden");
         }, 300); // Match transition duration
-        body.style.overflow = ''; // Restore body scroll
+        body.style.overflow = ""; // Restore body scroll
       }
       if (menuTrigger) {
-        menuTrigger.setAttribute('aria-expanded', 'false');
+        menuTrigger.setAttribute("aria-expanded", "false");
       }
     }
 
     // Toggle menu on hamburger click
     if (menuTrigger) {
-      menuTrigger.addEventListener('click', openMenu);
+      menuTrigger.addEventListener("click", openMenu);
     }
 
     // Close menu on close button click
     if (menuClose) {
-      menuClose.addEventListener('click', closeMenu);
+      menuClose.addEventListener("click", closeMenu);
     }
 
     // Close menu when clicking on overlay background
     if (menuOverlay) {
-      menuOverlay.addEventListener('click', (e) => {
+      menuOverlay.addEventListener("click", (e) => {
         if (e.target === menuOverlay) {
           closeMenu();
         }
@@ -211,16 +214,20 @@ const isActive = (path: string) => {
     }
 
     // Close menu when clicking on navigation links
-    const menuLinks = document.querySelectorAll('.mobile-menu-link');
+    const menuLinks = document.querySelectorAll(".mobile-menu-link");
     menuLinks.forEach((link) => {
-      link.addEventListener('click', () => {
+      link.addEventListener("click", () => {
         closeMenu();
       });
     });
 
     // Close menu on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && menuOverlay && !menuOverlay.classList.contains('hidden')) {
+    document.addEventListener("keydown", (e) => {
+      if (
+        e.key === "Escape" &&
+        menuOverlay &&
+        !menuOverlay.classList.contains("hidden")
+      ) {
         closeMenu();
       }
     });
@@ -235,7 +242,9 @@ const isActive = (path: string) => {
     -webkit-backdrop-filter: blur(10px);
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    transition:
+      opacity 0.3s ease-out,
+      transform 0.3s ease-out;
   }
 
   .mobile-menu-overlay.menu-open {
@@ -295,5 +304,3 @@ const isActive = (path: string) => {
     border-color: rgba(255, 255, 255, 0.5);
   }
 </style>
-
-

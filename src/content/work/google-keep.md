@@ -5,7 +5,9 @@ tags: []
 metric: "Monetization strategy case study"
 badge: "Product strategy analysis"
 category: "casestudy"
-actionLabel: "Read Case Study"
+actionLabel: "View strategy deep dive"
 actionType: "pdf"
 priority: 7
+secondaryCTALabel: "View strategy deep dive"
+secondaryCTAUrl: "#"
 ---
