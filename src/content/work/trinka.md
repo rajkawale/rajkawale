@@ -5,7 +5,7 @@ tags: ["FOUNDER-LED", "ZERO-TO-ONE"]
 metric: "Working AI writing prototype"
 badge: "Zero-to-one AI product"
 category: "founder-led"
-actionLabel: "View Demo"
+actionLabel: "View demo"
 actionUrl: "https://trinka.rajkawale.com"
 priority: 2
 ---

@@ -1,0 +1,23 @@
+<script is:inline>
+    // PDF Modal Button Handler
+    document.addEventListener("click", function (e) {
+        const trigger = e.target.closest(".pdf-modal-trigger");
+        if (trigger) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            const url = trigger.getAttribute("data-pdf-url");
+            const title = trigger.getAttribute("data-pdf-title");
+
+            console.log("PDF button clicked:", url, title);
+
+            if (typeof window.openPDFModal === "function" && url) {
+                console.log("Calling openPDFModal");
+                window.openPDFModal(url, title);
+            } else {
+                console.error("window.openPDFModal not available");
+                alert("PDF viewer is not loaded. Please refresh the page.");
+            }
+        }
+    });
+</script>

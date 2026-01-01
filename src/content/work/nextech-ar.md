@@ -5,8 +5,8 @@ tags: ["ENTERPRISE", "SCALE"]
 metric: "+40% Release Velocity | +30% Revenue Growth"
 badge: "Enterprise SaaS transformation"
 category: "enterprise"
-actionLabel: "View Details"
-actionUrl: "#"
+# actionLabel: "View details"
+# actionUrl: "#"
 priority: 5
 ---
 

@@ -17,23 +17,17 @@ const { tags, metric } = project;
 const slug = workItem.slug;
 
 const titleClass = size === "large" ? "text-4xl md:text-5xl" : "text-3xl";
-
-const footerClass = `mt-auto pt-6 border-t border-white/5 flex gap-4 ${
-  size === "large"
-    ? "flex-col md:flex-row md:items-center justify-between"
-    : "flex-col items-start"
-}`;
-
-const buttonRowClass = `flex items-center gap-4 ${
-  size === "large" ? "" : "w-full justify-end"
-}`;
 ---
 
-<a
-  href={`/work/${slug}`}
-  class="group relative flex flex-col w-full h-full overflow-hidden rounded-3xl border border-white/5 bg-zinc-950/50 backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-zinc-900/80 p-8 md:p-10"
+<div
+  class="group relative flex flex-col w-full h-full overflow-hidden rounded-3xl border border-white/5 bg-zinc-950/50 backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-zinc-900/80 p-8 md:p-10 cursor-pointer"
 >
-  <div class="mb-6">
+  <a
+    href={`/work/${slug}`}
+    class="absolute inset-0 z-0"
+    aria-label={`View ${project.title} case study`}></a>
+
+  <div class="mb-6 relative z-10 pointer-events-none">
     <h3 class={`font-serif text-slate-100 mb-3 ${titleClass}`}>
       {project.title}
     </h3>
@@ -48,53 +42,81 @@ const buttonRowClass = `flex items-center gap-4 ${
     }
   </div>
 
-  <p class="flex-grow text-zinc-400 leading-relaxed text-base md:text-lg mb-8">
+  <p
+    class="flex-grow text-zinc-400 leading-relaxed text-base md:text-lg mb-8 relative z-10 pointer-events-none"
+  >
     {project.description}
   </p>
 
-  <div class={footerClass}>
-    {
-      tags && tags.length > 0 && (
-        <div class="flex flex-wrap gap-2">
-          {tags.slice(0, 2).map((tag) => (
-            <span class="px-2 py-1 text-[10px] font-bold tracking-wider text-zinc-400 uppercase border border-white/10 rounded-full bg-white/5 whitespace-nowrap">
-              {tag}
-            </span>
-          ))}
-        </div>
-      )
-    }
-
-    <div class={buttonRowClass}>
-      <span
-        class="flex items-center text-sm font-medium text-white hover:text-emerald-400 transition-colors group/btn whitespace-nowrap cursor-pointer"
-      >
-        Read Case
-        <span
-          class="ml-1 transition-transform duration-300 group-hover/btn:translate-x-1"
-          >→</span
-        >
-      </span>
-
-      {
-        !hideSecondaryLink && (
-          <>
-            {project.actionUrl && (
-              <a
-                href={project.actionUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center text-sm font-medium text-zinc-500 hover:text-white transition-colors group/link whitespace-nowrap"
-              >
-                <span>{project.actionLabel || "View Site"}</span>
-                <span class="ml-1 transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5">
-                  ↗
+  <!-- Footer with tags on left, actions on right -->
+  <div class="mt-auto pt-6 border-t border-white/5 relative z-10">
+    <div class="flex items-start justify-between gap-4 flex-wrap">
+      <!-- Tags on the left -->
+      <div class="flex flex-wrap gap-2 items-center pointer-events-none">
+        {
+          tags && tags.length > 0 && (
+            <>
+              {tags.slice(0, 3).map((tag) => (
+                <span class="px-2 py-1 text-[10px] font-bold tracking-wider text-zinc-400 uppercase border border-white/10 rounded-full bg-white/5 whitespace-nowrap">
+                  {tag}
                 </span>
-              </a>
-            )}
-          </>
-        )
-      }
+              ))}
+            </>
+          )
+        }
+      </div>
+
+      <!-- Action links on the right -->
+      <div class="flex items-center gap-4 ml-auto">
+        <a
+          href={`/work/${slug}`}
+          class="flex items-center text-sm font-medium text-white hover:text-emerald-400 transition-colors group/btn whitespace-nowrap relative z-10"
+        >
+          Read case
+          <span
+            class="ml-1 transition-transform duration-300 group-hover/btn:translate-x-1"
+            >→</span
+          >
+        </a>
+
+        {
+          !hideSecondaryLink && (
+            <>
+              {project.actionUrl && (
+                <>
+                  {project.actionType === "pdf" ||
+                  project.actionType === "drive" ? (
+                    <button
+                      type="button"
+                      data-pdf-url={project.actionUrl}
+                      data-pdf-title={project.title}
+                      class="pdf-modal-trigger relative z-20 flex items-center text-sm font-medium text-zinc-500 hover:text-white transition-colors group/link whitespace-nowrap pointer-events-auto"
+                    >
+                      <span>{project.actionLabel || "View Document"}</span>
+                      <span class="ml-1 transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5">
+                        ↗
+                      </span>
+                    </button>
+                  ) : (
+                    <a
+                      href={project.actionUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="relative z-20 flex items-center text-sm font-medium text-zinc-500 hover:text-white transition-colors group/link whitespace-nowrap pointer-events-auto"
+                      onclick="event.stopPropagation()"
+                    >
+                      <span>{project.actionLabel || "View Site"}</span>
+                      <span class="ml-1 transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5">
+                        ↗
+                      </span>
+                    </a>
+                  )}
+                </>
+              )}
+            </>
+          )
+        }
+      </div>
     </div>
   </div>
-</a>
+</div>

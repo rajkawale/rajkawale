@@ -5,7 +5,7 @@ tags: ["FOUNDER-LED", "AI-NATIVE", "ZERO-TO-ONE"]
 metric: "Live AI system used in real user conversations"
 badge: "Zero-to-one AI system"
 category: "founder-led"
-actionLabel: "Visit Website"
+actionLabel: "Visit website"
 actionUrl: "https://raitalk.com/"
 priority: 1
 secondaryCTALabel: "View website"

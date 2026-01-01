@@ -10,20 +10,23 @@ interface Props {
 
 const {
   title,
-  description = '',
-  image = '',
-  url = '',
-  type = 'website',
-  keywords = '',
+  description = "",
+  image = "",
+  url = "",
+  type = "website",
+  keywords = "",
 } = Astro.props;
 
 const siteUrl = Astro.site?.href || url;
-const ogImage = image || `${siteUrl}/og-image.jpg`;
+const ogImage = image || `${siteUrl}/raj-photo.jpg`;
 ---
 
 <!-- Primary Meta Tags -->
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, maximum-scale=1"
+/>
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
@@ -35,6 +38,14 @@ const ogImage = image || `${siteUrl}/og-image.jpg`;
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta
+  property="og:image:alt"
+  content="Raj Kawale - AI & SaaS Product Manager"
+/>
+<meta property="og:site_name" content="Raj Kawale" />
+<meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -42,13 +53,19 @@ const ogImage = image || `${siteUrl}/og-image.jpg`;
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+<meta
+  name="twitter:image:alt"
+  content="Raj Kawale - AI & SaaS Product Manager"
+/>
 
 <!-- Additional SEO -->
 <link rel="canonical" href={url || siteUrl} />
 <meta name="author" content="Raj Kawale" />
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta
+  name="robots"
+  content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+/>
 <meta name="googlebot" content="index, follow" />
 <meta name="bingbot" content="index, follow" />
 <!-- AI Crawler Support -->
 <meta name="AI" content="index, follow" />
-

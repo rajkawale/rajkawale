@@ -5,8 +5,8 @@ tags: ["ENTERPRISE", "SCALE"]
 metric: "50s → 1s cart load time | +26% CTR | +54% session duration"
 badge: "Enterprise ecommerce scale"
 category: "enterprise"
-actionLabel: "View Details"
-actionUrl: "#"
+# actionLabel: "View details"
+# actionUrl: "#"
 priority: 6
 ---
 

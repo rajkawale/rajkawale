@@ -3,6 +3,8 @@ import BaseLayout from "../components/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import ProjectCard from "../components/ui/ProjectCard.astro";
 import SmartBackButton from "../components/ui/SmartBackButton.astro";
+import PDFModal from "../components/ui/PDFModal.astro";
+import PDFModalHandler from "../components/ui/PDFModalHandler.astro";
 
 const allWork = await getCollection("work");
 const sortedWork = allWork.sort((a, b) => a.data.priority - b.data.priority);
@@ -65,18 +67,13 @@ const caseStudies = sortedWork.filter(
       <!-- Shipped Products Section -->
       {
         shippedProjects.length > 0 && (
-          <section class="mb-32">
+          <section class="mb-12">
             <h2 class="text-3xl font-serif text-slate-100 mb-8">
-              Selected Work
+              Ventures & Products Built
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {shippedProjects.map((item, index) => (
-                <div class={index === 0 ? "md:col-span-2" : "col-span-1"}>
-                  <ProjectCard
-                    project={item}
-                    size={index === 0 ? "large" : "medium"}
-                  />
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {shippedProjects.map((item) => (
+                <ProjectCard project={item} size="medium" />
               ))}
             </div>
           </section>
@@ -86,17 +83,13 @@ const caseStudies = sortedWork.filter(
       <!-- Professional Work Section -->
       {
         professionalWork.length > 0 && (
-          <section class="mb-16">
+          <section class="mb-12">
             <h2 class="text-3xl font-serif text-slate-100 mb-8">
-              Professional Work
+              Professional Impact & Deliverables
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {professionalWork.map((item) => (
-                <ProjectCard
-                  project={item}
-                  size="medium"
-                  hideSecondaryLink={true}
-                />
+                <ProjectCard project={item} size="medium" />
               ))}
             </div>
           </section>
@@ -106,11 +99,11 @@ const caseStudies = sortedWork.filter(
       <!-- Case Studies Section -->
       {
         caseStudies.length > 0 && (
-          <section class="mb-32">
+          <section class="mb-12">
             <h2 class="text-3xl font-serif text-slate-100 mb-8">
-              Case Studies & Teardowns
+              Strategic Analysis & Teardowns
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {caseStudies.map((item) => (
                 <ProjectCard project={item} size="medium" />
               ))}
@@ -125,6 +118,10 @@ const caseStudies = sortedWork.filter(
       </div>
     </div>
   </main>
+
+  <!-- PDF/Document Viewer Modal -->
+  <PDFModal />
+  <PDFModalHandler />
 </BaseLayout>
 
 <style>

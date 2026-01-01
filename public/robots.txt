@@ -28,3 +28,6 @@ Allow: /
 
 Sitemap: https://rajkawale.com/sitemap.xml
 
+# RSS Feed for AI Crawlers
+# https://rajkawale.com/rss.xml
+

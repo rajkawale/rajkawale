@@ -5,8 +5,8 @@ tags: ["ENTERPRISE", "SCALE"]
 metric: "+23% ROI impact on enterprise campaigns"
 badge: "Enterprise-scale product ownership"
 category: "enterprise"
-actionLabel: "View Details"
-actionUrl: "#"
+# actionLabel: "View details"
+# actionUrl: "#"
 priority: 4
 ---
 
