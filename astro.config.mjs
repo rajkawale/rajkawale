@@ -7,8 +7,12 @@ import vercel from '@astrojs/vercel';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://rajkawale.com',
-  output: 'server',
-  adapter: vercel(),
+  output: 'static',
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   integrations: [
     tailwind(),
     react(),
