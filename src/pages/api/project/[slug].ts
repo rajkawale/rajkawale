@@ -4,6 +4,16 @@ import { container } from '../../../core/di/container';
 
 export const prerender = true;
 
+// Generate static paths for all projects at build time
+export async function getStaticPaths() {
+  const projectService = container.getProjectService();
+  const allProjects = await projectService.getAll();
+
+  return allProjects.map((project) => ({
+    params: { slug: project.slug },
+  }));
+}
+
 export const GET: APIRoute = async ({ params }) => {
   try {
     const slug = params.slug;
