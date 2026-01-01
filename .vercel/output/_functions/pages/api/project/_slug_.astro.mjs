@@ -1,5 +1,5 @@
-import { g as getCollection } from '../../../chunks/_astro_content_DFbWQ2k5.mjs';
-import { c as container } from '../../../chunks/container_D5zjtpvj.mjs';
+import { g as getCollection } from '../../../chunks/_astro_content_BGGyxQAG.mjs';
+import { c as container } from '../../../chunks/container_ChaB-zdo.mjs';
 export { renderers } from '../../../renderers.mjs';
 
 const prerender = false;

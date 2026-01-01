@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { container } from '../../../core/di/container';
 
-export const prerender = false;
+export const prerender = true;
 
 export const GET: APIRoute = async ({ params }) => {
   try {
@@ -38,11 +38,11 @@ export const GET: APIRoute = async ({ params }) => {
 
     // Render the MDX content to HTML
     const { Content } = await entry.render();
-    
+
     // We need to render the Content component to HTML string
     // For now, we'll return the project data and let the client render it
     // Or we can use a different approach
-    
+
     return new Response(JSON.stringify({
       project,
       content: entry.body || '',

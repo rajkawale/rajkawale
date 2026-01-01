@@ -1,7 +1,7 @@
 /* empty css                                  */
-import { c as createAstro, a as createComponent, m as maybeRenderHead, e as addAttribute, b as renderScript, d as renderTemplate, r as renderComponent } from '../chunks/astro/server_D4D8iJOc.mjs';
+import { c as createAstro, a as createComponent, m as maybeRenderHead, d as addAttribute, e as renderScript, b as renderTemplate, r as renderComponent } from '../chunks/astro/server_DZlb7AaN.mjs';
 import 'piccolore';
-import { $ as $$BaseLayout } from '../chunks/BaseLayout_I5yDT4-y.mjs';
+import { $ as $$BaseLayout } from '../chunks/BaseLayout_DuN9dx8k.mjs';
 import 'clsx';
 /* empty css                                   */
 export { renderers } from '../renderers.mjs';
@@ -29,8 +29,8 @@ const $$Contact = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, { "title": "Contact | Raj Kawale", "description": "Get in touch with Raj Kawale to discuss AI and SaaS product roles, consulting opportunities, or collaborations on scaling technology products.", "keywords": "AI product manager contact, SaaS product consultant, product collaboration" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black text-zinc-300 pb-32 md:pb-16 px-6 md:px-12 relative z-10 flex items-center" style="padding-top: 150px;"> <div class="max-w-2xl mx-auto w-full"> <header class="mb-10 border-b border-zinc-800 pb-6"> <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-100 mb-4">
 Let's Connect
 </h1> <p class="text-lg text-zinc-300 font-sans">
-Interested in collaborating, discussing a project, or just want to connect? 
-          Fill out the form below and I'll get back to you.
+Interested in collaborating, discussing a project, or just want to
+          connect? Fill out the form below and I'll get back to you.
 </p> </header> ${renderComponent($$result2, "ContactForm", $$ContactForm, { "formspreeEndpoint": formspreeEndpoint })} </div> </main> ` })}`;
 }, "C:/Users/Raj/Documents/source Code/rajkawale/src/pages/contact.astro", void 0);
 

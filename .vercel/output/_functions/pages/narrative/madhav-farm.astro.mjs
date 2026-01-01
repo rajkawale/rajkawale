@@ -1,8 +1,8 @@
 /* empty css                                     */
-import { a as createComponent, r as renderComponent, d as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_D4D8iJOc.mjs';
+import { a as createComponent, r as renderComponent, b as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_DZlb7AaN.mjs';
 import 'piccolore';
-import { $ as $$BaseLayout } from '../../chunks/BaseLayout_I5yDT4-y.mjs';
-import { $ as $$BackNavigation } from '../../chunks/BackNavigation_DaVUMhd-.mjs';
+import { $ as $$BaseLayout } from '../../chunks/BaseLayout_DuN9dx8k.mjs';
+import { $ as $$BackNavigation } from '../../chunks/BackNavigation_G6dS4OKS.mjs';
 /* empty css                                          */
 export { renderers } from '../../renderers.mjs';
 

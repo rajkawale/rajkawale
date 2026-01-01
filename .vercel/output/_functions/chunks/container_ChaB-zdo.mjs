@@ -1,4 +1,4 @@
-import { g as getCollection } from './_astro_content_DFbWQ2k5.mjs';
+import { g as getCollection } from './_astro_content_BGGyxQAG.mjs';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 

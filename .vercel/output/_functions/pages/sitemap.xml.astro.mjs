@@ -1,4 +1,5 @@
-import { c as container } from '../chunks/container_D5zjtpvj.mjs';
+import { c as container } from '../chunks/container_ChaB-zdo.mjs';
+import { g as getCollection } from '../chunks/_astro_content_BGGyxQAG.mjs';
 export { renderers } from '../renderers.mjs';
 
 const GET = async ({ site }) => {
@@ -26,7 +27,13 @@ const GET = async ({ site }) => {
     priority: "0.7",
     changefreq: "monthly"
   }));
-  const allPages = [...staticPages, ...blogPages, ...projectPages];
+  const workItems = await getCollection("work");
+  const workPages = workItems.map((work) => ({
+    url: `/work/${work.id}`,
+    priority: "0.8",
+    changefreq: "weekly"
+  }));
+  const allPages = [...staticPages, ...blogPages, ...projectPages, ...workPages];
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allPages.map(
@@ -34,7 +41,7 @@ ${allPages.map(
     <loc>${siteUrl}${page.url}</loc>
     <priority>${page.priority}</priority>
     <changefreq>${page.changefreq}</changefreq>
-    ${page.lastmod ? `    <lastmod>${page.lastmod}</lastmod>` : ""}
+    ${"lastmod" in page && page.lastmod ? `    <lastmod>${page.lastmod}</lastmod>` : ""}
   </url>`
   ).join("\n")}
 </urlset>`;
