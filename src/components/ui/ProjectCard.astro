@@ -130,7 +130,7 @@ const professionalWorkLinkText = 'Read Case';
         <>
           {project.actionType === 'drive' && (
             <button
-              data-drive-file-id={project.actionUrl?.match(/file\/d\/(.*?)\//)?.[1]}
+              data-drive-file-id={project.actionUrl?.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1]}
               data-drive-title={project.title}
               class="project-drive-viewer-button text-zinc-400 hover:text-white text-sm font-normal flex items-center gap-1 z-10 relative cursor-pointer transition-colors"
             >
