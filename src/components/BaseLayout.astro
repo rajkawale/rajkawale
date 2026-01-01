@@ -1,8 +1,9 @@
 ---
-import SEO from './SEO.astro';
-import Clarity from './Clarity.astro';
-import NavigationWrapper from './NavigationWrapper.astro';
-import Footer from './Footer.astro';
+import SEO from "./SEO.astro";
+import Clarity from "./Clarity.astro";
+import NavigationWrapper from "./NavigationWrapper.astro";
+import Footer from "./Footer.astro";
+import DriveViewer from "./ui/DriveViewer.astro";
 
 interface Props {
   title?: string;
@@ -13,26 +14,27 @@ interface Props {
 }
 
 const {
-  title = 'Raj Kawale | AI & SaaS Product Manager',
-  description = 'Portfolio of Raj Kawale, an AI and SaaS Product Manager working across zero-to-one and scaling tech products in cognitive AI, B2B SaaS, and consumer platforms.',
+  title = "Raj Kawale | AI & SaaS Product Manager",
+  description = "Portfolio of Raj Kawale, an AI and SaaS Product Manager working across zero-to-one and scaling tech products in cognitive AI, B2B SaaS, and consumer platforms.",
   image,
-  clarityId = 'ugkqsj83mt',
-  keywords = 'Raj Kawale, AI Product Manager, SaaS Product Manager, product scaling, zero to one products, cognitive AI, B2B SaaS, consumer products, product strategy, systems thinking',
+  clarityId = "ugkqsj83mt",
+  keywords = "Raj Kawale, AI Product Manager, SaaS Product Manager, product scaling, zero to one products, cognitive AI, B2B SaaS, consumer products, product strategy, systems thinking",
 } = Astro.props;
 
-const siteUrl = Astro.site?.href || '';
+const siteUrl = Astro.site?.href || "";
 const canonicalUrl = siteUrl + Astro.url.pathname;
 
 // Structured Data for Person entity
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "Raj Kawale",
-  "alternateName": "Raj Kawale",
-  "url": siteUrl || "https://rajkawale.com",
-  "jobTitle": "AI & SaaS Product Manager",
-  "description": "AI and SaaS Product Manager with experience across zero-to-one and scaling products in cognitive AI, B2B SaaS, and consumer platforms.",
-  "knowsAbout": [
+  name: "Raj Kawale",
+  alternateName: "Raj Kawale",
+  url: siteUrl || "https://rajkawale.com",
+  jobTitle: "AI & SaaS Product Manager",
+  description:
+    "AI and SaaS Product Manager with experience across zero-to-one and scaling products in cognitive AI, B2B SaaS, and consumer platforms.",
+  knowsAbout: [
     "Product Management",
     "AI Products",
     "SaaS Products",
@@ -42,74 +44,87 @@ const structuredData = {
     "B2B SaaS",
     "Consumer Products",
     "Product Strategy",
-    "Systems Thinking"
+    "Systems Thinking",
   ],
-  "worksFor": [
+  worksFor: [
     {
       "@type": "Organization",
-      "name": "RaiTalk"
+      name: "RaiTalk",
     },
     {
       "@type": "Organization",
-      "name": "Sinch"
+      name: "Sinch",
     },
     {
       "@type": "Organization",
-      "name": "Nextech AR (Map D)"
+      name: "Nextech AR (Map D)",
     },
     {
       "@type": "Organization",
-      "name": "Invest4EDU"
+      name: "Invest4EDU",
     },
     {
       "@type": "Organization",
-      "name": "Purple Style Labs"
+      name: "Purple Style Labs",
     },
     {
       "@type": "Organization",
-      "name": "Pernia's Pop-Up Shop"
-    }
+      name: "Pernia's Pop-Up Shop",
+    },
   ],
-  "sameAs": [
+  sameAs: [
     "https://www.linkedin.com/in/rajkawale/",
     "https://github.com/rajkawale",
     "https://raitalk.rajkawale.com/",
-    "https://trinka.rajkawale.com/"
+    "https://trinka.rajkawale.com/",
   ],
-  "mainEntityOfPage": {
+  mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": canonicalUrl
-  }
+    "@id": canonicalUrl,
+  },
 };
 
 // Website structured data for better discoverability
 const websiteStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "Raj Kawale - AI & SaaS Product Manager",
-  "url": siteUrl || "https://rajkawale.com",
-  "description": "Portfolio and insights from Raj Kawale, an AI and SaaS Product Manager working across zero-to-one and scaling tech products.",
-  "author": {
+  name: "Raj Kawale - AI & SaaS Product Manager",
+  url: siteUrl || "https://rajkawale.com",
+  description:
+    "Portfolio and insights from Raj Kawale, an AI and SaaS Product Manager working across zero-to-one and scaling tech products.",
+  author: {
     "@type": "Person",
-    "name": "Raj Kawale"
+    name: "Raj Kawale",
   },
-  "potentialAction": {
+  potentialAction: {
     "@type": "SearchAction",
-    "target": {
+    target: {
       "@type": "EntryPoint",
-      "urlTemplate": `${siteUrl}/search?q={search_term_string}`
+      urlTemplate: `${siteUrl}/search?q={search_term_string}`,
     },
-    "query-input": "required name=search_term_string"
-  }
+    "query-input": "required name=search_term_string",
+  },
 };
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <SEO title={title} description={description} image={image} url={canonicalUrl} keywords={keywords} />
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-    <script type="application/ld+json" set:html={JSON.stringify(websiteStructuredData)} />
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      url={canonicalUrl}
+      keywords={keywords}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(websiteStructuredData)}
+    />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -124,91 +139,115 @@ const websiteStructuredData = {
     <NavigationWrapper />
     <slot />
     <Footer />
-    
+    <DriveViewer fileId="" />
+
     <!-- Global Clarity Event Tracking -->
     <script is:inline>
       // Track Clarity events
       function trackEvent(eventName) {
-        if (typeof window !== 'undefined' && window.clarity) {
-          window.clarity('event', eventName);
+        if (typeof window !== "undefined" && window.clarity) {
+          window.clarity("event", eventName);
         }
       }
 
       // Track email copy events
-      document.addEventListener('copy', (e) => {
-        const selection = window.getSelection()?.toString() || '';
+      document.addEventListener("copy", (e) => {
+        const selection = window.getSelection()?.toString() || "";
         // Check if copied text contains email pattern or common email addresses
         const emailPattern = /[\w\.-]+@[\w\.-]+\.\w+/;
-        const knownEmails = ['rajendrakawale101@gmail.com', 'rajkawale'];
-        
-        if (emailPattern.test(selection) || 
-            knownEmails.some(email => selection.toLowerCase().includes(email.toLowerCase()))) {
-          trackEvent('Copy_Email');
+        const knownEmails = ["rajendrakawale101@gmail.com", "rajkawale"];
+
+        if (
+          emailPattern.test(selection) ||
+          knownEmails.some((email) =>
+            selection.toLowerCase().includes(email.toLowerCase()),
+          )
+        ) {
+          trackEvent("Copy_Email");
         }
       });
 
       // Wait for DOM to be ready before initializing tracking
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         // Navigation Tracking
         function getNavEventName(href) {
-          if (href === '/' || href === '/#home') return 'Home';
-          if (href === '/work' || href === '/#projects' || href.includes('#projects')) return 'Work';
-          if (href === '/blog' || href.includes('/blog')) return 'Writing';
-          if (href === '/contact') return 'Contact';
-          if (href === '/trusted-by' || href.includes('#trusted-by')) return 'TrustedBy';
+          if (href === "/" || href === "/#home") return "Home";
+          if (
+            href === "/work" ||
+            href === "/#projects" ||
+            href.includes("#projects")
+          )
+            return "Work";
+          if (href === "/blog" || href.includes("/blog")) return "Writing";
+          if (href === "/contact") return "Contact";
+          if (href === "/trusted-by" || href.includes("#trusted-by"))
+            return "TrustedBy";
           return null;
         }
 
         // Track navigation clicks
-        document.querySelectorAll('nav a, header a[href^="/"], header a[href^="#"]').forEach(link => {
-          link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href') || '';
-            const eventName = getNavEventName(href);
-            if (eventName) {
-              trackEvent(`Nav_Click_${eventName}`);
-            }
+        document
+          .querySelectorAll('nav a, header a[href^="/"], header a[href^="#"]')
+          .forEach((link) => {
+            link.addEventListener("click", (e) => {
+              const href = link.getAttribute("href") || "";
+              const eventName = getNavEventName(href);
+              if (eventName) {
+                trackEvent(`Nav_Click_${eventName}`);
+              }
+            });
           });
-        });
 
         // Track logo clicks
         const logoLinks = document.querySelectorAll('a[href="/"]:not(nav a)');
-        logoLinks.forEach(logo => {
-          logo.addEventListener('click', () => {
-            trackEvent('Nav_Click_Logo');
+        logoLinks.forEach((logo) => {
+          logo.addEventListener("click", () => {
+            trackEvent("Nav_Click_Logo");
           });
         });
 
         // Section Visibility Tracking using Intersection Observer
-        const sectionObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-              const sectionId = entry.target.id;
-              if (sectionId) {
-                const sectionName = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
-                trackEvent(`Section_View_${sectionName}`);
-                // Unobserve after first view to avoid duplicate events
-                sectionObserver.unobserve(entry.target);
+        const sectionObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                const sectionId = entry.target.id;
+                if (sectionId) {
+                  const sectionName =
+                    sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+                  trackEvent(`Section_View_${sectionName}`);
+                  // Unobserve after first view to avoid duplicate events
+                  sectionObserver.unobserve(entry.target);
+                }
               }
-            }
-          });
-        }, { threshold: 0.5 });
+            });
+          },
+          { threshold: 0.5 },
+        );
 
         // Observe all sections with IDs
-        document.querySelectorAll('section[id], div[id^="projects"], div[id^="writing"], div[id^="home"]').forEach(section => {
-          sectionObserver.observe(section);
-        });
+        document
+          .querySelectorAll(
+            'section[id], div[id^="projects"], div[id^="writing"], div[id^="home"]',
+          )
+          .forEach((section) => {
+            sectionObserver.observe(section);
+          });
 
         // Scroll Depth Tracking
         let maxScrollDepth = 0;
         const scrollDepths = [25, 50, 75, 100];
-        
+
         function checkScrollDepth() {
           const windowHeight = window.innerHeight;
           const documentHeight = document.documentElement.scrollHeight;
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const scrollPercent = Math.round(((scrollTop + windowHeight) / documentHeight) * 100);
-          
-          scrollDepths.forEach(depth => {
+          const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+          const scrollPercent = Math.round(
+            ((scrollTop + windowHeight) / documentHeight) * 100,
+          );
+
+          scrollDepths.forEach((depth) => {
             if (scrollPercent >= depth && maxScrollDepth < depth) {
               trackEvent(`Scroll_Depth_${depth}`);
               maxScrollDepth = depth;
@@ -218,41 +257,49 @@ const websiteStructuredData = {
 
         // Throttle scroll events
         let scrollTicking = false;
-        window.addEventListener('scroll', () => {
-          if (!scrollTicking) {
-            window.requestAnimationFrame(() => {
-              checkScrollDepth();
-              scrollTicking = false;
-            });
-            scrollTicking = true;
-          }
-        }, { passive: true });
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!scrollTicking) {
+              window.requestAnimationFrame(() => {
+                checkScrollDepth();
+                scrollTicking = false;
+              });
+              scrollTicking = true;
+            }
+          },
+          { passive: true },
+        );
 
         // Time-based Engagement Tracking
         const timeThresholds = [30, 60, 120, 300]; // 30s, 1min, 2min, 5min
         const timeTracked = {};
-        
-        timeThresholds.forEach(seconds => {
+
+        timeThresholds.forEach((seconds) => {
           setTimeout(() => {
             if (!timeTracked[seconds]) {
-              trackEvent(`Time_On_Page_${seconds === 30 ? '30s' : seconds === 60 ? '1min' : seconds === 120 ? '2min' : '5min'}`);
+              trackEvent(
+                `Time_On_Page_${seconds === 30 ? "30s" : seconds === 60 ? "1min" : seconds === 120 ? "2min" : "5min"}`,
+              );
               timeTracked[seconds] = true;
             }
           }, seconds * 1000);
         });
 
         // Track external link clicks
-        document.querySelectorAll('a[target="_blank"], a[href^="http"]').forEach(link => {
-          link.addEventListener('click', (e) => {
-            try {
-              const url = new URL(link.href);
-              const domain = url.hostname.replace('www.', '');
-              trackEvent(`External_Link_Click_${domain.split('.')[0]}`);
-            } catch (e) {
-              // Invalid URL, skip
-            }
+        document
+          .querySelectorAll('a[target="_blank"], a[href^="http"]')
+          .forEach((link) => {
+            link.addEventListener("click", (e) => {
+              try {
+                const url = new URL(link.href);
+                const domain = url.hostname.replace("www.", "");
+                trackEvent(`External_Link_Click_${domain.split(".")[0]}`);
+              } catch (e) {
+                // Invalid URL, skip
+              }
+            });
           });
-        });
       });
     </script>
   </body>
@@ -279,7 +326,16 @@ const websiteStructuredData = {
   }
 
   body {
-    font-family: 'Geist Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-family:
+      "Geist Sans",
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      "Roboto",
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
     font-weight: 400; /* font-normal */
     background-color: #020617 !important;
     color: #d4d4d8; /* text-zinc-300 */
@@ -292,7 +348,9 @@ const websiteStructuredData = {
 
   /* Respect iPhone notch and home bar - Update main containers */
   main {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--main-padding-bottom, 0px));
+    padding-bottom: calc(
+      env(safe-area-inset-bottom, 0px) + var(--main-padding-bottom, 0px)
+    );
   }
 
   /* For pages using Tailwind pb-* classes, add safe area */
@@ -310,14 +368,20 @@ const websiteStructuredData = {
 
   /* The Breathing Aurora: Two Large Blurred Gradient Orbs - Very Diffuse */
   .deep-mind::before {
-    content: '';
+    content: "";
     position: fixed;
     top: -20%;
     left: -10%;
     width: 60vw;
     height: 60vh;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
-    filter: blur(192px); /* blur-3xl = 64px * 3 = 192px for very diffuse effect */
+    background: radial-gradient(
+      circle,
+      rgba(99, 102, 241, 0.08) 0%,
+      transparent 70%
+    );
+    filter: blur(
+      192px
+    ); /* blur-3xl = 64px * 3 = 192px for very diffuse effect */
     -webkit-filter: blur(192px);
     pointer-events: none;
     z-index: 0;
@@ -325,14 +389,20 @@ const websiteStructuredData = {
   }
 
   .deep-mind::after {
-    content: '';
+    content: "";
     position: fixed;
     bottom: -20%;
     right: -10%;
     width: 60vw;
     height: 60vh;
-    background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
-    filter: blur(192px); /* blur-3xl = 64px * 3 = 192px for very diffuse effect */
+    background: radial-gradient(
+      circle,
+      rgba(6, 182, 212, 0.08) 0%,
+      transparent 70%
+    );
+    filter: blur(
+      192px
+    ); /* blur-3xl = 64px * 3 = 192px for very diffuse effect */
     -webkit-filter: blur(192px);
     pointer-events: none;
     z-index: 0;
@@ -340,7 +410,8 @@ const websiteStructuredData = {
   }
 
   @keyframes pulse-aurora {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.6;
       transform: scale(1);
     }
@@ -356,29 +427,38 @@ const websiteStructuredData = {
     z-index: 1;
   }
 
-  h1, h2 {
-    font-family: Georgia, 'Cambria', 'Times New Roman', Times, serif;
+  h1,
+  h2 {
+    font-family: Georgia, "Cambria", "Times New Roman", Times, serif;
     font-style: normal;
     font-weight: 400; /* normal - keep Georgia elegant */
     letter-spacing: -0.025em; /* tracking-tight */
     color: #f1f5f9; /* Slate-100 - Cool white for blue-toned background */
   }
 
-  h3, h4, h5, h6 {
-    font-family: Georgia, 'Cambria', 'Times New Roman', Times, serif;
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: Georgia, "Cambria", "Times New Roman", Times, serif;
     font-style: normal;
     font-weight: 400; /* regular */
     color: #f1f5f9; /* Slate-100 - Cool white for blue-toned background */
   }
 
   /* Monospace for Builder metadata */
-  code, .font-mono, [class*="mono"] {
-    font-family: 'JetBrains Mono', 'Geist Mono', 'Courier New', 'Consolas', 'Monaco', monospace;
+  code,
+  .font-mono,
+  [class*="mono"] {
+    font-family:
+      "JetBrains Mono", "Geist Mono", "Courier New", "Consolas", "Monaco",
+      monospace;
     font-display: optional;
   }
 
   a {
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
   }
 </style>
-
