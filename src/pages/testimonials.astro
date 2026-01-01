@@ -1,15 +1,14 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
-// Removed conflicting import - component named same as variable
-// import Testimonials from "../components/Testimonials.astro";
+import Testimonials from "../components/Testimonials.astro";
 import BackNavigation from "../components/ui/BackNavigation.astro";
 
-let testimonials: any[] = [];
+let testimonialsData: any[] = [];
 try {
-  const testimonialsData = await import("../data/testimonials.json");
-  testimonials = testimonialsData.default || [];
+  const data = await import("../data/testimonials.json");
+  testimonialsData = data.default || [];
 } catch (e) {
-  testimonials = [];
+  testimonialsData = [];
 }
 ---
 
@@ -32,7 +31,7 @@ try {
         </p>
       </header>
 
-      <Testimonials testimonials={testimonials} />
+      <Testimonials testimonials={testimonialsData} />
     </div>
   </main>
 </BaseLayout>
