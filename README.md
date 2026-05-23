@@ -21,7 +21,6 @@ Not just roadmaps — architectures, agents, and systems that scale.
 | Product | What it is | Impact |
 |---|---|---|
 | **RaiTalk** | AI conversational platform for guided self-reflection · built MVP end-to-end | Working product at [raitalk.com](https://raitalk.com) |
-| **SmartHelp (GenAI Support)** | Hybrid ML + GenAI + rule-engine for 10K daily emails · confidence-based routing | 60% automation target · 40% faster resolution |
 | **Enterprise SaaS Platforms** | Velocity, ROI, and revenue-impact systems across multiple orgs | 6+ years of shipped product |
 
 ---
