@@ -17,7 +17,7 @@ const {
   keywords = "",
 } = Astro.props;
 
-const siteUrl = Astro.site?.href || url;
+const siteUrl = (Astro.site?.href || url).replace(/\/$/, "");
 const ogImage = image || `${siteUrl}/og-image.png`;
 ---
 
@@ -25,7 +25,7 @@ const ogImage = image || `${siteUrl}/og-image.png`;
 <meta charset="UTF-8" />
 <meta
   name="viewport"
-  content="width=device-width, initial-scale=1, maximum-scale=1"
+  content="width=device-width, initial-scale=1"
 />
 <title>{title}</title>
 <meta name="title" content={title} />
@@ -34,7 +34,7 @@ const ogImage = image || `${siteUrl}/og-image.png`;
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />
-<meta property="og:url" content={siteUrl} />
+<meta property="og:url" content={url || siteUrl} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
@@ -42,20 +42,20 @@ const ogImage = image || `${siteUrl}/og-image.png`;
 <meta property="og:image:height" content="630" />
 <meta
   property="og:image:alt"
-  content="Raj Kawale - AI & SaaS Product Manager"
+  content="Raj Kawale - Product Lead, GenAI & Agentic AI"
 />
 <meta property="og:site_name" content="Raj Kawale" />
 <meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content={siteUrl} />
+<meta name="twitter:url" content={url || siteUrl} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 <meta
   name="twitter:image:alt"
-  content="Raj Kawale - AI & SaaS Product Manager"
+  content="Raj Kawale - Product Lead, GenAI & Agentic AI"
 />
 
 <!-- Additional SEO -->

@@ -2,7 +2,6 @@
 title: "PhonePe"
 description: "USP Definition & Revenue Strategy"
 tags: ["PRODUCT-STRATEGY", "MONETIZATION", "FINTECH"]
-metric: "Strategic analysis case study"
 badge: "Product strategy analysis"
 category: "casestudy"
 actionLabel: "View case study"

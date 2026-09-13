@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    { "source": "/narrative/raitalk", "destination": "/work/raitalk", "permanent": true },
+    { "source": "/narrative/madhav-farm", "destination": "/work/madhav-farm", "permanent": true },
+    { "source": "/narrative/unified-cdp", "destination": "/work/sinch", "permanent": true },
+    { "source": "/projects", "destination": "/work", "permanent": true },
+    { "source": "/projects/:slug", "destination": "/work/:slug", "permanent": true }
+  ]
+}

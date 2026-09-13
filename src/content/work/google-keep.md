@@ -2,7 +2,6 @@
 title: "Google Keep"
 description: "Monetization Strategy & Platform Expansion"
 tags: ["PRODUCT-STRATEGY", "MONETIZATION", "GOOGLE-WORKSPACE"]
-metric: "Monetization strategy case study"
 badge: "Product strategy analysis"
 category: "casestudy"
 actionLabel: "View case study"

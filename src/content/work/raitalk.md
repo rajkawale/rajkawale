@@ -1,9 +1,8 @@
 ---
 title: "RaiTalk"
-description: "Founder-led build of a cognitive and emotional AI system. Owned the full lifecycle from NLP prototyping to live deployment and market validation with 100+ users."
-tags: ["FOUNDER-LED", "AI-NATIVE", "ZERO-TO-ONE"]
-metric: "Live AI system used in real user conversations"
-badge: "Zero-to-one AI system"
+description: "Founder-led build exploring how cognitive and emotional thinking work together — an AI system for guided self-reflection, owned end-to-end from NLP prototyping to live deployment and real-user validation."
+tags: ["FOUNDER-LED", "AI-NATIVE", "COGNITIVE-AI"]
+badge: "Founder · Jul 2025 – May 2026 · Sunset"
 category: "founder-led"
 actionLabel: "Visit website"
 actionUrl: "https://raitalk.com/"
@@ -11,6 +10,10 @@ priority: 1
 secondaryCTALabel: "View website"
 secondaryCTAUrl: "https://raitalk.com"
 ---
+
+Where technology, psychology, and cognitive science meet: RaiTalk explored how emotional and rational thinking interact, and what an AI system looks like when it's built to surface that interaction rather than paper over it.
+
+**Status:** Sunset (Jul 2025 – May 2026). The product is no longer being actively developed, but the insights it produced carried directly into [KOS](/work/kos), the exocortex project that followed it.
 
 ## The Problem
 
@@ -55,3 +58,7 @@ Structures conversations to guide users toward self-realization rather than pres
 *   Users trust AI more when it facilitates insight rather than advice
 *   Over-structuring early reduces emotional honesty
 *   Product judgment mattered more than model sophistication
+
+---
+
+If you work at the intersection of technology, psychology, and cognitive science, I'd like to hear from you — [let's connect](/contact) or [book time on Topmate](https://topmate.io/rajkawale).

@@ -1,0 +1,168 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import SmartBackButton from "../components/ui/SmartBackButton.astro";
+import { getCollection } from "astro:content";
+
+const allWork = await getCollection("work");
+const findWork = (slug: string) => allWork.find((w) => w.slug === slug);
+
+const siteUrl = (Astro.site?.href || "https://www.rajkawale.com").replace(/\/$/, "");
+const personId = `${siteUrl}/#person`;
+
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${siteUrl}/about/#profilepage`,
+  url: `${siteUrl}/about`,
+  mainEntity: { "@id": personId },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What does Raj Kawale do?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Raj Kawale is a Product Lead building GenAI and Agentic AI systems for healthcare organizations at Indegene, from problem framing through client deployment.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is KOS?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "KOS is Raj's independent exocortex project: an AI system that forces a committed position and a probability before answering, then scores that position against what actually happened. It currently has one user — its founder.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Where does Raj Kawale currently work?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Raj is a Product Lead for GenAI & Agentic AI at Indegene, based in Bengaluru, India.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How can I book time with Raj Kawale?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sessions can be booked directly at topmate.io/rajkawale, or via the contact form at rajkawale.com/contact.",
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="About | Raj Kawale — Product Lead, GenAI & Agentic AI"
+  description="Raj Kawale is a Product Lead building GenAI and Agentic AI systems at Indegene, and the founder behind KOS (an exocortex) and RaiTalk. Background, current work, and how to connect."
+  keywords="Raj Kawale, Product Lead GenAI, Agentic AI, Indegene, KOS exocortex, RaiTalk, about Raj Kawale"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(profilePageSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <main class="min-h-screen bg-[#020617] text-zinc-300 pt-24 relative z-10 pb-[120px] md:pb-16">
+    <div class="max-w-3xl mx-auto px-5 md:px-12 py-16">
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-100 mb-6">
+          About Raj Kawale
+        </h1>
+        <p class="text-xl text-zinc-300 leading-relaxed font-sans">
+          Raj Kawale is a Product Lead building GenAI and Agentic AI systems for healthcare organizations at Indegene, and the founder behind KOS, an exocortex project, and previously RaiTalk, a cognitive AI system for guided self-reflection.
+        </p>
+      </header>
+
+      <section class="mb-12">
+        <h2 class="text-2xl font-serif text-slate-100 mb-6">Current work</h2>
+        <div class="space-y-6">
+          <div class="border-l-2 border-white/10 pl-5">
+            <p class="text-sm font-mono text-zinc-500 mb-1">May 2026 – Present · Bengaluru, India</p>
+            <h3 class="text-lg font-serif text-white mb-1">Product Lead — GenAI & Agentic AI, Indegene</h3>
+            <p class="text-zinc-400 font-sans leading-relaxed">
+              Leading GenAI and Agentic AI product development for healthcare organizations — from problem framing to client deployment, at the intersection of LLM orchestration and clinical workflows.
+            </p>
+          </div>
+          <div class="border-l-2 border-white/10 pl-5">
+            <p class="text-sm font-mono text-zinc-500 mb-1">Nov 2025 – Present · Personal project</p>
+            <h3 class="text-lg font-serif text-white mb-1">
+              Founder, <a href="/work/kos" class="text-white underline hover:no-underline">KOS — An Exocortex</a>
+            </h3>
+            <p class="text-zinc-400 font-sans leading-relaxed">
+              AI that trains thinking instead of replacing it. Built on evenings and weekends alongside a full-time role.
+            </p>
+          </div>
+          <div class="border-l-2 border-white/10 pl-5">
+            <p class="text-sm font-mono text-zinc-500 mb-1">Jul 2025 – May 2026 · Remote</p>
+            <h3 class="text-lg font-serif text-white mb-1">
+              Founder, <a href="/work/raitalk" class="text-white underline hover:no-underline">RaiTalk</a> <span class="text-zinc-500 font-sans text-sm">(sunset)</span>
+            </h3>
+            <p class="text-zinc-400 font-sans leading-relaxed">
+              Built and owned an LLM-powered conversational AI product end to end, exploring how cognitive and emotional thinking work together.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="text-2xl font-serif text-slate-100 mb-6">Companies I've built with</h2>
+        <p class="text-zinc-400 font-sans leading-relaxed mb-6">
+          Product and engineering leadership across enterprise SaaS, ecommerce, and marketing-tech platforms, plus a founder-led marketplace business.
+        </p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {["sinch", "nextech-ar", "pernias-popup", "madhav-farm"].map((slug) => {
+            const item = findWork(slug);
+            if (!item) return null;
+            return (
+              <li>
+                <a href={`/work/${item.slug}`} class="block bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300 ease-out">
+                  <span class="text-white font-medium font-sans">{item.data.title}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="text-2xl font-serif text-slate-100 mb-6">Focus areas</h2>
+        <div class="flex flex-wrap gap-2">
+          {["Agentic AI", "Generative AI", "LLM Orchestration", "Healthcare AI", "Cognitive Systems", "Zero-to-One Products", "B2B SaaS", "Founder-Led Building"].map((skill) => (
+            <span class="px-3 py-1 text-xs uppercase tracking-widest font-sans text-zinc-400 bg-white/5 border border-white/10 rounded-md">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="text-2xl font-serif text-slate-100 mb-6">Frequently asked</h2>
+        <div class="space-y-6">
+          {faqSchema.mainEntity.map((qa) => (
+            <div>
+              <h3 class="text-lg font-serif text-white mb-2">{qa.name}</h3>
+              <p class="text-zinc-400 font-sans leading-relaxed">{qa.acceptedAnswer.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="text-2xl font-serif text-slate-100 mb-6">Links</h2>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://www.linkedin.com/in/rajkawale/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-lg text-sm font-sans text-zinc-300 hover:text-white hover:border-white/40 transition-all">LinkedIn</a>
+          <a href="https://github.com/rajkawale" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-lg text-sm font-sans text-zinc-300 hover:text-white hover:border-white/40 transition-all">GitHub</a>
+          <a href="https://topmate.io/rajkawale" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-lg text-sm font-sans text-zinc-300 hover:text-white hover:border-white/40 transition-all">Topmate</a>
+          <a href="https://www.linkedin.com/company/kos-exocortex/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-lg text-sm font-sans text-zinc-300 hover:text-white hover:border-white/40 transition-all">KOS</a>
+        </div>
+      </section>
+
+      <div class="mt-16 border-t border-white/10 pt-8">
+        <SmartBackButton fallbackHref="/" />
+      </div>
+    </div>
+  </main>
+</BaseLayout>

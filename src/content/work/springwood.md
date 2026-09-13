@@ -2,7 +2,6 @@
 title: "Springwood"
 description: "Enterprise Martech | Competitive Analysis | Product Judgment"
 tags: ["PRODUCT-STRATEGY", "ENTERPRISE", "COMPETITIVE-ANALYSIS"]
-metric: "Strategic Analysis & Recommendations"
 badge: "Product Strategy Case"
 category: "casestudy"
 actionLabel: "View strategy deep dive"

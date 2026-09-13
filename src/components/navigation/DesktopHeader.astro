@@ -46,6 +46,13 @@ const isActive = (path: string) => {
         Work
       </a>
       <a
+        href="/about"
+        id="nav-about"
+        class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
+      >
+        About
+      </a>
+      <a
         href="/trusted-by"
         id="nav-trusted-by"
         class="moonlight-text-link text-base font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out"
@@ -68,6 +75,17 @@ const isActive = (path: string) => {
       </a>
     </nav>
 
+    <!-- Book a session -->
+    <a
+      href="https://topmate.io/rajkawale"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-1.5 pl-4 border-l border-white/10 text-sm font-medium font-sans text-[#888] hover:text-white transition-all duration-300 ease-out whitespace-nowrap"
+      data-track="Click_Topmate"
+    >
+      Book a session
+    </a>
+
     <!-- Social Icons -->
     <div class="flex items-center gap-4 pl-4 border-l border-white/10">
       <a
@@ -82,6 +100,17 @@ const isActive = (path: string) => {
     </div>
   </div>
 </header>
+
+<script>
+  document.querySelectorAll('[data-track="Click_Topmate"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const win = window as any;
+      if (typeof window !== 'undefined' && win.clarity) {
+        win.clarity('event', 'Click_Topmate');
+      }
+    });
+  });
+</script>
 
 <style>
   .moonlight-text-link:hover {

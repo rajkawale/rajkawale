@@ -1,0 +1,41 @@
+# Raj Kawale
+
+> Product Lead building GenAI and Agentic AI systems for healthcare organizations at Indegene, and the founder behind KOS (an exocortex) and RaiTalk, a cognitive AI system for guided self-reflection.
+
+Raj Kawale is based in Bengaluru, India. This site is his portfolio: product case studies, founder-led AI ventures, and writing on product strategy and systems thinking.
+
+## About
+
+- [About Raj Kawale](https://www.rajkawale.com/about): Canonical bio, current role, timeline, and FAQ.
+- [Trusted By](https://www.rajkawale.com/trusted-by): Testimonials from founders and product leaders Raj has worked with.
+- [Contact](https://www.rajkawale.com/contact): Contact form, email, and Topmate booking link.
+
+## Current work
+
+- [KOS — An Exocortex](https://www.rajkawale.com/work/kos): Personal AI project, Nov 2025–present. AI that trains thinking instead of replacing it.
+- [Product Lead, GenAI & Agentic AI @ Indegene](https://www.indegene.com): Current full-time role, May 2026–present.
+
+## Case studies
+
+- [RaiTalk](https://www.rajkawale.com/work/raitalk): Founder-led cognitive AI system for guided self-reflection (Jul 2025–May 2026, sunset).
+- [Madhav Farm](https://www.rajkawale.com/work/madhav-farm): Founder-led direct-to-business marketplace connecting farmers with bulk buyers.
+- [Sinch](https://www.rajkawale.com/work/sinch): Enterprise customer data platform unification.
+- [Nextech AR](https://www.rajkawale.com/work/nextech-ar): Legacy SaaS platform transformation — CI/CD adoption and monetization.
+- [Pernia's Pop-Up Shop](https://www.rajkawale.com/work/pernias-popup): Luxury ecommerce platform performance and funnel improvements.
+- [Trinka AI — Concept Prototype](https://www.rajkawale.com/work/trinka): Prototype proposed to the Trinka AI team for context-aware academic writing assistance.
+- [PhonePe](https://www.rajkawale.com/work/phonepe): Strategic USP and monetization case study (hypothetical exercise).
+- [Google Keep](https://www.rajkawale.com/work/google-keep): Monetization strategy case study (hypothetical exercise).
+- [Springwood](https://www.rajkawale.com/work/springwood): Enterprise martech competitive analysis (hypothetical exercise).
+
+## Writing
+
+- [Blog](https://www.rajkawale.com/blog): Essays on product decisions, systems thinking, and mental models.
+
+## Full text
+
+- [llms-full.txt](https://www.rajkawale.com/llms-full.txt): Complete text of the about page and every case study, concatenated as markdown.
+
+## Optional
+
+- [Sitemap](https://www.rajkawale.com/sitemap.xml)
+- [RSS feed](https://www.rajkawale.com/rss.xml)

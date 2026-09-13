@@ -1,0 +1,49 @@
+name: LinkedIn note reminder
+
+# Weekly nudge: opens a GitHub issue asking whether anything posted on
+# LinkedIn this week should be added as a note. GitHub's mobile app pushes
+# a notification for new issues, which is the actual reminder.
+#
+# Trigger the "Add LinkedIn note" workflow from that issue's link, then close
+# this one — or let the auto-close step below handle it once a note lands.
+
+on:
+  schedule:
+    - cron: "0 12 * * 5" # Fridays 12:00 UTC (~17:30 IST)
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const title = "Posted on LinkedIn this week?";
+            const { data: existing } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              labels: "linkedin-reminder",
+            });
+            if (existing.length > 0) {
+              console.log("An open reminder already exists, skipping.");
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              labels: ["linkedin-reminder"],
+              body: [
+                "If you posted anything on LinkedIn this week, add it to the site:",
+                "",
+                "1. Run the **Add LinkedIn note** workflow: Actions → Add LinkedIn note → Run workflow.",
+                "2. Paste the post title, full text, and (optionally) the post URL and tags.",
+                "",
+                "Close this issue once you're done — or once a note is added, whichever's easier.",
+              ].join("\n"),
+            });

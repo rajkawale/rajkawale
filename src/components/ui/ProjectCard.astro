@@ -13,7 +13,7 @@ const {
   hideSecondaryLink = false,
 } = Astro.props;
 const project = workItem.data;
-const { tags, metric } = project;
+const { tags } = project;
 const slug = workItem.slug;
 
 const titleClass = size === "large" ? "text-4xl md:text-5xl" : "text-3xl";
@@ -31,15 +31,6 @@ const titleClass = size === "large" ? "text-4xl md:text-5xl" : "text-3xl";
     <h3 class={`font-serif text-slate-100 mb-3 ${titleClass}`}>
       {project.title}
     </h3>
-
-    {
-      metric && (
-        <div class="flex items-center text-sm font-bold tracking-wide text-emerald-400 uppercase">
-          <span class="mr-2">✦</span>
-          {metric}
-        </div>
-      )
-    }
   </div>
 
   <p

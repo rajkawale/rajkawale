@@ -2,7 +2,7 @@
 import BaseLayout from '../../components/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const linkedinPosts = await getCollection('linkedin');
+const linkedinPosts = await getCollection('linkedin', (entry) => !entry.data.draft);
 const sortedPosts = linkedinPosts.sort((a, b) => {
   const dateA = typeof a.data.date === 'string' ? new Date(a.data.date) : a.data.date;
   const dateB = typeof b.data.date === 'string' ? new Date(b.data.date) : b.data.date;
@@ -77,7 +77,10 @@ const sortedPosts = linkedinPosts.sort((a, b) => {
       ) : (
         <div class="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-12 text-center border-t-white/20">
           <p class="text-lg text-zinc-300 font-sans">
-            No LinkedIn posts yet. Create MDX files in src/content/linkedin/ to add posts.
+            Notes are coming soon. In the meantime, find recent thinking on{" "}
+            <a href="https://www.linkedin.com/in/rajkawale/" target="_blank" rel="noopener noreferrer" class="text-white underline hover:no-underline">
+              LinkedIn
+            </a>.
           </p>
         </div>
       )}

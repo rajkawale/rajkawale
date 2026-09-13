@@ -9,7 +9,7 @@ import GithubIcon from './icons/GithubIcon';
     <div class="footer-top-row">
       <!-- Left Column: Brand -->
       <div class="footer-brand">
-        <h2 class="footer-logo">RajKawale</h2>
+        <p class="footer-logo">RajKawale</p>
         <p class="footer-tagline">Thinking in systems. Building for people.</p>
       </div>
 
@@ -20,19 +20,40 @@ import GithubIcon from './icons/GithubIcon';
           <h3 class="footer-column-title">EXPLORE</h3>
           <nav class="footer-nav">
             <a href="/" class="footer-link">Home</a>
+            <a href="/about" class="footer-link">About</a>
             <a href="/work" class="footer-link">Work</a>
             <a href="/blog" class="footer-link">Writing</a>
             <a href="/contact" class="footer-link">Contact</a>
           </nav>
         </div>
 
-        <!-- Column B: Socials (Icon-Only) -->
+        <!-- Column B: Connect (Links + Icons) -->
         <div class="footer-column">
           <h3 class="footer-column-title">CONNECT</h3>
+          <nav class="footer-nav">
+            <a
+              href="https://topmate.io/rajkawale"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-link"
+              data-track="Click_Topmate"
+            >
+              Book a session
+            </a>
+            <a
+              href="https://www.linkedin.com/company/kos-exocortex/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-link"
+              data-track="Click_KOS"
+            >
+              KOS — an exocortex
+            </a>
+          </nav>
           <nav class="footer-social-icons">
-            <a 
-              href="https://www.linkedin.com/in/rajkawale/" 
-              target="_blank" 
+            <a
+              href="https://www.linkedin.com/in/rajkawale/"
+              target="_blank"
               rel="noopener noreferrer"
               class="footer-icon-link"
               aria-label="LinkedIn"
@@ -40,9 +61,9 @@ import GithubIcon from './icons/GithubIcon';
             >
               <LinkedInIcon client:load className="footer-icon" />
             </a>
-            <a 
-              href="https://github.com/rajkawale" 
-              target="_blank" 
+            <a
+              href="https://github.com/rajkawale"
+              target="_blank"
               rel="noopener noreferrer"
               class="footer-icon-link"
               aria-label="GitHub"
@@ -57,7 +78,7 @@ import GithubIcon from './icons/GithubIcon';
 
     <!-- Bottom Row: Copyright and Tech Stack (Unified Bar) -->
     <div class="footer-bottom-row">
-      <p class="footer-copyright">© 2024 Raj Kawale</p>
+      <p class="footer-copyright">© {new Date().getFullYear()} Raj Kawale</p>
       <div class="footer-badge">
         Built with Astro • Tailwind • Vercel
       </div>
@@ -157,6 +178,7 @@ import GithubIcon from './icons/GithubIcon';
     flex-direction: row;
     gap: 20px;
     align-items: center;
+    margin-top: 1rem;
   }
 
   .footer-icon-link {
@@ -276,8 +298,8 @@ import GithubIcon from './icons/GithubIcon';
     }
   }
 
-  // Track social icon clicks
-  document.querySelectorAll('.footer-icon-link[data-track]').forEach((link) => {
+  // Track social icon and connect-link clicks
+  document.querySelectorAll('[data-track]').forEach((link) => {
     link.addEventListener('click', () => {
       const eventName = link.dataset.track;
       if (eventName) {

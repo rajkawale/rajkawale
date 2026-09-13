@@ -1,0 +1,94 @@
+name: Add LinkedIn note
+
+# Manually triggered (from the GitHub app, the web UI, or an iOS Shortcut hitting
+# the workflow_dispatch API) to publish a LinkedIn post's text as a note on the
+# site. See docs/content-guide.md for the one-tap Shortcut setup.
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "Short title for the note"
+        required: true
+        type: string
+      text:
+        description: "Full post text"
+        required: true
+        type: string
+      post_url:
+        description: "Link to the original LinkedIn post"
+        required: false
+        type: string
+      tags:
+        description: "Comma-separated tags (e.g. AI,ProductManagement)"
+        required: false
+        type: string
+      date:
+        description: "Post date (YYYY-MM-DD). Defaults to today."
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  add-note:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write note file
+        env:
+          TITLE: ${{ inputs.title }}
+          TEXT: ${{ inputs.text }}
+          POST_URL: ${{ inputs.post_url }}
+          TAGS: ${{ inputs.tags }}
+          NOTE_DATE: ${{ inputs.date }}
+        run: |
+          node - <<'EOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          const title = process.env.TITLE.trim();
+          const text = process.env.TEXT;
+          const postUrl = (process.env.POST_URL || '').trim();
+          const tags = (process.env.TAGS || '')
+            .split(',')
+            .map((t) => t.trim())
+            .filter(Boolean);
+          const date = (process.env.NOTE_DATE || '').trim() || new Date().toISOString().slice(0, 10);
+
+          const slugify = (s) =>
+            s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
+
+          const slug = `${date}-${slugify(title)}`;
+          const dir = path.join(process.cwd(), 'src/content/linkedin');
+          fs.mkdirSync(dir, { recursive: true });
+
+          const escape = (s) => s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+          const frontmatterLines = [
+            '---',
+            `title: "${escape(title)}"`,
+            `date: "${date}"`,
+            tags.length ? `tags: [${tags.map((t) => `"${escape(t)}"`).join(', ')}]` : null,
+            postUrl ? `canonicalUrl: "${escape(postUrl)}"` : null,
+            '---',
+            '',
+            text,
+            '',
+          ].filter((l) => l !== null);
+
+          fs.writeFileSync(path.join(dir, `${slug}.md`), frontmatterLines.join('\n'), 'utf-8');
+          console.log(`Wrote src/content/linkedin/${slug}.md`);
+          EOF
+
+      - name: Commit and push
+        env:
+          TITLE: ${{ inputs.title }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/linkedin/
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+          git commit -m "Add LinkedIn note: $TITLE"
+          git push

@@ -2,7 +2,6 @@
 title: "Pernia's Pop-Up Shop"
 description: "Led high-impact platform and funnel improvements across a luxury ecommerce marketplace, improving performance, conversion, and revenue at scale."
 tags: ["ENTERPRISE", "SCALE"]
-metric: "50s → 1s cart load time | +26% CTR | +54% session duration"
 badge: "Enterprise ecommerce scale"
 category: "enterprise"
 # actionLabel: "View details"
@@ -12,7 +11,7 @@ priority: 6
 
 ## The Context
 
-Pernia’s Pop-Up Shop is a luxury fashion ecommerce platform serving 500+ designers and handling ₹1Cr+ in daily revenue. As traffic and catalog scale increased, platform performance, checkout reliability, and seller onboarding became key constraints to growth.
+Pernia's Pop-Up Shop is a luxury fashion ecommerce platform serving a large network of designers and handling significant daily transaction volume. As traffic and catalog scale increased, platform performance, checkout reliability, and seller onboarding became key constraints to growth.
 
 ## The Problem
 
@@ -20,7 +19,7 @@ The cart and checkout experience was built on a tightly coupled monolith, leadin
 
 ## My Role & Scope
 
-Owned product discovery and execution across core ecommerce flows including homepage merchandising, cart, checkout, and seller onboarding. Worked closely with engineering, design, and business teams to balance performance, reliability, and revenue growth at enterprise scale.
+Owned product discovery and execution across core ecommerce flows including homepage merchandising, cart, checkout, and seller onboarding for a network of designer sellers. Worked closely with engineering, design, and business teams to balance performance, reliability, and revenue growth at enterprise scale.
 
 ## Key Product & Technical Decisions
 
@@ -35,16 +34,16 @@ Reduced dependency on internal teams while accelerating marketplace supply growt
 
 ## Execution Highlights
 
-Led the migration of cart functionality from a monolith to a microservices architecture, reducing load times from 50s to 1s. Improved checkout reliability and reduced friction across homepage, PDP, and transaction flows for 1L+ daily visitors.
+Led the migration of cart functionality from a monolith to a microservices architecture, cutting load times from tens of seconds down to near-instant. Improved checkout reliability and reduced friction across homepage, PDP, and transaction flows for a high-volume daily visitor base.
 
-Launched a self-serve vendor onboarding portal, cutting onboarding time by 70% for 500+ designers. Redesigned localized homepages using data-driven merchandising logic to improve engagement and discovery.
+Launched a self-serve vendor onboarding portal, significantly cutting onboarding time for designers. Redesigned localized homepages using data-driven merchandising logic to improve engagement and discovery.
 
 ## Outcomes
 
-*   Cart load time reduced from 50s to 1s
-*   +26% CTR and +54% increase in session duration
-*   Daily revenue scaled from ₹70L+ to ₹1Cr+
-*   70% reduction in designer onboarding time
+*   Cart load time cut from tens of seconds to near-instant
+*   Higher click-through rate and longer session duration following the redesign
+*   Daily revenue scaled meaningfully over the engagement
+*   Substantial reduction in designer onboarding time
 
 ## Key Learnings
 

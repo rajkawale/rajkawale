@@ -1,8 +1,7 @@
 ---
 title: "Sinch"
-description: "Led the unification of fragmented customer signals into a scalable, AI-assisted data platform, improving targeting accuracy and driving measurable ROI for enterprise marketing teams."
+description: "Led the unification of fragmented customer signals into a scalable, AI-assisted data platform, improving targeting accuracy and ROI confidence for enterprise marketing teams."
 tags: ["ENTERPRISE", "SCALE"]
-metric: "+23% ROI impact on enterprise campaigns"
 badge: "Enterprise-scale product ownership"
 category: "enterprise"
 # actionLabel: "View details"
@@ -39,7 +38,7 @@ Defined customer data models and ingestion strategies in partnership with platfo
 
 ## Outcomes
 
-*   +23% ROI improvement across enterprise campaigns
+*   Measurable ROI improvement across enterprise campaigns
 *   Improved targeting accuracy and confidence in budget allocation
 *   Scalable foundation established for future personalization and AI-driven use cases
 

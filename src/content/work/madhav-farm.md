@@ -2,7 +2,6 @@
 title: "Madhav Farm"
 description: "Founder-led build of a direct-to-business marketplace connecting farmers with bulk buyers. Owned P&L and led an 8-member team across sourcing, logistics, and fulfillment."
 tags: ["FOUNDER-LED", "P&L OWNERSHIP", "SUPPLY CHAIN"]
-metric: "₹8L Revenue | 20–25% Contribution Margin"
 badge: "Founder-led business build"
 category: "founder-led"
 actionLabel: "View pitch deck"
@@ -43,8 +42,8 @@ Designed and operated the end-to-end supply chain from farms to urban buyers. Ow
 
 ## Outcomes
 
-*   ₹8L revenue generated within the first year
-*   20–25% contribution margin achieved
+*   Meaningful revenue generated within the first year
+*   Healthy contribution margin achieved and sustained
 *   Sustainable unit economics validated
 *   Repeat demand secured from bulk buyers
 

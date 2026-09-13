@@ -6,7 +6,6 @@ const workCollection = defineCollection({
         title: z.string(),
         description: z.string(),
         tags: z.array(z.string()).max(4),
-        metric: z.string().optional(),
         badge: z.string().optional(),
         // Accept both old and new category values for backward compatibility
         category: z.enum(['shipped', 'professional', 'casestudy', 'founder-led', 'enterprise', 'strategy', 'startup']),
@@ -21,6 +20,18 @@ const workCollection = defineCollection({
     }),
 });
 
+const linkedinCollection = defineCollection({
+    type: 'content',
+    schema: z.object({
+        title: z.string(),
+        date: z.string().or(z.date()),
+        tags: z.array(z.string()).optional(),
+        canonicalUrl: z.string().url().optional(),
+        draft: z.boolean().default(false),
+    }),
+});
+
 export const collections = {
     work: workCollection,
+    linkedin: linkedinCollection,
 };

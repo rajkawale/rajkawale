@@ -4,239 +4,60 @@ This guide explains how to add and manage content on your portfolio site.
 
 ---
 
-## 📝 Writing MDX Posts
+## 📝 Adding a case study
 
-### LinkedIn Posts
+Create a markdown file in `src/content/work/` following the schema in `src/content/config.ts` (title, description, tags, category, priority, etc.). No `metric` field — outcomes should read as qualitative statements, not headline numbers, per the September 2026 site refresh.
 
-Create MDX files in `src/content/linkedin/` with the following structure:
+---
 
-```mdx
+## 📌 LinkedIn posts → website notes
+
+There is no LinkedIn API that lets an app read your personal-profile posts, so there is no true "auto-sync." Two workflows cover it instead:
+
+### One-time backfill (do this once)
+
+1. LinkedIn → **Settings & Privacy** → **Data privacy** → **Get a copy of your data** → check **Posts** → request the archive. LinkedIn emails a zip within a day or so.
+2. Unzip it and find `Shares.csv`.
+3. Run:
+   ```bash
+   node scripts/import-linkedin-export.js /path/to/Shares.csv
+   ```
+   This writes one `src/content/linkedin/*.md` file per post, all marked `draft: true`.
+4. Review each file. Set `draft: false` (or delete the frontmatter line, since it defaults to `false`) on the ones you want published, delete the rest.
+
+### After each new post (ongoing)
+
+**Option A — one tap from your phone:**
+1. On GitHub: **Settings → Developer settings → Fine-grained personal access tokens** → create a token scoped to this repo only, with **Actions: read and write** permission.
+2. Create an iOS Shortcut:
+   - Accept input from the Share Sheet (or run manually).
+   - Prompt for the post title, full text, tags, and the post URL (or take the URL from the share sheet input).
+   - `Get Contents of URL`:
+     - URL: `https://api.github.com/repos/rajkawale/rajkawale/actions/workflows/add-linkedin-note.yml/dispatches`
+     - Method: `POST`
+     - Headers: `Authorization: Bearer <your token>`, `Accept: application/vnd.github+json`
+     - Body (JSON): `{"ref": "main", "inputs": {"title": "<title>", "text": "<text>", "post_url": "<url>", "tags": "<tags>"}}`
+3. Add the Shortcut to your Share Sheet. After posting on LinkedIn: Share → your Shortcut → fill the prompts → the site redeploys with the note.
+
+**The weekly reminder:** `.github/workflows/linkedin-note-reminder.yml` opens a GitHub issue every Friday asking "Posted on LinkedIn this week?" GitHub's mobile app pushes a notification for it. Trigger the "Add LinkedIn note" workflow from the issue, then close it.
+
+**Option B (not set up yet):** publish the note on the site first, then have an Action post it to LinkedIn via the Share on LinkedIn API. Worth revisiting if the site should become the canonical source instead of LinkedIn — it needs a LinkedIn developer app and periodic re-authorization (~60 days).
+
+### Frontmatter schema
+
+```yaml
 ---
 title: "Your Post Title"
-date: 2024-01-15
+date: "2026-01-15"
 tags: ["ProductManagement", "AI", "Startup"]
-canonicalUrl: "https://linkedin.com/posts/your-post-id"
+canonicalUrl: "https://www.linkedin.com/posts/your-post-id"
+draft: false
 ---
 
-# Your Post Title
-
-Your post content here. You can use:
-
-- **Markdown** formatting
-- Code blocks
-- Lists
-- Links
-
-Paste your LinkedIn post content here, and it will be rendered on the site.
+Full post text here — this is what search engines and AI assistants read,
+since they can't read the LinkedIn embed itself.
 ```
 
-**Required fields:**
-- `title`: The post title
-- `date`: Publication date (YYYY-MM-DD format)
+**Required:** `title`, `date`. **Optional:** `tags`, `canonicalUrl`, `draft` (defaults to `false`).
 
-**Optional fields:**
-- `tags`: Array of tag strings
-- `canonicalUrl`: Link to original LinkedIn post
-
-**File naming:**
-- Use kebab-case: `my-post-title.mdx`
-- The filename becomes the slug (URL path)
-
----
-
-## 🖼️ Gallery Images
-
-### Adding Images
-
-1. Create a folder in `public/gallery/` for your project/company
-   - Example: `public/gallery/pernia/`
-   - Example: `public/gallery/madhav-farm/`
-
-2. Add image files to that folder
-   - Supported formats: `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`, `.svg`
-   - Use descriptive filenames
-
-3. Use the Gallery component in your pages:
-
-```astro
----
-import Gallery from '../components/Gallery.astro';
----
-
-<Gallery folder="pernia" />
-```
-
-The component automatically:
-- Reads all images from the folder
-- Displays them in a responsive grid
-- Applies brutalist styling
-
----
-
-## 💬 Adding Testimonials
-
-Edit `src/data/testimonials.json`:
-
-```json
-[
-  {
-    "author": "John Doe",
-    "role": "CEO",
-    "company": "Example Company",
-    "quote": "Raj is an exceptional product manager...",
-    "date": "2024-01-15",
-    "sourceUrl": "https://linkedin.com/in/johndoe"
-  }
-]
-```
-
-**Fields:**
-- `author`: Person's name (required)
-- `role`: Their job title (required)
-- `company`: Company name (required)
-- `quote`: The testimonial text (required)
-- `date`: Date of testimonial (YYYY-MM-DD, optional)
-- `sourceUrl`: Link to source (LinkedIn, email, etc., optional)
-
----
-
-## 📰 Blogger Integration
-
-### Automatic Sync
-
-The site automatically syncs with your Blogger feed:
-
-1. **Manual sync:** Run `npm run sync:blog`
-2. **Automatic sync:** Happens on every build (via GitHub Actions)
-
-The script:
-- Fetches RSS from `https://rajkawale.blogspot.com/feeds/posts/default?alt=rss`
-- Parses and normalizes posts
-- Saves to `src/data/external/blogger.json`
-
-### Blog Post Structure
-
-Posts are automatically available with:
-- `title`: Post title
-- `slug`: URL-friendly slug
-- `published`: Publication date
-- `content`: Full HTML content
-- `excerpt`: First 200 characters
-- `canonicalUrl`: Original Blogger URL
-
----
-
-## 🎨 Embedding Prototypes
-
-### PrototypeEmbed Component (Future)
-
-To embed prototypes (Figma, Framer, etc.), create a component:
-
-```astro
----
-// src/components/PrototypeEmbed.astro
-interface Props {
-  url: string;
-  title: string;
-}
-
-const { url, title } = Astro.props;
----
-
-<div class="prototype-embed border-4 border-black bg-white p-4">
-  <h3 class="mb-4 text-xl font-bold uppercase text-black">{title}</h3>
-  <iframe
-    src={url}
-    class="h-[600px] w-full border-4 border-black"
-    title={title}
-  ></iframe>
-</div>
-```
-
-Then use it in your MDX:
-
-```mdx
----
-import PrototypeEmbed from '../../components/PrototypeEmbed.astro';
----
-
-<PrototypeEmbed 
-  url="https://framer.com/embed/your-prototype"
-  title="Product Prototype"
-/>
-```
-
----
-
-## 📁 Project Structure
-
-### Adding New Projects
-
-Create MDX files in `src/content/projects/`:
-
-```mdx
----
-title: "Project Name"
-role: "Your Role"
-metrics:
-  - label: "Metric Label"
-    value: "Metric Value"
-description: "Project description"
-coverImage: "/images/project.jpg"
----
-
-# Project Name
-
-Your project content here...
-```
-
----
-
-## 🔧 Content Management Tips
-
-### Best Practices
-
-1. **File Organization:**
-   - Keep related content together
-   - Use descriptive filenames
-   - Follow kebab-case for URLs
-
-2. **Images:**
-   - Optimize images before uploading
-   - Use WebP format when possible
-   - Keep file sizes reasonable (< 500KB)
-
-3. **SEO:**
-   - Write descriptive titles
-   - Add excerpts for blog posts
-   - Include canonical URLs when reposting
-
-4. **Maintenance:**
-   - Run `npm run sync:blog` regularly
-   - Update testimonials as you receive them
-   - Keep gallery folders organized
-
----
-
-## 🚀 Deployment
-
-### Automatic Deployment
-
-The site deploys automatically via GitHub Actions:
-- On every push to `main` branch
-- Daily at 2 AM UTC (syncs Blogger feed)
-
-### Manual Deployment
-
-1. Sync blog: `npm run sync:blog`
-2. Build: `npm run build`
-3. Deploy to Vercel (if not using auto-deploy)
-
----
-
-## 📞 Need Help?
-
-- Check the main README.md
-- Review PROJECT_SUMMARY.md for architecture
-- Check INTEGRATION_REQUIREMENTS.md for integration details
-
+See `docs/linkedin-tags.md` for the recommended tag vocabulary.

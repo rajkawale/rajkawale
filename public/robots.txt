@@ -1,23 +1,35 @@
 User-agent: *
 Allow: /
 
-# AI Crawlers
+# AI Crawlers — search & assistant indexing
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: CCBot
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
 Allow: /
 
 User-agent: anthropic-ai
 Allow: /
 
-User-agent: Claude-Web
+User-agent: Google-Extended
 Allow: /
 
-User-agent: Google-Extended
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
 Allow: /
 
 User-agent: PerplexityBot
@@ -26,8 +38,9 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://rajkawale.com/sitemap.xml
+User-agent: CCBot
+Allow: /
 
-# RSS Feed for AI Crawlers
-# https://rajkawale.com/rss.xml
+Sitemap: https://www.rajkawale.com/sitemap.xml
 
+# Machine-readable summary for AI assistants: https://www.rajkawale.com/llms.txt

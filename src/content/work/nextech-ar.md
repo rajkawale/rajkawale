@@ -2,7 +2,6 @@
 title: "Nextech AR"
 description: "Led enterprise product and engineering transformation on a legacy SaaS platform. Improved release velocity, reduced defects, and unlocked new revenue streams through CI/CD adoption and product-led monetization."
 tags: ["ENTERPRISE", "SCALE"]
-metric: "+40% Release Velocity | +30% Revenue Growth"
 badge: "Enterprise SaaS transformation"
 category: "enterprise"
 # actionLabel: "View details"
@@ -33,13 +32,13 @@ Consolidated fragmented payment systems to improve reliability and reduce mainte
 
 Championed CI/CD adoption and automated testing across the engineering team, resulting in faster and safer releases. Partnered closely with engineering to diagnose architectural bottlenecks and sequence improvements without disrupting live customers.
 
-Launched Boost Ads, a paid visibility product for events, increasing impressions and creating a new revenue stream. Rationalized payments infrastructure by consolidating 8+ gateways into a streamlined, high-reliability setup.
+Launched Boost Ads, a paid visibility product for events, increasing impressions and creating a new revenue stream. Rationalized payments infrastructure by consolidating multiple fragmented gateways into a streamlined, high-reliability setup.
 
 ## Outcomes
 
-*   40% improvement in release velocity
-*   50% reduction in defect rates
-*   30% revenue growth driven by new monetization surface
+*   Faster, more reliable release velocity after CI/CD adoption
+*   Fewer production defects following automated testing rollout
+*   New revenue growth driven by the Boost Ads monetization surface
 *   Reduced operational risk and ongoing maintenance costs
 
 ## Key Learnings

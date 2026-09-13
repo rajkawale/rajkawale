@@ -28,7 +28,40 @@ const formspreeEndpoint = "https://formspree.io/f/mldykebp";
         </p>
       </header>
 
+      <div class="mb-8 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-lg p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-serif text-slate-100 mb-1">Prefer a 1:1 conversation?</h2>
+          <p class="text-sm text-zinc-400 font-sans">Book a session directly on Topmate.</p>
+        </div>
+        <a
+          href="https://topmate.io/rajkawale"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="moonlight-container inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/20 text-white font-medium rounded-lg transition-all duration-300 ease-out hover:bg-white/10 font-sans whitespace-nowrap"
+          data-track="Click_Topmate"
+        >
+          Book on Topmate →
+        </a>
+      </div>
+
       <ContactForm formspreeEndpoint={formspreeEndpoint} />
+
+      <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-zinc-500 font-sans">
+        <span>Or reach out directly:</span>
+        <a href="mailto:rajendrakawale101@gmail.com" class="text-zinc-300 hover:text-white transition-colors">rajendrakawale101@gmail.com</a>
+        <a href="https://www.linkedin.com/in/rajkawale/" target="_blank" rel="noopener noreferrer" class="text-zinc-300 hover:text-white transition-colors">LinkedIn</a>
+      </div>
     </div>
   </main>
+
+  <script>
+    document.querySelectorAll('[data-track="Click_Topmate"]').forEach((link) => {
+      link.addEventListener('click', () => {
+        const win = window as any;
+        if (typeof window !== 'undefined' && win.clarity) {
+          win.clarity('event', 'Click_Topmate');
+        }
+      });
+    });
+  </script>
 </BaseLayout>

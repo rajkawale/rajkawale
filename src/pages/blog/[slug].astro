@@ -14,26 +14,12 @@ export async function getStaticPaths() {
   try {
     const blogService = container.getBlogService();
     const posts = await blogService.getAllPosts();
-    console.log("[getStaticPaths] Total posts loaded:", posts?.length || 0); // Return empty array if no posts to prevent build errors
     if (!posts || posts.length === 0) {
-      console.warn("[getStaticPaths] No posts found");
       return [];
-    } // Filter out invalid posts and ensure all required properties exist
-    const validPosts = posts.filter((post) => {
-      const isValid = post && post.slug && post.title && post.publishedAt;
-      if (!isValid) {
-        console.warn("[getStaticPaths] Invalid post filtered out:", {
-          slug: post?.slug,
-          hasTitle: !!post?.title,
-          hasPublishedAt: !!post?.publishedAt,
-        });
-      }
-      return isValid;
-    });
-    console.log("[getStaticPaths] Valid posts:", validPosts.length);
-    console.log(
-      "[getStaticPaths] Post slugs:",
-      validPosts.map((p) => p.slug),
+    }
+    // Filter out invalid posts and ensure all required properties exist
+    const validPosts = posts.filter(
+      (post) => post && post.slug && post.title && post.publishedAt,
     );
     return validPosts.map((post) => ({
       params: { slug: post.slug },
@@ -218,6 +204,15 @@ technology products.`}
               </svg>
               Share Article
             </a>
+            <a
+              href="https://topmate.io/rajkawale"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="connect-button flex items-center gap-2 px-4 py-2.5 rounded border border-white/20 bg-black/20 backdrop-blur-sm hover:bg-black/30 hover:border-white/30 transition-all text-sm font-mono text-white"
+              data-track="Click_Topmate"
+            >
+              Book a session
+            </a>
           </div>
         </div>
       </div>
@@ -381,6 +376,15 @@ technology products.`}
           if (twitterShare) {
             twitterShare.addEventListener("click", () => {
               trackEvent(`Article_Share_Twitter_${slugFormatted}`);
+            });
+          }
+
+          const topmateLink = document.querySelector(
+            '[data-track="Click_Topmate"]',
+          );
+          if (topmateLink) {
+            topmateLink.addEventListener("click", () => {
+              trackEvent("Click_Topmate");
             });
           }
 

@@ -15,8 +15,8 @@ export const GET: APIRoute = async ({ site }) => {
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Raj Kawale - AI &amp; SaaS Product Manager</title>
-    <description>Portfolio and case studies from Raj Kawale, an AI and SaaS Product Manager working across zero-to-one and scaling tech products.</description>
+    <title>Raj Kawale - Product Lead, GenAI &amp; Agentic AI</title>
+    <description>Portfolio and case studies from Raj Kawale, Product Lead for GenAI and Agentic AI at Indegene, and founder of KOS and RaiTalk.</description>
     <link>${siteUrl}</link>
     <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>

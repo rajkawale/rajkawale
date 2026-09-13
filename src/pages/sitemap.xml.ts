@@ -1,24 +1,21 @@
 import type { APIRoute } from 'astro';
-import { container } from '../core/di/container';
 import { getCollection } from 'astro:content';
 
 export const GET: APIRoute = async ({ site }) => {
-  const siteUrl = site?.href || 'https://rajkawale.com';
+  const siteUrl = (site?.href || 'https://www.rajkawale.com').replace(/\/$/, '');
 
-  // Get all blog posts
+  // Blog posts (fetched from Blogger at build time)
+  const { container } = await import('../core/di/container');
   const blogService = container.getBlogService();
   const allBlogPosts = await blogService.getAllPosts();
-
-  // Get all projects
-  const projectService = container.getProjectService();
-  const allProjects = await projectService.getAll();
 
   // Static pages
   const staticPages = [
     { url: '/', priority: '1.0', changefreq: 'weekly' },
+    { url: '/about', priority: '0.9', changefreq: 'monthly' },
     { url: '/work', priority: '0.9', changefreq: 'weekly' },
     { url: '/blog', priority: '0.8', changefreq: 'weekly' },
-    { url: '/projects', priority: '0.8', changefreq: 'monthly' },
+    { url: '/notes', priority: '0.6', changefreq: 'weekly' },
     { url: '/trusted-by', priority: '0.7', changefreq: 'monthly' },
     { url: '/contact', priority: '0.6', changefreq: 'monthly' },
   ];
@@ -31,25 +28,26 @@ export const GET: APIRoute = async ({ site }) => {
     lastmod: post.publishedAt.toISOString().split('T')[0],
   }));
 
-  // Project pages
-  const projectPages = allProjects.map((project) => ({
-    url: `/projects/${project.slug}`,
-    priority: '0.7',
+  // Work / case study pages from the content collection
+  const workItems = await getCollection('work');
+  const workPages = workItems
+    .filter((work) => !work.data.draft)
+    .map((work) => ({
+      url: `/work/${work.id}`,
+      priority: '0.8',
+      changefreq: 'weekly',
+    }));
+
+  // LinkedIn notes, once any exist
+  const linkedinPosts = await getCollection('linkedin', (entry) => !entry.data.draft);
+  const notePages = linkedinPosts.map((post) => ({
+    url: `/notes/${post.slug}`,
+    priority: '0.5',
     changefreq: 'monthly',
   }));
 
-  // Add work detail pages from content collection
-  const workItems = await getCollection('work');
-  const workPages = workItems.map((work) => ({
-    url: `/work/${work.id}`,
-    priority: '0.8',
-    changefreq: 'weekly',
-  }));
+  const allPages = [...staticPages, ...blogPages, ...workPages, ...notePages];
 
-  // Combine all pages
-  const allPages = [...staticPages, ...blogPages, ...projectPages, ...workPages];
-
-  // Generate XML
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allPages
@@ -70,4 +68,3 @@ ${allPages
     },
   });
 };
-
