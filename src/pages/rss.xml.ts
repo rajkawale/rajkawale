@@ -28,8 +28,8 @@ export const GET: APIRoute = async ({ site }) => {
     <item>
       <title>${escapeXml(work.data.title)}</title>
       <description>${escapeXml(work.data.description)}</description>
-      <link>${siteUrl}/work/${work.slug}</link>
-      <guid isPermaLink="true">${siteUrl}/work/${work.slug}</guid>
+      <link>${siteUrl}/work/${work.id}</link>
+      <guid isPermaLink="true">${siteUrl}/work/${work.id}</guid>
       <dc:creator>Raj Kawale</dc:creator>
       <category>${escapeXml(work.data.category)}</category>
       ${work.data.tags?.map((tag: string) => `<category>${escapeXml(tag)}</category>`).join('\n      ') || ''}

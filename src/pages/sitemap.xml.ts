@@ -33,7 +33,7 @@ export const GET: APIRoute = async ({ site }) => {
   const workPages = workItems
     .filter((work) => !work.data.draft)
     .map((work) => ({
-      url: `/work/${work.slug}`,
+      url: `/work/${work.id}`,
       priority: '0.8',
       changefreq: 'weekly',
     }));
@@ -41,7 +41,7 @@ export const GET: APIRoute = async ({ site }) => {
   // LinkedIn notes, once any exist
   const linkedinPosts = await getCollection('linkedin', (entry) => !entry.data.draft);
   const notePages = linkedinPosts.map((post) => ({
-    url: `/notes/${post.slug}`,
+    url: `/notes/${post.id}`,
     priority: '0.5',
     changefreq: 'monthly',
   }));
