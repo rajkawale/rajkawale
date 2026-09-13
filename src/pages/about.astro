@@ -1,10 +1,6 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
 import SmartBackButton from "../components/ui/SmartBackButton.astro";
-import { getCollection } from "astro:content";
-
-const allWork = await getCollection("work");
-const findWork = (slug: string) => allWork.find((w) => w.slug === slug);
 
 const siteUrl = (Astro.site?.href || "https://www.rajkawale.com").replace(/\/$/, "");
 const personId = `${siteUrl}/#person`;
@@ -17,43 +13,33 @@ const profilePageSchema = {
   mainEntity: { "@id": personId },
 };
 
+const faq = [
+  {
+    q: "What does Raj Kawale do?",
+    a: "Leads GenAI and Agentic AI product development at Indegene, building for healthcare organizations from the first framing conversation through to a client actually using what he built.",
+  },
+  {
+    q: "What is KOS?",
+    a: "Raj's own exocortex project, built nights and weekends: an AI that has to commit to a position and a probability before it answers, then gets scored against what actually happened — not against how helpful the answer felt. One user right now: its founder.",
+  },
+  {
+    q: "Where does Raj Kawale currently work?",
+    a: "Product Lead for GenAI & Agentic AI at Indegene, based in Bengaluru, India.",
+  },
+  {
+    q: "How can I book time with Raj Kawale?",
+    a: "Directly, at topmate.io/rajkawale — or through the contact form if you'd rather write first.",
+  },
+];
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "What does Raj Kawale do?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Raj Kawale leads GenAI and Agentic AI product development at Indegene, building for healthcare organizations from the first framing conversation through to a client actually using what he built.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What is KOS?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "KOS is Raj's own exocortex project, built nights and weekends: an AI that has to commit to a position and a probability before it answers, then gets scored against what actually happened — not against how helpful the answer felt. It currently has one user: its founder.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Where does Raj Kawale currently work?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Raj is a Product Lead for GenAI & Agentic AI at Indegene, based in Bengaluru, India.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How can I book time with Raj Kawale?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Directly, at topmate.io/rajkawale — or through the contact form at rajkawale.com/contact if you'd rather write first.",
-      },
-    },
-  ],
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
 };
 ---
 
@@ -66,103 +52,77 @@ const faqSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <main class="min-h-screen bg-[#020617] text-zinc-300 pt-24 relative z-10 pb-[120px] md:pb-16">
-    <div class="max-w-3xl mx-auto px-5 md:px-12 py-16">
-      <header class="mb-12">
+    <article class="max-w-2xl mx-auto px-5 md:px-12 py-16">
+      <header class="mb-10">
         <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-100 mb-6">
-          About Raj Kawale
+          About
         </h1>
-        <p class="text-xl text-zinc-300 leading-relaxed font-sans">
-          By day, I build GenAI and Agentic AI systems for healthcare at Indegene. Nights and weekends, I build things nobody asked me to — KOS, an AI trying to think more honestly than I do, and before it, RaiTalk. Same question underneath both: where does human thinking and machine reasoning actually meet, instead of one just replacing the other.
+        <p class="text-xl text-zinc-200 leading-relaxed font-sans">
+          Product Lead. Two-time founder. Six years turning ambiguous problems into shipped products — the last year finding out how much of that I can still do without anyone assigning it to me.
         </p>
       </header>
 
-      <section class="mb-12">
-        <h2 class="text-2xl font-serif text-slate-100 mb-6">Current work</h2>
-        <div class="space-y-6">
-          <div class="border-l-2 border-white/10 pl-5">
-            <p class="text-sm font-mono text-zinc-500 mb-1">May 2026 – Present · Bengaluru, India</p>
-            <h3 class="text-lg font-serif text-white mb-1">Product Lead — GenAI & Agentic AI, Indegene</h3>
-            <p class="text-zinc-400 font-sans leading-relaxed">
-              Healthcare orgs don't get to ship an AI feature that's "mostly right." I lead GenAI and Agentic AI products here from the first framing conversation to the client actually using it — LLM orchestration meeting clinical workflows where getting it wrong has real weight.
-            </p>
+      <div class="space-y-10 font-sans text-lg text-zinc-300 leading-relaxed">
+        <section>
+          <h2 class="text-2xl font-serif text-slate-100 mb-4">What I actually do</h2>
+          <p class="mb-4">
+            At Indegene, I lead GenAI and Agentic AI product work for healthcare — LLM orchestration meeting clinical workflows, where "mostly right" isn't good enough. That's the day job, and it's a real one.
+          </p>
+          <p class="mb-4">
+            At night, I build <a href="/work/kos" class="text-white underline hover:no-underline">KOS</a>. Nobody asked for it. It's an AI that has to commit to a position and a probability before it answers, then gets scored against what actually happened — not against how helpful the answer felt. One user right now: me.
+          </p>
+          <p class="mb-4">
+            Before KOS, there was <a href="/work/raitalk" class="text-white underline hover:no-underline">RaiTalk</a> — an AI built to help people see their own thinking patterns instead of handing them advice. It ran for ten months, real users, real conversations. Then I sunset it, because the thing I actually learned from it — that judgment matters more than model size — is what KOS exists to test properly.
+          </p>
+          <p>
+            Same question keeps showing up in both: where does human thinking and machine reasoning actually meet, instead of one quietly replacing the other.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-serif text-slate-100 mb-4">Before this</h2>
+          <p class="mb-4">
+            I've walked into someone else's mess more than once. A 15-year-old PHP monolith at <a href="/work/nextech-ar" class="text-white underline hover:no-underline">Nextech AR</a>. A checkout at <a href="/work/pernias-popup" class="text-white underline hover:no-underline">Pernia's Pop-Up Shop</a> that was losing customers mid-purchase. A marketing team at <a href="/work/sinch" class="text-white underline hover:no-underline">Sinch</a> that didn't trust its own data.
+          </p>
+          <p>
+            And <a href="/work/madhav-farm" class="text-white underline hover:no-underline">Madhav Farm</a> — my own business, a farmer-to-buyer marketplace I ran by hand before I let any of it be automated. <a href="/work" class="text-white underline hover:no-underline">The full list is here →</a>
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-serif text-slate-100 mb-4">How I think</h2>
+          <p>
+            First principles before solutions. Systems over features — find the loop, not the symptom. I'd rather ship the boring infrastructure fix nobody wants to fund than the feature that looks good in a roadmap review and breaks in production.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-serif text-slate-100 mb-4">Questions people actually ask</h2>
+          <div class="space-y-5">
+            {faq.map((item) => (
+              <p>
+                <span class="text-white font-medium">{item.q}</span><br />
+                <span class="text-zinc-400">{item.a}</span>
+              </p>
+            ))}
           </div>
-          <div class="border-l-2 border-white/10 pl-5">
-            <p class="text-sm font-mono text-zinc-500 mb-1">Nov 2025 – Present · Personal project</p>
-            <h3 class="text-lg font-serif text-white mb-1">
-              Founder, <a href="/work/kos" class="text-white underline hover:no-underline">KOS — An Exocortex</a>
-            </h3>
-            <p class="text-zinc-400 font-sans leading-relaxed">
-              AI that trains thinking instead of replacing it. Built on evenings and weekends alongside a full-time role.
-            </p>
-          </div>
-          <div class="border-l-2 border-white/10 pl-5">
-            <p class="text-sm font-mono text-zinc-500 mb-1">Jul 2025 – May 2026 · Remote</p>
-            <h3 class="text-lg font-serif text-white mb-1">
-              Founder, <a href="/work/raitalk" class="text-white underline hover:no-underline">RaiTalk</a> <span class="text-zinc-500 font-sans text-sm">(sunset)</span>
-            </h3>
-            <p class="text-zinc-400 font-sans leading-relaxed">
-              Built and owned an LLM-powered conversational AI product end to end, exploring how cognitive and emotional thinking work together.
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="mb-12">
-        <h2 class="text-2xl font-serif text-slate-100 mb-6">Companies I've built with</h2>
-        <p class="text-zinc-400 font-sans leading-relaxed mb-6">
-          Legacy monoliths, checkout funnels losing money in real time, marketing teams that didn't trust their own numbers, and one supply chain I ran by hand before I automated any of it.
-        </p>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {["sinch", "nextech-ar", "pernias-popup", "madhav-farm"].map((slug) => {
-            const item = findWork(slug);
-            if (!item) return null;
-            return (
-              <li>
-                <a href={`/work/${item.slug}`} class="block bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 hover:border-white/20 hover:bg-white/[0.06] transition-all duration-300 ease-out">
-                  <span class="text-white font-medium font-sans">{item.data.title}</span>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-
-      <section class="mb-12">
-        <h2 class="text-2xl font-serif text-slate-100 mb-6">Focus areas</h2>
-        <div class="flex flex-wrap gap-2">
-          {["Agentic AI", "Generative AI", "LLM Orchestration", "Healthcare AI", "Cognitive Systems", "Zero-to-One Products", "B2B SaaS", "Founder-Led Building"].map((skill) => (
-            <span class="px-3 py-1 text-xs uppercase tracking-widest font-sans text-zinc-400 bg-white/5 border border-white/10 rounded-md">
-              {skill}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      <section class="mb-12">
-        <h2 class="text-2xl font-serif text-slate-100 mb-6">Frequently asked</h2>
-        <div class="space-y-6">
-          {faqSchema.mainEntity.map((qa) => (
-            <div>
-              <h3 class="text-lg font-serif text-white mb-2">{qa.name}</h3>
-              <p class="text-zinc-400 font-sans leading-relaxed">{qa.acceptedAnswer.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section class="mb-12">
-        <h2 class="text-2xl font-serif text-slate-100 mb-6">Links</h2>
-        <div class="flex flex-wrap gap-3">
-          <a href="https://www.linkedin.com/in/rajkawale/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-lg text-sm font-sans text-zinc-300 hover:text-white hover:border-white/40 transition-all">LinkedIn</a>
-          <a href="https://github.com/rajkawale" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-lg text-sm font-sans text-zinc-300 hover:text-white hover:border-white/40 transition-all">GitHub</a>
-          <a href="https://topmate.io/rajkawale" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-lg text-sm font-sans text-zinc-300 hover:text-white hover:border-white/40 transition-all">Topmate</a>
-          <a href="https://www.linkedin.com/company/kos-exocortex/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-white/20 rounded-lg text-sm font-sans text-zinc-300 hover:text-white hover:border-white/40 transition-all">KOS</a>
-        </div>
-      </section>
+        <section class="pt-2 border-t border-white/10">
+          <h2 class="text-2xl font-serif text-slate-100 mb-4 mt-8">Talk to me</h2>
+          <p>
+            Building something, stuck on something, or want to argue about whether AI is the next rung or the last one —
+            <a href="https://topmate.io/rajkawale" target="_blank" rel="noopener noreferrer" class="text-white underline hover:no-underline">book time</a>,
+            <a href="/contact" class="text-white underline hover:no-underline">write in</a>, or find me on
+            <a href="https://www.linkedin.com/in/rajkawale/" target="_blank" rel="noopener noreferrer" class="text-white underline hover:no-underline">LinkedIn</a>
+            and <a href="https://github.com/rajkawale" target="_blank" rel="noopener noreferrer" class="text-white underline hover:no-underline">GitHub</a>.
+          </p>
+        </section>
+      </div>
 
       <div class="mt-16 border-t border-white/10 pt-8">
         <SmartBackButton fallbackHref="/" />
       </div>
-    </div>
+    </article>
   </main>
 </BaseLayout>
