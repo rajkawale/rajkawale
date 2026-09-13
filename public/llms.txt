@@ -1,6 +1,6 @@
 # Raj Kawale
 
-> Product Lead building GenAI and Agentic AI systems for healthcare organizations at Indegene, and the founder behind KOS (an exocortex) and RaiTalk, a cognitive AI system for guided self-reflection.
+> Product Lead building GenAI and Agentic AI for healthcare at Indegene — and building his own AI products, KOS and RaiTalk, nights and weekends. Six years turning ambiguous problems into shipped systems, at companies and alone.
 
 Raj Kawale is based in Bengaluru, India. This site is his portfolio: product case studies, founder-led AI ventures, and writing on product strategy and systems thinking.
 
@@ -30,6 +30,7 @@ Raj Kawale is based in Bengaluru, India. This site is his portfolio: product cas
 ## Writing
 
 - [Blog](https://www.rajkawale.com/blog): Essays on product decisions, systems thinking, and mental models.
+- [Notes](https://www.rajkawale.com/notes): Original writing from Raj's LinkedIn, published here in full — AI, metacognition, and building in public.
 
 ## Full text
 

@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
 export const GET: APIRoute = async ({ site }) => {
-    const siteUrl = site?.href || 'https://rajkawale.com';
+    const siteUrl = (site?.href || 'https://www.rajkawale.com').replace(/\/$/, '');
 
     // Get all work/projects from content collection
     const allWork = await getCollection('work');
@@ -28,8 +28,8 @@ export const GET: APIRoute = async ({ site }) => {
     <item>
       <title>${escapeXml(work.data.title)}</title>
       <description>${escapeXml(work.data.description)}</description>
-      <link>${siteUrl}/work/${work.id}</link>
-      <guid isPermaLink="true">${siteUrl}/work/${work.id}</guid>
+      <link>${siteUrl}/work/${work.slug}</link>
+      <guid isPermaLink="true">${siteUrl}/work/${work.slug}</guid>
       <dc:creator>Raj Kawale</dc:creator>
       <category>${escapeXml(work.data.category)}</category>
       ${work.data.tags?.map((tag: string) => `<category>${escapeXml(tag)}</category>`).join('\n      ') || ''}

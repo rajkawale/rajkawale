@@ -24,9 +24,9 @@ const project = entry.data;
 ---
 
 <BaseLayout
-    title={`${project.title} | Product Case Study – Raj Kawale`}
-    description={`Product case study of ${project.title}, detailing problem framing, product decisions, execution, and scaling considerations across AI and SaaS systems.`}
-    keywords="product case study, AI product management, SaaS product design, zero to one product, scaling products"
+    title={`${project.title} — Case Study | Raj Kawale`}
+    description={project.description}
+    keywords={`${project.tags.join(", ")}, Raj Kawale, product case study`}
 >
     <main
         class="min-h-screen bg-[#020617] text-zinc-300 pt-24 relative z-10 pb-[120px] md:pb-16"

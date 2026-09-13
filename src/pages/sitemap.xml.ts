@@ -33,7 +33,7 @@ export const GET: APIRoute = async ({ site }) => {
   const workPages = workItems
     .filter((work) => !work.data.draft)
     .map((work) => ({
-      url: `/work/${work.id}`,
+      url: `/work/${work.slug}`,
       priority: '0.8',
       changefreq: 'weekly',
     }));
