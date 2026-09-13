@@ -6,11 +6,23 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 5
     groups:
+      # Only group minor/patch bumps — a major-version group (the default
+      # with no update-types filter) can bundle a dozen unrelated major
+      # upgrades — Astro, React, Zod, etc. — into one PR with no way to
+      # accept some and not others. Majors arrive as individual PRs instead,
+      # so each one gets reviewed and tested on its own.
       dependencies:
         patterns:
           - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      actions:
+        patterns:
+          - "*"
