@@ -112,14 +112,14 @@ if (archivePosts.length > 0) {
     <!-- Hero Section -->
     <section id="home" class="relative min-h-[70vh] flex items-center justify-center px-6 md:px-12 py-20 w-full">
       <div class="max-w-[1100px] mx-auto px-6 md:px-12 text-center w-full">
-        <!-- Main Headline -->
+        <!-- Main Headline: the loop, not just three steps -->
         <h1 class="text-6xl md:text-7xl font-serif font-normal tracking-tight text-white leading-tight">
-          <span class="hero-word hero-think">Think</span><span class="hero-dot hero-dot-think text-gray-500">.</span> <span class="hero-word hero-build">Build</span><span class="hero-dot hero-dot-build text-gray-500">.</span> <span class="hero-word hero-ship">Ship</span><span class="hero-dot hero-dot-ship text-gray-500">.</span>
+          <span class="hero-word hero-think">Think</span><span class="hero-dot hero-dot-think text-gray-500">.</span> <span class="hero-word hero-build">Build</span><span class="hero-dot hero-dot-build text-gray-500">.</span> <span class="hero-word hero-ship">Ship</span><span class="hero-dot hero-dot-ship text-gray-500">.</span> <span class="hero-word hero-learn">Learn</span><span class="hero-loop-arrow" aria-hidden="true">↺</span>
         </h1>
-        
+
         <!-- Primary Description -->
         <p class="text-xl md:text-2xl font-sans text-gray-300 mt-6 max-w-2xl mx-auto leading-relaxed">
-          I turn ambiguous product problems into shipped AI systems — from agentic workflows in healthcare to founder-led ventures built solo.
+          Deliberate thinking, real execution, and feedback that closes the loop — I don't treat shipping as the finish line, I treat it as the next data point.
         </p>
 
         <!-- Subline -->
@@ -638,14 +638,28 @@ if (archivePosts.length > 0) {
     animation-delay: 0.5s;
   }
 
-  .hero-ship {
-    animation-delay: 1s;
-    color: #14b8a6; /* Teal color when it appears */
-    animation: fadeInUp 0.6s ease-out 1s forwards, emphasizeShip 0.3s ease-out 1.6s forwards;
-  }
-
+  .hero-ship,
   .hero-dot-ship {
     animation-delay: 1s;
+  }
+
+  /* Learn is the word that turns three steps into a loop: it's where
+     feedback folds back into the next round of thinking, so it gets the
+     same emphasis Ship used to carry alone. */
+  .hero-learn {
+    animation-delay: 1.5s;
+    color: #14b8a6; /* Teal color when it appears */
+    animation: fadeInUp 0.6s ease-out 1.5s forwards, emphasizeWord 0.3s ease-out 2.1s forwards;
+  }
+
+  /* Loop arrow: fades in last, after Learn settles, as the explicit
+     "...and back to Think" cue. */
+  .hero-loop-arrow {
+    display: inline-block;
+    opacity: 0;
+    margin-left: 0.05em;
+    color: #14b8a6;
+    animation: fadeInUp 0.6s ease-out 2.3s forwards, emphasizeWord 0.3s ease-out 2.9s forwards;
   }
 
   @keyframes fadeInUp {
@@ -659,7 +673,7 @@ if (archivePosts.length > 0) {
     }
   }
 
-  @keyframes emphasizeShip {
+  @keyframes emphasizeWord {
     to {
       color: #ffffff;
       text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
