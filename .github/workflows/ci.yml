@@ -1,0 +1,31 @@
+name: CI
+
+# Build check — runs on every push and pull request against main, so a
+# broken build shows up as a red X before it ever reaches production.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          # prebuild fetches the Blogger RSS feed; don't fail CI if that
+          # network call is flaky — the script already falls back to an
+          # empty feed on error.
+          NODE_ENV: production
