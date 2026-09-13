@@ -13,10 +13,10 @@ secondaryCTAUrl: "https://drive.google.com/file/d/1smd0kQaFUMAP2t_IMWKZ5L_4WqmY8
 ---
 
 ## Context
-Springwood is a marketing automation and customer data platform operating in a competitive enterprise martech landscape. This case study evaluates Springwood’s competitive position, product strategy, and differentiation opportunities.
+Springwood competes in enterprise martech — marketing automation and customer data, a category where every vendor's homepage says almost the same thing in a different font. This case study is a structured look at where Springwood actually stands, and where the real openings are, using public information and reasonable assumptions stated up front.
 
 ## Objective
-Assess Springwood’s competitive standing and recommend strategic product and positioning moves using structured product frameworks.
+Figure out Springwood's real competitive position — not the one in its own pitch deck — and turn that into specific product and positioning moves a leadership team could actually act on.
 
 ## What this case demonstrates
 *   Structured competitive benchmarking

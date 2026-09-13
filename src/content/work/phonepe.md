@@ -12,9 +12,9 @@ priority: 8
 
 ## Context
 
-PhonePe operates in India's highly competitive UPI payments ecosystem alongside Google Pay and Paytm. While feature parity exists across platforms, long-term differentiation depends on defining a clear user-centric USP and building monetizable value beyond transactions.
+Every UPI app does roughly the same thing. Same rails, same zero fees, same core flow. When everyone converges on identical features, differentiation has to come from somewhere else entirely — and most strategy decks skip straight past that question to the pricing slide.
 
-This case study explores how PhonePe can establish a differentiated USP and estimate a realistic 1-year revenue opportunity without breaking UPI's zero-fee expectations.
+This is my attempt to actually answer it: what would PhonePe be if it stopped competing on the transaction and started competing on what happens after it — without breaking the zero-fee promise that makes UPI work in the first place.
 
 ## Problem Statement
 
@@ -126,11 +126,8 @@ PhonePe helps users track, understand, and optimize everyday spending through sm
 
 ### So What
 
-PhonePe moves from a transaction utility to a habit-forming financial decision platform.
+The transaction was never the product. The daily habit around it was. PhonePe already owns the habit — this is what it looks like to finally charge for the part people would actually pay for.
 
-## Key Learnings
+## What This Exercise Taught Me
 
-* USP matters more than features in commoditized markets
-* Monetization must align with natural user behavior
-* High-frequency products unlock small but scalable paid value
-* Strategic PM work is about choosing leverage points
+In a commoditized market, the feature war is a trap. Everyone ends up building the same four things. The real strategic question is never "what can we add" — it's "what do people already trust us enough to let us see," and whether that trust is worth more than the fee they'd never agree to pay.

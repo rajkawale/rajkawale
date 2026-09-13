@@ -1,6 +1,6 @@
 ---
 title: "Nextech AR"
-description: "Led enterprise product and engineering transformation on a legacy SaaS platform. Improved release velocity, reduced defects, and unlocked new revenue streams through CI/CD adoption and product-led monetization."
+description: "A 15-year-old monolith, slow releases, and a team ready to fix it. I bet on infrastructure before features — CI/CD, fewer defects, and a new revenue line that came out of the space that freed up."
 tags: ["ENTERPRISE", "SCALE"]
 badge: "Enterprise SaaS transformation"
 category: "enterprise"
@@ -11,39 +11,28 @@ priority: 5
 
 ## The Context
 
-Nextech AR operated a 15-year-old PHP monolith powering an event and marketplace SaaS platform. Slow release cycles, high defect rates, and fragmented infrastructure limited the team’s ability to ship reliably and monetize emerging demand.
+I walked into a 15-year-old PHP monolith running a live events-and-marketplace platform — the kind of codebase where every deploy felt like a small bet against the day going well. Releases were slow. Defects were common. And the team knew it, which is its own kind of pressure.
 
 ## The Challenge
 
-Balancing feature velocity, system stability, and revenue growth within a legacy architecture. Engineering teams were constrained by manual deployments, limited testing automation, and increasing operational risk as the platform scaled.
+The obvious move was to ship features and chase revenue. The actual constraint was underneath that: nobody could ship anything fast or safely enough to make new features matter. Fixing the foundation had to come first, and foundations don't excite anyone in a roadmap review.
 
 ## Key Product & Engineering Decisions
 
-**CI/CD as a force multiplier over feature expansion:**
-Prioritized delivery infrastructure and automated testing to unlock sustainable velocity gains rather than shipping incremental features.
+I bet on delivery infrastructure over feature count. CI/CD and automated testing don't show up on a highlight reel, but without them nothing else compounds — so that's where I spent the political capital.
 
-**Revenue-led product bets over platform-only improvements:**
-Identified unmet demand in event promotion and validated monetization before over-investing in platform refactors.
+I looked for revenue that didn't require a platform rewrite first. Boost Ads — paid visibility for event organizers — was demand that already existed; I just had to build the smallest thing that could capture it, instead of waiting for the "real" platform work to finish.
 
-**Infrastructure simplification to reduce operational risk:**
-Consolidated fragmented payment systems to improve reliability and reduce maintenance overhead.
+And I consolidated a tangle of payment gateways into one reliable setup, because every extra integration was a place a transaction could quietly fail, and nobody notices reliability until it's gone.
 
 ## Execution
 
-Championed CI/CD adoption and automated testing across the engineering team, resulting in faster and safer releases. Partnered closely with engineering to diagnose architectural bottlenecks and sequence improvements without disrupting live customers.
+Getting engineering to adopt CI/CD wasn't a technical sell, it was a trust sell — convincing a team that had been burned by risky deploys that testing infrastructure would make their lives easier, not slower. It did. Releases got faster and safer at the same time, which is a combination people don't believe is possible until they've lived it.
 
-Launched Boost Ads, a paid visibility product for events, increasing impressions and creating a new revenue stream. Rationalized payments infrastructure by consolidating multiple fragmented gateways into a streamlined, high-reliability setup.
+Boost Ads shipped without waiting for the monolith to be fixed, and it became a real new revenue line. The payments consolidation happened quietly in the background — the best sign an infrastructure project worked is that nobody talks about it afterward.
 
-## Outcomes
+## What Actually Happened
 
-*   Faster, more reliable release velocity after CI/CD adoption
-*   Fewer production defects following automated testing rollout
-*   New revenue growth driven by the Boost Ads monetization surface
-*   Reduced operational risk and ongoing maintenance costs
+Release velocity improved. Defects dropped. A new revenue stream existed that hadn't before.
 
-## Key Learnings
-
-*   Delivery infrastructure directly compounds product velocity and business impact
-*   Monetization opportunities often emerge once platform constraints are removed
-*   In enterprise systems, reliability and speed must scale together
-*   Product managers create leverage by sequencing technical and business bets correctly
+But the thing I actually took away from this one: in a legacy system, the unglamorous infrastructure work is the leverage. Everyone wants to talk about the feature. The feature only works because of the boring thing nobody wanted to fund.

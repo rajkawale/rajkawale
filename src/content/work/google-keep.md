@@ -12,9 +12,9 @@ priority: 7
 
 ## Context
 
-Google Keep is a free note-taking product within the Google ecosystem that enables users to capture, share, and collaborate on notes across devices. Despite strong adoption and deep integration with Google Workspace, Keep remains monetized indirectly via Google Drive storage rather than as a standalone product.
+Google Keep is free, fast, and everywhere — which is exactly why nobody's ever seriously asked it to make money. It rides on Drive storage instead of standing on its own, and that's fine right up until you're the PM being asked to change that.
 
-This case study explores how Google Keep could evolve into a paid, value-generating product without compromising its core simplicity.
+This case study is that ask: can Keep become a real, paid product without breaking the one thing it has going for it — that it's stupidly simple?
 
 ## Problem Statement
 
@@ -133,4 +133,4 @@ Position Google Keep as a **meeting intelligence companion** for Google Workspac
 
 ### So What
 
-Google Keep becomes a retention and upsell lever for Google Workspace rather than a competing note-taking product.
+Google Keep doesn't need to become a business. It needs to become the reason nobody cancels Workspace.

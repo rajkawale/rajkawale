@@ -1,6 +1,6 @@
 ---
 title: "Madhav Farm"
-description: "Founder-led build of a direct-to-business marketplace connecting farmers with bulk buyers. Owned P&L and led an 8-member team across sourcing, logistics, and fulfillment."
+description: "I cut out the middleman between farmers and bulk buyers, then ran the entire supply chain myself before I let any of it be automated. Founder-led, P&L owned, an 8-person team."
 tags: ["FOUNDER-LED", "P&L OWNERSHIP", "SUPPLY CHAIN"]
 badge: "Founder-led business build"
 category: "founder-led"
@@ -14,42 +14,30 @@ secondaryCTAUrl: "https://drive.google.com/file/d/1_ptVBOQjw1yIoVTBRpeYCSKeRl4KK
 
 ## The Problem
 
-Farmers lacked direct access to predictable demand and fair pricing. Bulk buyers such as hotels and restaurants faced inconsistent quality, unreliable supply, and volatile pricing. Middlemen captured a disproportionate share of value while adding limited operational efficiency.
+A farmer grows good produce and still can't count on getting paid fairly for it. A restaurant needs that produce every single day and still can't count on getting it. Both sides lose, and the person in between — the middleman — is the only one guaranteed to win.
 
-The core challenge was aligning supply, demand, logistics, and pricing in a repeatable and economically viable way.
+That's not really a supply problem. It's a trust problem wearing a supply chain's clothes. I wanted to see if I could fix it by removing the middleman and becoming the trust myself, at least for one market.
 
 ## The Business Model
 
-Direct-to-business marketplace eliminating traditional intermediaries. Commission-based revenue model anchored on predictable demand from bulk buyers. Unit economics and margin discipline treated as first-class constraints from day one.
+Direct-to-business. No intermediary layer. I made money on the margin between what I paid farmers and what buyers paid me — which meant every rupee of revenue came directly from proving reliability, not from extracting a toll.
 
 ## Key Decisions & Tradeoffs
 
-**Prioritized demand certainty over rapid expansion:**
-Secured committed buyers before onboarding large farmer supply to protect utilization and margins.
+I locked in buyers before I locked in farmers. It would have been easier to do the opposite — supply is more fun to build, demand is scarier to chase. But unsold produce isn't a business, it's a loss, so I went after committed demand first even though it meant slower, harder early months.
 
-**Built logistics manually before automation:**
-Operated the supply chain hands-on to validate workflows and unit economics before investing in technology.
+I ran logistics by hand before I automated anything. Every delivery, every price call, every judgment about which batch of produce was actually good enough — I did it myself before I let any tool do it, because I needed to know what "working" actually looked like before I could build something to replicate it.
 
-**Focused on unit economics before geographic scale:**
-Proved profitability and operational repeatability in a single market before considering expansion.
+I stayed in one market longer than I wanted to. Expansion is the fun part to talk about. I made myself prove the unit economics held in one place before I let myself think about a second one.
 
-**Accepted operational complexity to protect farmer margins:**
-Chose manual coordination and tighter control over automation to ensure fair farmer payouts and reliable buyer fulfillment.
+And more than once, I chose the slower, harder, manual path specifically because it protected what farmers got paid. That wasn't the efficient choice. It was the right one for a business built on trust.
 
 ## Execution & Operations
 
-Designed and operated the end-to-end supply chain from farms to urban buyers. Owned daily logistics, procurement, fulfillment, and pricing decisions. Built internal processes and lightweight tools to manage orders and deliveries. Led an 8-member cross-functional team across operations, sales, and logistics.
+I ran the supply chain end to end — farms to urban buyers, procurement to final delivery — with a lean, mostly-manual operation and a small cross-functional team covering ops, sales, and logistics. Not because manual was the goal. Because manual was what let me see, and fix, what was actually breaking.
 
-## Outcomes
+## What Actually Happened
 
-*   Meaningful revenue generated within the first year
-*   Healthy contribution margin achieved and sustained
-*   Sustainable unit economics validated
-*   Repeat demand secured from bulk buyers
+The business turned a real, sustained margin in its first year, and buyers kept coming back — which was the number that mattered most, because repeat demand is the only proof that trust actually got built, not just claimed.
 
-## Key Learnings
-
-*   Supply chain reliability matters more than pricing in B2B food markets
-*   Margins are protected through process discipline, not scale alone
-*   Trust with both farmers and buyers compounds over time
-*   Execution quality is a durable competitive advantage in physical marketplaces
+What stayed with me: in a market like this, reliability beats price every time. Nobody remembers the day you were cheapest. Everybody remembers the day you didn't show up.

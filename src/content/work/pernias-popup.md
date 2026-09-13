@@ -1,6 +1,6 @@
 ---
 title: "Pernia's Pop-Up Shop"
-description: "Led high-impact platform and funnel improvements across a luxury ecommerce marketplace, improving performance, conversion, and revenue at scale."
+description: "A checkout so slow it lost customers mid-purchase. I decoupled cart from the monolith, then rebuilt how the marketplace brought on its own designers."
 tags: ["ENTERPRISE", "SCALE"]
 badge: "Enterprise ecommerce scale"
 category: "enterprise"
@@ -11,43 +11,30 @@ priority: 6
 
 ## The Context
 
-Pernia's Pop-Up Shop is a luxury fashion ecommerce platform serving a large network of designers and handling significant daily transaction volume. As traffic and catalog scale increased, platform performance, checkout reliability, and seller onboarding became key constraints to growth.
+Pernia's is luxury fashion ecommerce — hundreds of designers, real daily transaction volume, the kind of scale where a slow page isn't an annoyance, it's lost revenue happening in real time.
 
 ## The Problem
 
-The cart and checkout experience was built on a tightly coupled monolith, leading to extreme load times, failed transactions, and poor conversion. Additionally, onboarding new designers was operationally heavy, slowing marketplace expansion.
+The cart and checkout ran on a tightly coupled monolith, and it showed: painfully slow loads, transactions that just failed, a checkout funnel that leaked customers at exactly the moment they were ready to pay. On top of that, bringing a new designer onto the platform was a manual, internal-team-heavy process that slowed how fast the marketplace could grow its own supply.
 
 ## My Role & Scope
 
-Owned product discovery and execution across core ecommerce flows including homepage merchandising, cart, checkout, and seller onboarding for a network of designer sellers. Worked closely with engineering, design, and business teams to balance performance, reliability, and revenue growth at enterprise scale.
+I owned discovery and execution across the flows that actually moved revenue — homepage, cart, checkout, seller onboarding — working closely with engineering and design to fix what was broken without stalling a business that depended on staying up.
 
 ## Key Product & Technical Decisions
 
-**Decoupled cart from the monolith into microservices:**
-Prioritized cart reliability and performance as the highest-leverage conversion surface.
+I treated cart and checkout as the highest-leverage surface on the platform and fought to decouple it from the monolith first, before touching anything else, because a beautiful homepage means nothing if checkout fails.
 
-**Focused on performance before new feature expansion:**
-Addressed load time and failure rates before adding incremental UX enhancements.
+I made performance the priority over new features. It's a harder sell internally — nobody gets excited pitching "make the existing thing faster" — but a broken checkout makes every other roadmap item irrelevant.
 
-**Built self-serve workflows to replace manual operations:**
-Reduced dependency on internal teams while accelerating marketplace supply growth.
+And I built self-serve onboarding specifically to get my own team out of the loop, because every hour a designer waited on a human to onboard them was an hour a competitor could reach them first.
 
 ## Execution Highlights
 
-Led the migration of cart functionality from a monolith to a microservices architecture, cutting load times from tens of seconds down to near-instant. Improved checkout reliability and reduced friction across homepage, PDP, and transaction flows for a high-volume daily visitor base.
+Migrating cart off the monolith into microservices took load times from something customers would abandon down to something they wouldn't notice — and checkout reliability improved right alongside it. I rebuilt onboarding as a self-serve flow, and redesigned localized homepages around what the merchandising data was actually telling us, not what looked good in a deck.
 
-Launched a self-serve vendor onboarding portal, significantly cutting onboarding time for designers. Redesigned localized homepages using data-driven merchandising logic to improve engagement and discovery.
+## What Actually Happened
 
-## Outcomes
+Load times dropped from unusable to instant. Click-through and session duration both improved after the redesign. Onboarding time for new designers fell sharply. Revenue scaled meaningfully across the engagement.
 
-*   Cart load time cut from tens of seconds to near-instant
-*   Higher click-through rate and longer session duration following the redesign
-*   Daily revenue scaled meaningfully over the engagement
-*   Substantial reduction in designer onboarding time
-
-## Key Learnings
-
-*   Performance is a growth lever, not just an engineering concern
-*   Reliability compounds revenue in high-scale ecommerce systems
-*   Platform investments unlock both customer and seller-side growth
-*   PMs create leverage by fixing core constraints before layering features
+The lesson I keep relearning: performance isn't an engineering line item, it's a growth lever hiding in plain sight. Every team has a "boring" fix like this one sitting in the backlog. It's usually worth more than the next feature.

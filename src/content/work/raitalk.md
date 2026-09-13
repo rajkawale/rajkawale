@@ -11,53 +11,41 @@ secondaryCTALabel: "View website"
 secondaryCTAUrl: "https://raitalk.com"
 ---
 
-Where technology, psychology, and cognitive science meet: RaiTalk explored how emotional and rational thinking interact, and what an AI system looks like when it's built to surface that interaction rather than paper over it.
+Where technology, psychology, and cognitive science meet: RaiTalk explored how emotional and rational thinking interact, and what an AI system looks like when it's built to surface that interaction instead of papering over it.
 
 **Status:** Sunset (Jul 2025 – May 2026). The product is no longer being actively developed, but the insights it produced carried directly into [KOS](/work/kos), the exocortex project that followed it.
 
 ## The Problem
 
-Users seeking mental health support often do not know what kind of help they need. Traditional therapy requires multiple sessions before patterns emerge, and most AI chatbots stop at surface-level empathy without helping users understand recurring thinking or emotional patterns.
+Someone comes to a chatbot in the middle of a bad week and gets sympathy. That's it. No real understanding, no help seeing the pattern underneath it — just a well-phrased "that sounds hard."
 
-RaiTalk exists to accelerate self-awareness and insight, not to replace therapy.
+Therapy works differently. It takes sessions before a pattern even becomes visible to the person living it. Most people never get that far.
+
+RaiTalk was my attempt to close that gap — not by replacing therapy, but by helping someone see their own pattern faster than a conversation usually allows.
 
 ## The Vision
 
-RaiTalk focuses on pattern awareness through guided self-reflection. Instead of giving advice or diagnoses, it helps users reach their own realizations by identifying thinking patterns and emotional triggers through natural conversation.
+I didn't want to build something that gives advice. Advice is cheap, and it rarely changes anything. I wanted to build something that asks the right question at the right moment, and lets the user arrive at their own answer — because the realizations people actually trust are the ones they reach themselves.
 
 ## Key Product Decisions
 
-**Reflection over advice:**
-Users engage more deeply when the system helps them arrive at conclusions themselves rather than prescribing answers.
+A few decisions shaped how it worked.
 
-**Conversation-first UX over structured questionnaires:**
-Early structure reduces emotional honesty. Natural conversation surfaces more authentic patterns.
+**Reflection over advice.** Every time the system was tempted to tell the user what to think, I pulled it back to asking instead. People open up more when they're not being managed.
 
-**Session-based memory over long-term profiling:**
-Prioritizes privacy and trust while reducing the feeling of being tracked or judged across sessions.
+**Conversation over questionnaires.** Structure up front kills honesty. A form makes people perform; a conversation lets them slip.
+
+**Session memory, not a permanent profile.** I didn't want RaiTalk to feel like it was building a file on someone. Privacy wasn't a feature here — it was the reason people would say the true thing instead of the safe thing.
 
 ## The Engineering
 
-**Cognitive Pattern Recognition:**
-Maps user inputs to established psychological frameworks to surface recurring thinking patterns and emotional triggers.
+Underneath the conversation: a layer that maps what someone says to known psychological patterns, tracks how their mood moves within a single session, and uses both to decide what to ask next — not to sound clever, but to keep steering toward the moment where the user says the true thing out loud.
 
-**Session-level Emotional State Tracking:**
-Tracks mood progression within a session to guide reflective prompts and follow-up questions.
+## What Actually Happened
 
-**Insight-led Conversation Flow:**
-Structures conversations to guide users toward self-realization rather than prescriptive responses.
+It went live. People used it, in real conversations, to work through real things — and the same handful of cognitive patterns kept showing up across completely different people, which told me the idea wasn't imagined.
 
-## Outcomes & Learnings
-
-### Outcomes
-*   Live AI system used in real user conversations
-*   Validated demand for guided self-reflection over generic AI chatbots
-*   Identified repeat cognitive patterns across users
-
-### Key Learnings
-*   Users trust AI more when it facilitates insight rather than advice
-*   Over-structuring early reduces emotional honesty
-*   Product judgment mattered more than model sophistication
+What I didn't expect: model sophistication mattered less than I thought it would. The moments that actually helped someone came from product judgment — knowing when to push, when to stay quiet — not from a better model. I'm still not sure how to teach that to a system. That's roughly where KOS picks up.
 
 ---
 
