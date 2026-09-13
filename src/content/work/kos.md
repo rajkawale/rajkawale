@@ -1,6 +1,6 @@
 ---
 title: "KOS — An Exocortex"
-description: "AI that trains thinking instead of replacing it. An independent exocortex project — before it answers, it forces a committed position and a probability, then scores that position against what actually happened."
+description: "AI that trains thinking instead of replacing it — forced to commit to a position and a probability, then scored against what actually happened."
 tags: ["AI-NATIVE", "POSTGRESQL", "PGVECTOR"]
 badge: "Personal project · Nov 2025 – Present"
 category: "founder-led"

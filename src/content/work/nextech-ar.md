@@ -1,6 +1,6 @@
 ---
 title: "Nextech AR"
-description: "A 15-year-old monolith, slow releases, and a team ready to fix it. I bet on infrastructure before features — CI/CD, fewer defects, and a new revenue line that came out of the space that freed up."
+description: "A 15-year-old monolith, slow releases, and a team ready to fix it. I bet on infrastructure before features — CI/CD, fewer defects, a new revenue line."
 tags: ["ENTERPRISE", "SCALE"]
 badge: "Enterprise SaaS transformation"
 category: "enterprise"

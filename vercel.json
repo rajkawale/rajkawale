@@ -5,5 +5,19 @@
     { "source": "/narrative/unified-cdp", "destination": "/work/sinch", "permanent": true },
     { "source": "/projects", "destination": "/work", "permanent": true },
     { "source": "/projects/:slug", "destination": "/work/:slug", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(llms.txt|llms-full.txt|ai.txt|robots.txt)",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/(sitemap.xml|rss.xml)",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" }
+      ]
+    }
   ]
 }

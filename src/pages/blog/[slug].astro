@@ -74,10 +74,22 @@ minutes (minimum 1) */ function getReadingTime(content: string): number {
 const readingTime = getReadingTime(fullContent);
 const currentUrl = Astro.url.href;
 
-const metaDescription = post.excerpt
-  ? post.excerpt.length > 155
-    ? `${post.excerpt.slice(0, 155).trim()}…`
-    : post.excerpt
+// Decode the handful of HTML entities Blogger excerpts carry (&nbsp; etc.)
+// before truncating — otherwise Astro re-escaping "&" to "&amp;" inflates
+// the rendered length past the limit we're trimming to.
+const cleanExcerpt = post.excerpt
+  ?.replace(/&nbsp;/g, " ")
+  .replace(/&amp;/g, "&")
+  .replace(/&#39;|&apos;/g, "'")
+  .replace(/&quot;|&#34;/g, '"')
+  .replace(/["'“”‘’]/g, "") // quotes re-inflate when HTML-escaped back into the attribute; drop them
+  .replace(/\s+/g, " ")
+  .trim();
+
+const metaDescription = cleanExcerpt
+  ? cleanExcerpt.length > 140
+    ? `${cleanExcerpt.slice(0, 140).trim()}…`
+    : cleanExcerpt
   : `${post.title} — writing from Raj Kawale on product, AI, and systems thinking.`;
 ---
 

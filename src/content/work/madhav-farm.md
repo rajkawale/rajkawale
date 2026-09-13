@@ -1,6 +1,6 @@
 ---
 title: "Madhav Farm"
-description: "I cut out the middleman between farmers and bulk buyers, then ran the entire supply chain myself before I let any of it be automated. Founder-led, P&L owned, an 8-person team."
+description: "I cut out the middleman between farmers and bulk buyers, then ran the entire supply chain myself before I let any of it be automated."
 tags: ["FOUNDER-LED", "P&L OWNERSHIP", "SUPPLY CHAIN"]
 badge: "Founder-led business build"
 category: "founder-led"

@@ -1,6 +1,6 @@
 ---
 title: "Trinka AI — Concept Prototype"
-description: "A prototype I built and pitched to the Trinka AI team — editing for structure and intent, not just grammar. It didn't ship, but the instinct behind it was right."
+description: "A prototype I built and pitched to the Trinka AI team — editing for structure and intent, not just grammar. It didn't ship, but the instinct was right."
 tags: ["PRODUCT-PROTOTYPE", "AI-NATIVE"]
 badge: "Prototype proposed to Trinka AI"
 category: "professional"

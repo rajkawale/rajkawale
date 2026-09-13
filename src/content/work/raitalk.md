@@ -1,6 +1,6 @@
 ---
 title: "RaiTalk"
-description: "Founder-led build exploring how cognitive and emotional thinking work together — an AI system for guided self-reflection, owned end-to-end from NLP prototyping to live deployment and real-user validation."
+description: "Founder-led AI system for guided self-reflection — exploring how cognitive and emotional thinking work together, from prototype to live deployment."
 tags: ["FOUNDER-LED", "AI-NATIVE", "COGNITIVE-AI"]
 badge: "Founder · Jul 2025 – May 2026 · Sunset"
 category: "founder-led"
