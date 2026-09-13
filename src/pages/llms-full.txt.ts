@@ -22,7 +22,7 @@ export const GET: APIRoute = async ({ site }) => {
   parts.push(`\n## Case Studies\n`);
   for (const item of workItems) {
     parts.push(`\n### ${item.data.title}\n`);
-    parts.push(`Source: ${siteUrl}/work/${item.slug}\n`);
+    parts.push(`Source: ${siteUrl}/work/${item.id}\n`);
     parts.push(`${item.data.description}\n`);
     parts.push(item.body || '');
   }
