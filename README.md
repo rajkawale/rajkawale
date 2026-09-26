@@ -34,4 +34,4 @@ Outside work hours I'm building [KOS](https://www.linkedin.com/company/kos-exoco
 
 Founders, tech and product leaders, and investors thinking about where AI goes next: I'd like to compare notes.
 
-🌐 [rajkawale.com](https://www.rajkawale.com) &nbsp;|&nbsp; 💼 [LinkedIn](https://www.linkedin.com/in/rajkawale/) &nbsp;|&nbsp; 📅 [Topmate](https://topmate.io/rajkawale) &nbsp;|&nbsp; ✉️ rajendrakawale101@gmail.com
+🌐 [rajkawale.com](https://www.rajkawale.com) &nbsp;|&nbsp; 💼 [LinkedIn](https://www.linkedin.com/in/rajkawale/) &nbsp;|&nbsp; 🐙 [GitHub](https://github.com/rajkawale) &nbsp;|&nbsp; 📅 [Topmate](https://topmate.io/rajkawale) &nbsp;|&nbsp; ✉️ rajendrakawale101@gmail.com

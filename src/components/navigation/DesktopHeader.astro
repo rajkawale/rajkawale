@@ -1,5 +1,6 @@
 ---
 import LinkedInIcon from "../icons/LinkedInIcon";
+import GithubIcon from "../icons/GithubIcon";
 
 const currentPath = Astro.url.pathname;
 
@@ -88,6 +89,15 @@ const isActive = (path: string) => {
 
     <!-- Social Icons -->
     <div class="flex items-center gap-4 pl-4 border-l border-white/10">
+      <a
+        href="https://github.com/rajkawale"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="moonlight-text-link text-[#888] hover:text-white transition-all duration-300 ease-out flex items-center"
+        aria-label="GitHub"
+      >
+        <GithubIcon client:load className="w-5 h-5" />
+      </a>
       <a
         href="https://www.linkedin.com/in/rajkawale/"
         target="_blank"

@@ -1,6 +1,6 @@
 ---
 title: "Madhav Farm"
-description: "I cut out the middleman between farmers and bulk buyers, then ran the entire supply chain myself before I let any of it be automated."
+description: "A farm-to-consumer marketplace. ₹8L in GMV with zero working capital and an 8-person team."
 tags: ["FOUNDER-LED", "P&L OWNERSHIP", "SUPPLY CHAIN"]
 badge: "Founder-led business build"
 category: "founder-led"
@@ -38,6 +38,6 @@ I ran the supply chain end to end — farms to urban buyers, procurement to fina
 
 ## What Actually Happened
 
-The business turned a real, sustained margin in its first year, and buyers kept coming back — which was the number that mattered most, because repeat demand is the only proof that trust actually got built, not just claimed.
+The business did ₹8L in GMV with zero working capital and an 8-person team. Buyers kept coming back — which was the number that mattered most, because repeat demand is the only proof that trust actually got built, not just claimed.
 
 What stayed with me: in a market like this, reliability beats price every time. Nobody remembers the day you were cheapest. Everybody remembers the day you didn't show up.

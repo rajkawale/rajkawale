@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ site }) => {
 
   parts.push(`# Raj Kawale — Full Content Index\n`);
   parts.push(
-    `Product Lead building GenAI and Agentic AI systems for healthcare organizations at Indegene, and the founder behind KOS (an exocortex) and RaiTalk. Canonical profile: ${siteUrl}/about\n`,
+    `Product Lead at Indegene, building GenAI and Agentic AI products for healthcare. He runs product like a founder. Outside work hours he is building KOS, an exocortex. Previously founded RaiTalk — talk to your AI psychologist — and Madhav Farm. Profiles: https://www.linkedin.com/in/rajkawale/ and https://github.com/rajkawale. Canonical profile: ${siteUrl}/about\n`,
   );
 
   parts.push(`\n## Case Studies\n`);

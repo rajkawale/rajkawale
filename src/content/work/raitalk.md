@@ -1,6 +1,6 @@
 ---
 title: "RaiTalk"
-description: "Founder-led AI system for guided self-reflection — exploring how cognitive and emotional thinking work together, from prototype to live deployment."
+description: "Talk to your AI psychologist. Idea to production in 2 weeks. 20% returning users without paid acquisition. Sunset."
 tags: ["FOUNDER-LED", "AI-NATIVE", "COGNITIVE-AI"]
 badge: "Founder · Jul 2025 – May 2026 · Sunset"
 category: "founder-led"
@@ -11,7 +11,7 @@ secondaryCTALabel: "View website"
 secondaryCTAUrl: "https://raitalk.com"
 ---
 
-Where technology, psychology, and cognitive science meet: RaiTalk explored how emotional and rational thinking interact, and what an AI system looks like when it's built to surface that interaction instead of papering over it.
+Talk to your AI psychologist. RaiTalk sat where technology, psychology, and cognitive science meet: how emotional and rational thinking interact, and what an AI looks like when it surfaces that interaction instead of papering over it.
 
 **Status:** Sunset (Jul 2025 – May 2026). The product is no longer being actively developed, but the insights it produced carried directly into [KOS](/work/kos), the exocortex project that followed it.
 
@@ -43,7 +43,7 @@ Underneath the conversation: a layer that maps what someone says to known psycho
 
 ## What Actually Happened
 
-It went live. People used it, in real conversations, to work through real things — and the same handful of cognitive patterns kept showing up across completely different people, which told me the idea wasn't imagined.
+It went from idea to production in 2 weeks. People used it, in real conversations, to work through real things — 20% of the early cohort came back without paid acquisition — and the same handful of cognitive patterns kept showing up across completely different people, which told me the idea wasn't imagined.
 
 What I didn't expect: model sophistication mattered less than I thought it would. The moments that actually helped someone came from product judgment — knowing when to push, when to stay quiet — not from a better model. I'm still not sure how to teach that to a system. That's roughly where KOS picks up.
 

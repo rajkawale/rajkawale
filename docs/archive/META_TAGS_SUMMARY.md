@@ -55,7 +55,7 @@ Portfolio of Raj Kawale, a Product Manager and Founder specializing in Zero-to-O
 
 **Keywords:**
 ```
-Raj Kawale, Product Manager, Founder, Cognitive AI, Systems Thinking, Agri-tech, DeepSeek, React, Next.js
+Raj Kawale, Product Manager, Founder, Cognitive AI, Systems Thinking, Agri-tech, React, Next.js
 ```
 
 ---
@@ -129,7 +129,7 @@ Portfolio of Raj Kawale, a Product Manager and Founder specializing in Zero-to-O
 
 ### Default Keywords
 ```
-Raj Kawale, Product Manager, Founder, Cognitive AI, Systems Thinking, Agri-tech, DeepSeek, React, Next.js
+Raj Kawale, Product Manager, Founder, Cognitive AI, Systems Thinking, Agri-tech, React, Next.js
 ```
 
 ---
@@ -178,7 +178,6 @@ Raj Kawale, Product Manager, Founder, Cognitive AI, Systems Thinking, Agri-tech,
 
 ### Secondary Keywords
 - **Agri-tech**
-- **DeepSeek**
 - **React**
 - **Next.js**
 - **RaiTalk**

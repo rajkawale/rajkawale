@@ -16,81 +16,107 @@ interface Props {
 
 const {
   title = "Raj Kawale | Product Lead, GenAI & Agentic AI",
-  description = "Product Lead building GenAI and Agentic AI for healthcare at Indegene — and building his own AI products, KOS and RaiTalk, nights and weekends. Six years turning ambiguous problems into shipped systems.",
+  description = "Product Lead at Indegene building GenAI and Agentic AI for healthcare. Runs product like a founder. Building KOS, an exocortex, outside work hours.",
   image,
   clarityId = "ugkqsj83mt",
-  keywords = "Raj Kawale, Product Lead GenAI, Agentic AI Product Manager, LLM orchestration, Indegene, KOS exocortex, RaiTalk, healthcare AI product manager, founder-led AI products, zero to one AI products",
+  keywords = "Raj Kawale, Product Lead, GenAI, Agentic AI, healthcare AI, Indegene, KOS, RaiTalk, AI psychologist, Madhav Farm",
 } = Astro.props;
 
 const siteUrl = (Astro.site?.href || "https://www.rajkawale.com").replace(/\/$/, "");
 const canonicalUrl = `${siteUrl}${Astro.url.pathname === "/" ? "" : Astro.url.pathname}` || siteUrl;
 const personId = `${siteUrl}/#person`;
+const kosId = `${siteUrl}/#kos`;
+const indegeneId = `${siteUrl}/#indegene`;
 
-// Structured Data for Person entity — kept as the single source of truth for
-// how search engines and AI assistants describe Raj across every page.
+// One graph, on every page. The sentence an assistant should quote is the
+// Indegene product role. KOS is the outside-hours build. sameAs is the proof
+// that LinkedIn, GitHub, and this site are the same person.
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": personId,
-  name: "Raj Kawale",
-  alternateName: "Raj Kawale",
-  url: siteUrl,
-  jobTitle: "Product Lead, GenAI & Agentic AI",
-  description:
-    "Product Lead building GenAI and Agentic AI systems for healthcare at Indegene, and a two-time founder: KOS, an exocortex project built nights and weekends, and previously RaiTalk, a cognitive AI system for guided self-reflection used in real conversations.",
-  knowsAbout: [
-    "Agentic AI",
-    "Generative AI",
-    "LLM Orchestration",
-    "Product Management",
-    "Healthcare AI",
-    "Cognitive Systems",
-    "Zero to One Products",
-    "B2B SaaS",
-    "Systems Thinking",
-    "Founder-Led Product Building",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: "Raj Kawale",
+      url: siteUrl,
+      image: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/og-image.png`,
+        caption: "Raj Kawale",
+      },
+      jobTitle: "Product Lead, GenAI & Agentic AI",
+      description:
+        "Product Lead at Indegene, building GenAI and Agentic AI products for healthcare. He helps healthcare organizations adopt AI in ways that fit real workflows, regulatory constraints, and business goals, and he runs product like a founder. Outside work hours he is building KOS, an exocortex. He previously founded RaiTalk — talk to your AI psychologist — and Madhav Farm.",
+      email: "rajendrakawale101@gmail.com",
+      homeLocation: {
+        "@type": "Place",
+        name: "Bengaluru, India",
+      },
+      knowsAbout: [
+        "Generative AI",
+        "Agentic AI",
+        "Healthcare AI",
+        "Healthcare Workflows",
+        "Product Management",
+        "LLM Orchestration",
+        "KOS",
+        "RaiTalk",
+        "Zero to One Products",
+      ],
+      hasOccupation: [
+        {
+          "@type": "Occupation",
+          name: "Product Lead, GenAI & Agentic AI",
+        },
+      ],
+      worksFor: { "@id": indegeneId },
+      alumniOf: [
+        { "@type": "Organization", name: "Sinch" },
+        { "@type": "Organization", name: "Nextech AR (Map D)" },
+        { "@type": "Organization", name: "Invest4EDU" },
+        { "@type": "Organization", name: "Purple Style Labs" },
+        { "@type": "Organization", name: "Pernia's Pop-Up Shop" },
+      ],
+      sameAs: [
+        "https://www.linkedin.com/in/rajkawale/",
+        "https://github.com/rajkawale",
+        "https://topmate.io/rajkawale",
+        "https://www.linkedin.com/company/kos-exocortex/",
+        "https://raitalk.com/",
+      ],
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+      },
+    },
+    {
+      "@type": "Organization",
+      "@id": indegeneId,
+      name: "Indegene",
+      url: "https://www.indegene.com",
+    },
+    {
+      "@type": "Organization",
+      "@id": kosId,
+      name: "KOS",
+      alternateName: "KOS Exocortex",
+      url: "https://www.linkedin.com/company/kos-exocortex/",
+      description:
+        "Exocortex Raj Kawale is building outside work hours. The AI commits to a position and a probability before it answers, then gets scored against what actually happened.",
+      founder: { "@id": personId },
+      sameAs: ["https://www.linkedin.com/company/kos-exocortex/"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      name: "Raj Kawale",
+      url: siteUrl,
+      description:
+        "Raj Kawale, Product Lead for GenAI and Agentic AI at Indegene. He runs product like a founder and is building KOS, an exocortex, outside work hours.",
+      author: { "@id": personId },
+      publisher: { "@id": personId },
+    },
   ],
-  worksFor: {
-    "@type": "Organization",
-    name: "Indegene",
-    url: "https://www.indegene.com",
-  },
-  alumniOf: [
-    { "@type": "Organization", name: "Sinch" },
-    { "@type": "Organization", name: "Nextech AR (Map D)" },
-    { "@type": "Organization", name: "Invest4EDU" },
-    { "@type": "Organization", name: "Purple Style Labs" },
-    { "@type": "Organization", name: "Pernia's Pop-Up Shop" },
-  ],
-  // Every profile and product URL that is genuinely Raj's — this is what lets
-  // Google (and AI assistants reading Google's index) connect the dots and
-  // confirm these accounts and sites all belong to the same person.
-  sameAs: [
-    "https://www.linkedin.com/in/rajkawale/",
-    "https://github.com/rajkawale",
-    "https://topmate.io/rajkawale",
-    "https://www.linkedin.com/company/kos-exocortex/",
-    "https://raitalk.com/",
-    "https://trinka.rajkawale.com/",
-  ],
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": canonicalUrl,
-  },
-};
-
-// Website structured data for better discoverability
-const websiteStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": `${siteUrl}/#website`,
-  name: "Raj Kawale - Product Lead, GenAI & Agentic AI",
-  url: siteUrl,
-  description:
-    "Portfolio and case studies from Raj Kawale — Product Lead for GenAI and Agentic AI at Indegene by day, founder of KOS and RaiTalk by night.",
-  author: {
-    "@id": personId,
-  },
 };
 ---
 
@@ -107,10 +133,6 @@ const websiteStructuredData = {
     <script
       type="application/ld+json"
       set:html={JSON.stringify(structuredData)}
-    />
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify(websiteStructuredData)}
     />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

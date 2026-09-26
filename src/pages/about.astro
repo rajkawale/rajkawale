@@ -16,19 +16,27 @@ const profilePageSchema = {
 const faq = [
   {
     q: "What does Raj Kawale do?",
-    a: "Leads GenAI and Agentic AI product development at Indegene, building for healthcare organizations from the first framing conversation through to a client actually using what he built.",
+    a: "Product Lead at Indegene, building GenAI and Agentic AI products for healthcare. He helps healthcare organizations adopt AI in ways that fit real workflows, regulatory constraints, and business goals. He runs product like a founder: he owns the problem, the build, and the outcome.",
   },
   {
     q: "What is KOS?",
-    a: "Raj's own exocortex project, built nights and weekends: an AI that has to commit to a position and a probability before it answers, then gets scored against what actually happened — not against how helpful the answer felt. One user right now: its founder.",
+    a: "An exocortex Raj is building outside work hours. Before it answers, it has to commit to a position and a probability, then it gets scored against what actually happened. It is where he tests how far AI reasoning and the human brain can go together.",
   },
   {
-    q: "Where does Raj Kawale currently work?",
-    a: "Product Lead for GenAI & Agentic AI at Indegene, based in Bengaluru, India.",
+    q: "What is RaiTalk?",
+    a: "Talk to your AI psychologist. RaiTalk was a GenAI conversational platform Raj took from idea to production in 2 weeks. 20% of users returned without paid acquisition. He sunset it when what he had learned outgrew the product.",
   },
   {
-    q: "How can I book time with Raj Kawale?",
-    a: "Directly, at topmate.io/rajkawale — or through the contact form if you'd rather write first.",
+    q: "What is Madhav Farm?",
+    a: "A farm-to-consumer marketplace Raj built from scratch. ₹8L in GMV with zero working capital and an 8-person team.",
+  },
+  {
+    q: "Who should talk to Raj Kawale?",
+    a: "Founders, tech and product leaders, and investors thinking about where AI goes next. Compare notes via rajkawale.com/contact, topmate.io/rajkawale, LinkedIn (linkedin.com/in/rajkawale), or GitHub (github.com/rajkawale).",
+  },
+  {
+    q: "Where is Raj Kawale based?",
+    a: "Bengaluru, India.",
   },
 ];
 
@@ -45,8 +53,8 @@ const faqSchema = {
 
 <BaseLayout
   title="About | Raj Kawale — Product Lead, GenAI & Agentic AI"
-  description="Product Lead at Indegene by day, building KOS and RaiTalk nights and weekends. How Raj Kawale thinks about AI, product, and the line between the two."
-  keywords="Raj Kawale, Product Lead GenAI, Agentic AI, Indegene, KOS exocortex, RaiTalk, AI founder, product manager bio, about Raj Kawale"
+  description="Product Lead at Indegene building GenAI and Agentic AI for healthcare. Runs product like a founder. Building KOS outside work hours. Previously founded RaiTalk and Madhav Farm."
+  keywords="Raj Kawale, Product Lead, GenAI, Agentic AI, healthcare AI, Indegene, KOS, RaiTalk, AI psychologist, Madhav Farm"
 >
   <script type="application/ld+json" set:html={JSON.stringify(profilePageSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -58,7 +66,7 @@ const faqSchema = {
           About
         </h1>
         <p class="text-xl text-zinc-200 leading-relaxed font-sans">
-          Product Lead. Two-time founder. Six years turning ambiguous problems into shipped products — the last year finding out how much of that I can still do without anyone assigning it to me.
+          Product Lead at Indegene, building GenAI and Agentic AI products for healthcare. I help healthcare organizations adopt AI in ways that fit real workflows, regulatory constraints, and business goals.
         </p>
       </header>
 
@@ -66,17 +74,45 @@ const faqSchema = {
         <section>
           <h2 class="text-2xl font-serif text-slate-100 mb-4">What I actually do</h2>
           <p class="mb-4">
-            At Indegene, I lead GenAI and Agentic AI product work for healthcare — LLM orchestration meeting clinical workflows, where "mostly right" isn't good enough. That's the day job, and it's a real one.
+            I run product like a founder: I own the problem, the build, and the outcome, in a domain where "mostly right" isn't good enough. I take it from the first question to what actually ships.
           </p>
           <p class="mb-4">
-            At night, I build <a href="/work/kos" class="text-white underline hover:no-underline">KOS</a>. Nobody asked for it. It's an AI that has to commit to a position and a probability before it answers, then gets scored against what actually happened — not against how helpful the answer felt. One user right now: me.
+            That ownership comes from having been the founder. Across 6+ years in enterprise SaaS, AI, healthcare, and e-commerce, I've also built two products from scratch.
           </p>
           <p class="mb-4">
-            Before KOS, there was <a href="/work/raitalk" class="text-white underline hover:no-underline">RaiTalk</a> — an AI built to help people see their own thinking patterns instead of handing them advice. It ran for ten months, real users, real conversations. Then I sunset it, because the thing I actually learned from it — that judgment matters more than model size — is what KOS exists to test properly.
+            <a href="/work/raitalk" class="text-white underline hover:no-underline">RaiTalk</a> — talk to your AI psychologist. A GenAI conversational platform. Idea to production in 2 weeks, 20% returning users without paid acquisition. When what I'd learned outgrew the product, I sunset it.
           </p>
           <p>
-            Same question keeps showing up in both: where does human thinking and machine reasoning actually meet, instead of one quietly replacing the other.
+            <a href="/work/madhav-farm" class="text-white underline hover:no-underline">Madhav Farm</a> — a farm-to-consumer marketplace. ₹8L in GMV with zero working capital and an 8-person team.
           </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-serif text-slate-100 mb-4">Outside work hours</h2>
+          <p>
+            I'm building <a href="/work/kos" class="text-white underline hover:no-underline">KOS</a>, an exocortex: an AI that has to commit to a position and a probability before it answers, then gets scored against what actually happened. It's where I test how far AI reasoning and the human brain can go together.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-serif text-slate-100 mb-4">What building has taught me</h2>
+          <div class="space-y-5">
+            <p>
+              <span class="text-white">Question before you build.</span> The problem in the brief is rarely the real one. I keep asking why until I reach the root, because the most expensive thing a team can ship is a great answer to the wrong question.
+            </p>
+            <p>
+              <span class="text-white">Learn from the root, not the trend.</span> Models, tools, and frameworks turn over every quarter. What lasts is knowing why something works: the user's behaviour, the business model, the tech and resource constraints.
+            </p>
+            <p>
+              <span class="text-white">Ship to learn.</span> A shipped version teaches you what a perfect plan never will. It's how RaiTalk got to production in 2 weeks, and when what I'd learned outgrew the product, I sunset it.
+            </p>
+            <p>
+              <span class="text-white">Commit, then get scored.</span> Take a position, put a number on it, let reality grade you. It's the fastest way I know to get better.
+            </p>
+            <p>
+              <span class="text-white">Constraints beat resources.</span> Madhav Farm did ₹8L in GMV on zero working capital. When you can't spend your way out, you're forced to find the one bottleneck and fix that.
+            </p>
+          </div>
         </section>
 
         <section>
@@ -85,14 +121,7 @@ const faqSchema = {
             I've walked into someone else's mess more than once. A 15-year-old PHP monolith at <a href="/work/nextech-ar" class="text-white underline hover:no-underline">Nextech AR</a>. A checkout at <a href="/work/pernias-popup" class="text-white underline hover:no-underline">Pernia's Pop-Up Shop</a> that was losing customers mid-purchase. A marketing team at <a href="/work/sinch" class="text-white underline hover:no-underline">Sinch</a> that didn't trust its own data.
           </p>
           <p>
-            And <a href="/work/madhav-farm" class="text-white underline hover:no-underline">Madhav Farm</a> — my own business, a farmer-to-buyer marketplace I ran by hand before I let any of it be automated. <a href="/work" class="text-white underline hover:no-underline">The full list is here →</a>
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-serif text-slate-100 mb-4">How I think</h2>
-          <p>
-            First principles before solutions. Systems over features — find the loop, not the symptom. I'd rather ship the boring infrastructure fix nobody wants to fund than the feature that looks good in a roadmap review and breaks in production.
+            <a href="/work" class="text-white underline hover:no-underline">The full list is here →</a>
           </p>
         </section>
 
@@ -111,11 +140,13 @@ const faqSchema = {
         <section class="pt-2 border-t border-white/10">
           <h2 class="text-2xl font-serif text-slate-100 mb-4 mt-8">Talk to me</h2>
           <p>
-            Building something, stuck on something, or want to argue about whether AI is the next rung or the last one —
-            <a href="https://topmate.io/rajkawale" target="_blank" rel="noopener noreferrer" class="text-white underline hover:no-underline">book time</a>,
-            <a href="/contact" class="text-white underline hover:no-underline">write in</a>, or find me on
+            If you're a founder, tech or product leader, or investor thinking about where AI goes next, I'd like to compare notes.{" "}
+            <a href="mailto:rajendrakawale101@gmail.com" class="text-white underline hover:no-underline">Email</a>,{" "}
+            <a href="https://topmate.io/rajkawale" target="_blank" rel="noopener noreferrer" class="text-white underline hover:no-underline">book time</a>,{" "}
+            or find me on{" "}
             <a href="https://www.linkedin.com/in/rajkawale/" target="_blank" rel="noopener noreferrer" class="text-white underline hover:no-underline">LinkedIn</a>
-            and <a href="https://github.com/rajkawale" target="_blank" rel="noopener noreferrer" class="text-white underline hover:no-underline">GitHub</a>.
+            {" "}and{" "}
+            <a href="https://github.com/rajkawale" target="_blank" rel="noopener noreferrer" class="text-white underline hover:no-underline">GitHub</a>.
           </p>
         </section>
       </div>

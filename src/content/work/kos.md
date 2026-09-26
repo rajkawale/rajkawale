@@ -1,8 +1,8 @@
 ---
 title: "KOS — An Exocortex"
-description: "AI that trains thinking instead of replacing it — forced to commit to a position and a probability, then scored against what actually happened."
+description: "An exocortex I build outside work hours. It commits to a position and a probability before it answers, then gets scored against what actually happened."
 tags: ["AI-NATIVE", "POSTGRESQL", "PGVECTOR"]
-badge: "Personal project · Nov 2025 – Present"
+badge: "Outside work hours · Nov 2025 – Present"
 category: "founder-led"
 actionLabel: "View on LinkedIn"
 actionUrl: "https://www.linkedin.com/company/kos-exocortex/"
@@ -19,7 +19,7 @@ KOS does the opposite. Before it answers, it forces a committed position and a p
 
 ## Status
 
-Independent project. Currently one user: its founder. Built on evenings and weekends alongside a full-time role, to find where human thinking and AI reasoning actually combine, not where one replaces the other.
+Outside work hours, alongside the product role at Indegene. This is where I test how far AI reasoning and the human brain can go together.
 
 ## Why It Matters
 

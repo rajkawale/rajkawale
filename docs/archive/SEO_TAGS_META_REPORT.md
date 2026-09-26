@@ -308,7 +308,6 @@ The following have been **completely removed** from all SEO metadata:
 
 - ❌ `React`
 - ❌ `Next.js`
-- ❌ `DeepSeek`
 - ❌ `Founder` (as primary identity)
 - ❌ `Agri-tech` (as primary keyword - may appear contextually)
 - ❌ `Product Manager & Founder – Cognitive AI & Systems`

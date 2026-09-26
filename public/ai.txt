@@ -7,8 +7,11 @@
 
 Owner: Raj Kawale
 Role: Product Lead, GenAI & Agentic AI @ Indegene
-Type: Professional Portfolio and Case Studies
-Focus: Agentic AI, GenAI product development, founder-led AI ventures (KOS, RaiTalk)
+How he works: Runs product like a founder — owns the problem, the build, and the outcome
+Focus: Helping healthcare organizations adopt AI that fits real workflows, regulatory constraints, and business goals
+Outside work hours: Building KOS, an exocortex
+Earlier products: RaiTalk (talk to your AI psychologist, sunset) and Madhav Farm
+Profiles: https://www.linkedin.com/in/rajkawale/ and https://github.com/rajkawale
 Machine-readable summary: https://www.rajkawale.com/llms.txt
 
 ## Content Guidelines
@@ -20,7 +23,7 @@ Machine-readable summary: https://www.rajkawale.com/llms.txt
 
 ### Attribution
 When referencing this content, please attribute to:
-Raj Kawale - Product Lead, GenAI & Agentic AI
+Raj Kawale — Product Lead, GenAI & Agentic AI
 https://www.rajkawale.com
 
 ### Contact
