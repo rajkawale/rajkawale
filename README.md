@@ -1,17 +1,10 @@
 # Raj Kawale
 
-**Product Lead, GenAI & Agentic AI @ Indegene**
+**Product Lead, GenAI & Agentic AI @ Indegene. Building KOS (an exocortex) outside work hours. Two-time founder.**
 
-I build products at the intersection of **AI systems, platform thinking, and real business outcomes** — LLM orchestration, agentic workflows, and founder-led ventures built solo.
+I help healthcare organizations adopt AI in ways that fit real workflows, regulatory constraints, and business goals, where "mostly right" isn't good enough. I run product like a founder: I own the problem, the build, and the outcome.
 
----
-
-### What I build
-
-- **Agentic AI systems** — multi-agent workflows, confidence-based routing, human-in-loop validation
-- **GenAI products** — LLM-powered automation, RAG pipelines, conversational interfaces, for healthcare organizations at Indegene
-- **Founder-led ventures** — [KOS](https://www.linkedin.com/company/kos-exocortex/), an exocortex project, and RaiTalk, a cognitive AI system for guided self-reflection (sunset)
-- **Enterprise SaaS platforms** — zero-to-one builds and scale-stage systems across B2B and B2C
+Outside work hours I'm building [KOS](https://www.linkedin.com/company/kos-exocortex/), an exocortex: an AI that has to commit to a position and a probability before it answers, then gets scored against what actually happened.
 
 ---
 
@@ -19,26 +12,26 @@ I build products at the intersection of **AI systems, platform thinking, and rea
 
 | Product | What it is | Status |
 |---|---|---|
-| **KOS** | Independent exocortex project — AI that trains thinking instead of replacing it | Nov 2025 – Present |
-| **RaiTalk** | AI conversational platform for guided self-reflection · built MVP end-to-end | Jul 2025 – May 2026 (sunset) |
-| **Madhav Farm** | Founder-led direct-to-business marketplace connecting farmers with bulk buyers | Founder-led |
-| **Enterprise SaaS Platforms** | Product leadership across multiple orgs (Sinch, Nextech AR, Pernia's) | Past work |
+| **Indegene** | GenAI and Agentic AI products for healthcare, from the first question to what actually ships | May 2026 – Present |
+| **KOS** | Exocortex | Nov 2025 – Present |
+| **RaiTalk** | Talk to your AI psychologist · idea to production in 2 weeks, 20% returning users without paid acquisition | Jul 2025 – May 2026 (sunset) |
+| **Madhav Farm** | Farm-to-consumer marketplace · ₹8L GMV, zero working capital, 8-person team | Founder-led |
+| **Enterprise SaaS** | Zero-to-one builds and scale-stage systems across B2B and B2C (Sinch, Nextech AR, Pernia's) | Past work |
 
 ---
 
-### How I think
+### What building has taught me
 
-- **First principles** before solutions
-- **Systems over features** — find the loop, not the symptom
-- **JTBD + SCQA** for framing every problem worth solving
-- **Build for trust** — AI products live or die on one wrong response
-
----
-
-### Currently
-
-**Product Lead, GenAI & Agentic AI @ Indegene** · Healthcare + Life Sciences · Bengaluru, India
+- **Question before you build** — the problem in the brief is rarely the real one
+- **Learn from the root, not the trend** — tools change every quarter; why something works doesn't
+- **Ship to learn** — a shipped version teaches what a perfect plan never will
+- **Commit, then get scored** — take a position, put a number on it, let reality grade you
+- **Constraints beat resources** — with zero working capital you're forced to find the one bottleneck
 
 ---
 
-🌐 [rajkawale.com](https://www.rajkawale.com) &nbsp;|&nbsp; 💼 [LinkedIn](https://www.linkedin.com/in/rajkawale/) &nbsp;|&nbsp; 📅 [Topmate](https://topmate.io/rajkawale) &nbsp;|&nbsp; ✍️ [Blog](https://www.rajkawale.com/blog)
+### Let's talk
+
+Founders, tech and product leaders, and investors thinking about where AI goes next: I'd like to compare notes.
+
+🌐 [rajkawale.com](https://www.rajkawale.com) &nbsp;|&nbsp; 💼 [LinkedIn](https://www.linkedin.com/in/rajkawale/) &nbsp;|&nbsp; 📅 [Topmate](https://topmate.io/rajkawale) &nbsp;|&nbsp; ✉️ rajendrakawale101@gmail.com
