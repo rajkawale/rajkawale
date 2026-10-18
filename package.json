@@ -14,18 +14,18 @@
   "dependencies": {
     "@astrojs/partytown": "^2.1.8",
     "@astrojs/react": "^6.0.5",
-    "@astrojs/vercel": "^11.0.11",
+    "@astrojs/vercel": "^11.0.15",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.3.4",
-    "fast-xml-parser": "^5.11.1",
-    "lucide-react": "^1.47.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
+    "astro": "^7.4.0",
+    "fast-xml-parser": "^5.11.2",
+    "lucide-react": "^1.57.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "tailwindcss": "^4.3.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "typescript": "^7.0.2"
