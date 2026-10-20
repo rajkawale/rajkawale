@@ -14,7 +14,7 @@ Outside work hours I'm building [KOS](https://www.linkedin.com/company/kos-exoco
 |---|---|---|
 | **Indegene** | GenAI and Agentic AI products for healthcare, from the first question to what actually ships | May 2026 – Present |
 | **KOS** | Exocortex | Nov 2025 – Present |
-| **RaiTalk** | Talk to your AI psychologist · idea to production in 2 weeks, 20% returning users without paid acquisition | Jul 2025 – May 2026 (sunset) |
+| **RaiTalk** | A cognitive AI conversation product · idea to production in 2 weeks, 20% returning users without paid acquisition | Jul 2025 – May 2026 (sunset) |
 | **Madhav Farm** | Farm-to-consumer marketplace · ₹8L GMV, zero working capital, 8-person team | Founder-led |
 | **Enterprise SaaS** | Zero-to-one builds and scale-stage systems across B2B and B2C (Sinch, Nextech AR, Pernia's) | Past work |
 

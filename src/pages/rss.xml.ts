@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ site }) => {
   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Raj Kawale - Product Lead, GenAI &amp; Agentic AI</title>
-    <description>Product Lead at Indegene, building GenAI and Agentic AI for healthcare. Runs product like a founder. Building KOS outside work hours. Previously founded RaiTalk — talk to your AI psychologist.</description>
+    <description>Product Lead at Indegene, building GenAI and Agentic AI for healthcare. Runs product like a founder. Building KOS outside work hours. Previously founded RaiTalk, a cognitive AI conversation product.</description>
     <link>${siteUrl}</link>
     <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>

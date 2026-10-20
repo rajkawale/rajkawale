@@ -18,7 +18,7 @@ Product Lead, GenAI & Agentic AI at Indegene (May 2026–present). He takes a pr
 
 That ownership comes from having been the founder. Across 6+ years in enterprise SaaS, AI, healthcare, and e-commerce, he has also built two products from scratch:
 
-- RaiTalk — talk to your AI psychologist. A GenAI conversational platform. Idea to production in 2 weeks, 20% returning users without paid acquisition. Sunset when what he learned outgrew the product. https://www.rajkawale.com/work/raitalk
+- RaiTalk, a cognitive AI conversation product. A GenAI conversational platform. Idea to production in 2 weeks, 20% returning users without paid acquisition. Sunset when what he learned outgrew the product. https://www.rajkawale.com/work/raitalk
 - Madhav Farm — a farm-to-consumer marketplace. ₹8L in GMV with zero working capital and an 8-person team. https://www.rajkawale.com/work/madhav-farm
 
 Outside work hours he is building KOS, an exocortex: an AI that has to commit to a position and a probability before it answers, then gets scored against what actually happened. https://www.rajkawale.com/work/kos
@@ -30,6 +30,10 @@ Outside work hours he is building KOS, an exocortex: an AI that has to commit to
 - Ship to learn. A shipped version teaches what a perfect plan never will.
 - Commit, then get scored. Take a position, put a number on it, let reality grade you.
 - Constraints beat resources. Madhav Farm did ₹8L in GMV on zero working capital.
+
+## Strengths
+
+Product Lead focused on GenAI and Agentic AI in product-led organisations. Strengths: GenAI and Agentic AI product ownership, high-stakes-domain product judgment, zero-to-one with P&L ownership, legacy platform transformation, data and evaluation, product strategy and monetization.
 
 ## Who should talk to him
 
@@ -51,7 +55,7 @@ Founders, tech and product leaders, and investors thinking about where AI goes n
 
 ## Case studies
 
-- [RaiTalk](https://www.rajkawale.com/work/raitalk): Talk to your AI psychologist. Idea to production in 2 weeks, 20% returning users without paid acquisition (Jul 2025–May 2026, sunset).
+- [RaiTalk](https://www.rajkawale.com/work/raitalk): A cognitive AI conversation product. Idea to production in 2 weeks, 20% returning users without paid acquisition (Jul 2025–May 2026, sunset).
 - [Madhav Farm](https://www.rajkawale.com/work/madhav-farm): Farm-to-consumer marketplace. ₹8L GMV, zero working capital, 8-person team.
 - [Sinch](https://www.rajkawale.com/work/sinch): Enterprise customer data platform unification.
 - [Nextech AR](https://www.rajkawale.com/work/nextech-ar): Legacy SaaS platform transformation — CI/CD adoption and monetization.

@@ -35,6 +35,60 @@ const cardTheme: Record<string, { gradient: string; tag: string }> = {
   },
 };
 
+const capabilities = [
+  {
+    title: 'GenAI & Agentic AI product ownership',
+    body: 'Lead GenAI and Agentic AI products at Indegene. Earlier, took an LLM conversation product from idea to production in 2 weeks, and run a self-scoring AI reasoning system on the side.',
+    proof: 'RaiTalk case study',
+    href: '/work/raitalk',
+  },
+  {
+    title: 'Product judgment in high-stakes domains',
+    body: 'Real workflows, regulatory constraints and business goals in the same room. Healthcare taught me to design where "mostly right" is not good enough, and that carries to any product at scale.',
+    proof: 'How I work',
+    href: '/about',
+  },
+  {
+    title: 'Zero-to-one, founder ownership',
+    body: 'Built two products from nothing. Madhav Farm reached ₹8L GMV on zero working capital with an 8-person team, so I have owned a P&L, not just a roadmap.',
+    proof: 'Madhav Farm',
+    href: '/work/madhav-farm',
+  },
+  {
+    title: 'Legacy-to-modern platform transformation',
+    body: 'Walked into a 15-year-old PHP monolith and a slow luxury-ecommerce checkout. Chose infrastructure before features, then unlocked releases and a new revenue line.',
+    proof: 'Nextech AR',
+    href: '/work/nextech-ar',
+  },
+  {
+    title: 'Data, measurement and evaluation',
+    body: 'Unified a distrusted marketing data stack into one signal teams could act on. With KOS, I make an AI commit to a probability and then score it against reality.',
+    proof: 'Sinch',
+    href: '/work/sinch',
+  },
+  {
+    title: 'Product strategy and monetization',
+    body: 'Structured strategy work on USP, competitive positioning and revenue models, written as case studies you can open and judge.',
+    proof: 'Google Keep strategy',
+    href: '/work/google-keep',
+  },
+];
+
+const skills = [
+  'LLM product design',
+  'AI evals & guardrails',
+  'RAG & agent workflows',
+  'Technical fluency (APIs, data models, Postgres/pgvector)',
+  'Metrics & experimentation',
+  'SQL & funnel analysis',
+  'Product strategy & roadmapping',
+  'Monetization',
+  'Platform & B2B SaaS',
+  'Zero-to-one',
+  'Cross-functional leadership',
+  'Stakeholder management',
+];
+
 // Get case studies
 const caseStudySlugs = ['springwood', 'google-keep'];
 const caseStudies = caseStudySlugs
@@ -106,7 +160,7 @@ if (archivePosts.length > 0) {
 <BaseLayout
   title="Raj Kawale | Product Lead, GenAI & Agentic AI"
   description="Product Lead at Indegene building GenAI and Agentic AI for healthcare. Runs product like a founder. Building KOS, an exocortex, outside work hours."
-  keywords="Raj Kawale, Product Lead, GenAI, Agentic AI, healthcare AI, Indegene, KOS, RaiTalk, AI psychologist"
+  keywords="Raj Kawale, Product Lead, GenAI, Agentic AI, healthcare AI, Indegene, KOS, RaiTalk, cognitive AI"
 >
   <main class="min-h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black text-zinc-300 relative z-10" style="padding-top: 150px;">
     <!-- Hero Section -->
@@ -128,7 +182,7 @@ if (archivePosts.length > 0) {
             Product Lead, GenAI &amp; Agentic AI @ Indegene
           </p>
           <p class="text-sm font-sans text-gray-500">
-            Healthcare workflows · Building KOS outside work hours
+            AI products for high-stakes domains · Building KOS outside work hours
           </p>
         </div>
 
@@ -143,6 +197,47 @@ if (archivePosts.length > 0) {
             <span class="text-zinc-400 group-hover:text-white/70">Currently building </span>
             <span class="text-white font-medium group-hover:translate-x-0.5 transition-transform">KOS, an exocortex →</span>
           </a>
+        </div>
+
+        <!-- Availability -->
+        <div class="mt-8 flex flex-col items-center gap-4">
+          <div class="flex flex-wrap justify-center gap-3">
+            <a href="/contact" class="px-6 py-3 bg-white text-black font-medium rounded-full text-sm hover:bg-zinc-200 transition-colors">Get in touch</a>
+            <a href="https://topmate.io/rajkawale" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/40 text-white font-medium rounded-full text-sm transition-all">Book time ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What I bring -->
+    <section id="capabilities" class="py-12 px-6 md:px-12 relative z-10">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-12 text-center">
+          <h2 class="text-4xl md:text-5xl font-serif font-normal tracking-tight text-white mb-6">
+            What I bring
+          </h2>
+          <p class="text-zinc-400 text-lg font-sans max-w-2xl mx-auto leading-relaxed">
+            Six years across enterprise SaaS, AI, healthcare and e-commerce. Each of these is backed by something I shipped.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {capabilities.map((cap) => (
+            <article class="bg-neutral-900/90 border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-colors">
+              <h3 class="text-xl font-serif text-white mb-2 leading-snug">{cap.title}</h3>
+              <p class="text-zinc-400 font-sans leading-relaxed mb-3">{cap.body}</p>
+              <a href={cap.href} class="text-sm font-sans text-zinc-300 hover:text-white underline underline-offset-4">{cap.proof} →</a>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-10 text-center">
+          <p class="text-xs uppercase tracking-widest font-sans text-zinc-500 mb-4">Skills</p>
+          <div class="flex flex-wrap justify-center gap-2">
+            {skills.map((skill) => (
+              <span class="px-3 py-1.5 text-sm font-sans text-zinc-300 bg-white/5 border border-white/10 rounded-full">{skill}</span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 ---
 title: "RaiTalk"
-description: "Talk to your AI psychologist. Idea to production in 2 weeks. 20% returning users without paid acquisition. Sunset."
+description: "A cognitive AI conversation product that helps people see how they think. Idea to production in 2 weeks. 20% returning users without paid acquisition. Sunset."
 tags: ["FOUNDER-LED", "AI-NATIVE", "COGNITIVE-AI"]
 badge: "Founder · Jul 2025 – May 2026 · Sunset"
 category: "founder-led"
@@ -11,7 +11,7 @@ secondaryCTALabel: "View website"
 secondaryCTAUrl: "https://raitalk.com"
 ---
 
-Talk to your AI psychologist. RaiTalk sat where technology, psychology, and cognitive science meet: how emotional and rational thinking interact, and what an AI looks like when it surfaces that interaction instead of papering over it.
+A cognitive AI conversation product. RaiTalk sat where technology and cognitive science meet: how emotional and rational thinking interact, and what an AI looks like when it surfaces that interaction through conversation instead of papering over it.
 
 **Status:** Sunset (Jul 2025 – May 2026). The product is no longer being actively developed, but the insights it produced carried directly into [KOS](/work/kos), the exocortex project that followed it.
 
@@ -19,9 +19,9 @@ Talk to your AI psychologist. RaiTalk sat where technology, psychology, and cogn
 
 Someone comes to a chatbot in the middle of a bad week and gets sympathy. That's it. No real understanding, no help seeing the pattern underneath it — just a well-phrased "that sounds hard."
 
-Therapy works differently. It takes sessions before a pattern even becomes visible to the person living it. Most people never get that far.
+Slowing down to examine your own thinking works differently, but it takes time and a skilled listener before a pattern becomes visible to the person living it. Most people never get that far.
 
-RaiTalk was my attempt to close that gap — not by replacing therapy, but by helping someone see their own pattern faster than a conversation usually allows.
+RaiTalk was my attempt to close that gap: a conversation that helps someone see their own thinking pattern faster than talking to a person usually allows. It was never positioned as therapy or a replacement for it.
 
 ## The Vision
 
@@ -39,7 +39,7 @@ A few decisions shaped how it worked.
 
 ## The Engineering
 
-Underneath the conversation: a layer that maps what someone says to known psychological patterns, tracks how their mood moves within a single session, and uses both to decide what to ask next — not to sound clever, but to keep steering toward the moment where the user says the true thing out loud.
+Underneath the conversation: a layer that maps what someone says to known cognitive patterns, tracks how their mood moves within a single session, and uses both to decide what to ask next — not to sound clever, but to keep steering toward the moment where the user says the true thing out loud.
 
 ## What Actually Happened
 
@@ -49,4 +49,4 @@ What I didn't expect: model sophistication mattered less than I thought it would
 
 ---
 
-If you work at the intersection of technology, psychology, and cognitive science, I'd like to hear from you — [let's connect](/contact) or [book time on Topmate](https://topmate.io/rajkawale).
+If you work at the intersection of AI, cognitive science, and conversation design, I'd like to hear from you — [let's connect](/contact) or [book time on Topmate](https://topmate.io/rajkawale).
