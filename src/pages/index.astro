@@ -74,19 +74,35 @@ const capabilities = [
   },
 ];
 
+const skillTone: Record<string, string> = {
+  ai: 'text-violet-200 bg-violet-500/10 border-violet-500/25 hover:bg-violet-500/20 hover:border-violet-400/60 hover:shadow-[0_0_18px_rgba(139,92,246,0.35)]',
+  strategy: 'text-teal-200 bg-teal-500/10 border-teal-500/25 hover:bg-teal-500/20 hover:border-teal-400/60 hover:shadow-[0_0_18px_rgba(20,184,166,0.35)]',
+  data: 'text-sky-200 bg-sky-500/10 border-sky-500/25 hover:bg-sky-500/20 hover:border-sky-400/60 hover:shadow-[0_0_18px_rgba(14,165,233,0.35)]',
+  lead: 'text-amber-200 bg-amber-500/10 border-amber-500/25 hover:bg-amber-500/20 hover:border-amber-400/60 hover:shadow-[0_0_18px_rgba(245,158,11,0.35)]',
+};
+
 const skills = [
-  'LLM product design',
-  'AI evals & guardrails',
-  'RAG & agent workflows',
-  'Technical fluency (APIs, data models, Postgres/pgvector)',
-  'Metrics & experimentation',
-  'SQL & funnel analysis',
-  'Product strategy & roadmapping',
-  'Monetization',
-  'Platform & B2B SaaS',
-  'Zero-to-one',
-  'Cross-functional leadership',
-  'Stakeholder management',
+  { label: 'LLM product design', tone: 'ai' },
+  { label: 'AI evals & guardrails', tone: 'ai' },
+  { label: 'RAG & agent workflows', tone: 'ai' },
+  { label: 'Model selection & prompt design', tone: 'ai' },
+  { label: 'AI cost & latency trade-offs', tone: 'ai' },
+  { label: 'Responsible AI & compliance', tone: 'ai' },
+  { label: 'Product strategy & roadmapping', tone: 'strategy' },
+  { label: 'Prioritisation', tone: 'strategy' },
+  { label: 'Customer discovery', tone: 'strategy' },
+  { label: 'PRDs & specs', tone: 'strategy' },
+  { label: 'Go-to-market & launch', tone: 'strategy' },
+  { label: 'Monetization & pricing', tone: 'strategy' },
+  { label: 'Metrics & experimentation', tone: 'data' },
+  { label: 'SQL & funnel analysis', tone: 'data' },
+  { label: 'Technical fluency (APIs, data models, Postgres/pgvector)', tone: 'data' },
+  { label: 'Platform & B2B SaaS', tone: 'data' },
+  { label: 'Zero-to-one', tone: 'lead' },
+  { label: 'P&L ownership', tone: 'lead' },
+  { label: 'Cross-functional leadership', tone: 'lead' },
+  { label: 'Stakeholder management', tone: 'lead' },
+  { label: 'Executive communication', tone: 'lead' },
 ];
 
 // Get case studies
@@ -181,9 +197,6 @@ if (archivePosts.length > 0) {
           <p class="text-base font-sans text-gray-400">
             Product Lead, GenAI &amp; Agentic AI @ Indegene
           </p>
-          <p class="text-sm font-sans text-gray-500">
-            AI products for high-stakes domains · Building KOS outside work hours
-          </p>
         </div>
 
         <!-- Currently Building Badge -->
@@ -235,7 +248,7 @@ if (archivePosts.length > 0) {
           <p class="text-xs uppercase tracking-widest font-sans text-zinc-500 mb-4">Skills</p>
           <div class="flex flex-wrap justify-center gap-2">
             {skills.map((skill) => (
-              <span class="px-3 py-1.5 text-sm font-sans text-zinc-300 bg-white/5 border border-white/10 rounded-full">{skill}</span>
+              <span class={`px-3 py-1.5 text-sm font-sans border rounded-full cursor-default transition-all duration-200 hover:-translate-y-0.5 ${skillTone[skill.tone]}`}>{skill.label}</span>
             ))}
           </div>
         </div>
